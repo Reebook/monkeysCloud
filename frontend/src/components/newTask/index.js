@@ -1,7 +1,9 @@
-// import React, { useCallback } from "react";
-// import SunEditor from "suneditor-react";
-// import "suneditor/dist/css/suneditor.min.css";
-// //import { useDropzone } from "react-dropzone";
+
+import React, {useState, useCallback} from 'react';
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+import {useDropzone} from 'react-dropzone'
+
 
 // import "./style.scss";
 
@@ -9,8 +11,12 @@
 //   event.preventDefault();
 // };
 
-// const NewTask = () => {
-//   var axios = require("axios");
+
+const NewTask = () =>{
+    const [projects, setProjects] = useState([]);
+
+    var axios = require('axios');
+
 
 //   var config = {
 //     method: "get",
@@ -21,14 +27,17 @@
 //     },
 //   };
 
-//   axios(config)
-//     .then((res) => {
-//       const projects = JSON.stringify(res.data);
-//       console.log("Created projects by user", projects);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
+
+    axios(config)
+    .then( res => {
+        const DBprojects = JSON.stringify(res.data);
+        console.log('Created projects by user', DBprojects);
+        setProjects(DBprojects);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 
 //   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 //   const files = acceptedFiles.map((file) => (
@@ -37,49 +46,48 @@
 //     </li>
 //   ));
 
-//   return (
-//     <div className="main-container">
-//       <h3 className="header-page">Create Issue</h3>
-//       <form onSubmit={handleSubmit}>
-//         <div className="form-container">
-//           <div className="input-divider">
-//             <select className="form-control" name="project"></select>
-//             <option>Project</option>
-//           </div>
-//           <div className="input-divider">
-//             <select className="divided-control" name="type">
-//               <option value="false">Task</option>
-//               <option value="true">Epic</option>
-//             </select>
-//             <select className="divided-control" name="priority">
-//               <option value="High">Highest</option>
-//               <option value="High">High</option>
-//               <option value="Medium">Medium</option>
-//               <option value="Low">Low</option>
-//               <option value="Low">Lowest</option>
-//             </select>
-//           </div>
-//           <p className="description">
-//             Some issue types are unavailable due to incompatible field
-//             configuration and/or workflow associations.
-//           </p>
-//           <hr />
-//           <div className="input-divider">
-//             <input
-//               type="text"
-//               className="form-control"
-//               placeholder="Summary"
-//               name="summary"
-//             />
-//           </div>
-//           <div className="input-divider">
-//             <select className="form-control" name="components">
-//               <option>Components</option>
-//             </select>
-//           </div>
-//           {/* <div className="input-divider">
-//                         <input type="text" className="form-control" placeholder="Attachment" name="summary"/>
-//                     </div> */}
+
+    return(
+        <div className="main-container">
+            <h3 className="header-page">Create Issue</h3>
+            <form onSubmit={handleSubmit}>
+                <div className="form-container">
+                    <div className="input-divider">
+                        <select className="form-control" name="project">
+                            <option>Projects</option>
+                        </select>
+                    </div>
+                    <div className="input-divider">
+                        <select className="divided-control" name="type">
+                            <option value="false">Task</option>
+                            <option value="true">Epic</option>
+                        </select>
+                        <select className="divided-control" name="priority">
+                            <option value="High">Highest</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                            <option value="Low">Lowest</option>
+                        </select>
+                    </div>
+                    <p className="description">Some issue types are unavailable due to incompatible field configuration and/or workflow associations.</p>
+                    <hr/>
+                    <div className="input-divider">
+                        <input type="text" className="form-control" placeholder="Summary" name="summary"/>
+                    </div>
+                    <div className="input-divider">
+                        <select className="form-control" name="components">
+                            <option>Components</option>
+                        </select>
+                    </div>
+                    {/* <div className="input-divider">
+                        <input type="text" className="form-control" placeholder="Attachment" name="summary"/>
+                    </div> */}
+
+                    {/*
+                        Begining of DropZone section
+                     */}
+
 
 //           {/*
 //                         Begining of DropZone section
