@@ -1,7 +1,8 @@
 import React, {useState, useCallback} from 'react';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
-import {useDropzone} from 'react-dropzone'
+import {useDropzone} from 'react-dropzone';
+import Axios from 'axios';
 
 import './style.scss';
 
@@ -12,7 +13,16 @@ const handleSubmit = event => {
 const NewTask = () =>{
     const [projects, setProjects] = useState([]);
 
-    var axios = require('axios');
+    Axios.get('http://localhost:1337/User/CreatedProjects/1')
+        .then(res => {
+            const DBdata = JSON.stringify(res.data);
+            console.log(DBdata);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+    /* var axios = require('axios');
 
     var config = {
       method: 'get',
@@ -30,7 +40,7 @@ const NewTask = () =>{
     })
     .catch(function (error) {
       console.log(error);
-    });
+    }); */
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
     const files = acceptedFiles.map(file => (
