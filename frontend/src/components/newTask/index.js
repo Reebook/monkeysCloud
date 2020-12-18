@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import {useDropzone} from 'react-dropzone';
-import Axios from 'axios';
+import axios from 'axios';
 
 import './style.scss';
 
@@ -11,43 +11,27 @@ const handleSubmit = event => {
 }
 
 const NewTask = () =>{
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState([]);    
 
-    Axios.get('http://localhost:1337/User/CreatedProjects/1')
-        .then(res => {
-            const DBdata = JSON.stringify(res.data);
-            console.log(DBdata);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    
-    /* var axios = require('axios');
+    useEffect(() => {
+        getProjects();
+    }, []);
 
-    var config = {
-      method: 'get',
-      url: 'http://localhost:1337/User/CreatedProjects/1',
-      headers: { 
-        'Cookie': 'sails.sid=s%3AwcCdJfU1-ajehetKxXh_YCAvnTVq-R7t.0zXjXyaMzSoDDIDeQe9s7ZWjzml0kB7SXQsFnXo%2BO0s'
-      }
-    };
-
-    axios(config)
-    .then( res => {
-        const DBprojects = JSON.stringify(res.data);        
-        console.log('Created projects by user', DBprojects);
-        setProjects(DBprojects);
-    })
-    .catch(function (error) {
-      console.log(error);
-    }); */
+    const getProjects = ()=>{
+        axios.get('http://localhost:1337/User/CreatedProjects/1')
+            .then(res => {        
+                const allProjects = res.data.createdProject;                
+                setProjects(allProjects); //add projects to the hook
+            })
+            .catch(error => console.log(error));       
+    }
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
     const files = acceptedFiles.map(file => (
         <li key={file.path}>
         {file.path} - {file.size} bytes
         </li>
-    ));
+    ));    
 
     return(
         <div className="main-container">
@@ -55,9 +39,13 @@ const NewTask = () =>{
             <form onSubmit={handleSubmit}>
                 <div className="form-container">
                     <div className="input-divider">                        
-                        <select className="form-control" name="project">                                                    
-                            <option>Projects</option>                                 
-                        </select>                                                                       
+                        <select className="form-control" name="project">
+                            {
+                                projects.map((project, index) => (
+                                    <option key={index} value={project.id}>{project.name}</option>
+                                ))
+                            }
+                        </select>                                                                                        
                     </div>
                     <div className="input-divider">                                                
                         <select className="divided-control" name="type">

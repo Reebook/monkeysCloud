@@ -56,11 +56,21 @@ export default function useActions() {
     }
   };
 
+  const createdProjects = async (id) =>{
+    try{
+      const { allProjects } = await axios.get(baseUrl + '/CreatedProjects/' + {id} );
+      return allProjects.data.createdProject;
+    }catch(error){
+      console.log(error);
+    }
+  };
+
   return {
     autoLogin,
     googleLogin,
     logOut,
     login,
     state,
+    createdProjects,
   };
 }
