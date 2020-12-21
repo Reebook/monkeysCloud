@@ -5,6 +5,7 @@ import actions from './constants';
 const defaultState = {
   user: {},
   isLoading: false,
+  myprojects: [],
 };
 
 const reducer = (state = defaultState, action = {}) => {
@@ -15,6 +16,11 @@ const reducer = (state = defaultState, action = {}) => {
         ...state,
         user: payload,
         isLoading: false,
+      };
+    case actions.GET_PROJECTS: 
+      return{
+        ...state,
+        myprojects: payload,
       };
     default: {
       return state;

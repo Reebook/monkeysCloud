@@ -1,15 +1,14 @@
 module.exports ={
     datastore: 'default',
-    attributes:{
-        //agregar atributo id
-        // id:{
-        //     type:'number',
-        //     columnName:' idcomponent',
-        //     columnType:'int',
-        //     unique: true,
-        //     autoIncrement: true,
-        //     required: false
-        // },
+    attributes: {
+        id: {
+            type: 'number',
+            columnName: 'idComponent',
+            columnType: 'int',
+            required: false,
+            autoIncrement: true,
+            unique: true
+        },
         name:{
             type:'string',
             columnName:'name',

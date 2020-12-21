@@ -106,6 +106,7 @@ module.exports.routes = {
   //Component Routes
   'POST /Component/Create': {controller: "Component", action: "create"},
   'GET /Component/Read/:id': {controller: "Component", action: "read"},
+  'GET /Component/ReadAll': {controller: "Component", action: "readAll"},
   'PATCH /Component/Update': {controller: "Component", action: "update"},
   'DELETE /Component/Delete': {controller: "Component", action: "delete"},
 

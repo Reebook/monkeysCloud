@@ -5,14 +5,18 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+//const component = require("../models/component");
+
 module.exports = {
-  
     create: async function(req, res){
-        if(req.body != null){
-            const createdComponent = await component.create(req.body).fetch();
-            return res.json(createdComponent);
-        }
-        else return res.send('null body');
+        try{
+            const newComponent = await component.create(req.body).fetch();
+            const token = await sails.helpers.generateAuthToken(newComponent.id);
+            return res.json({component: newComponent, token});
+        }catch(error){
+            res.serverError(error);
+            console.log(error);
+        }        
     },
     read: async function(req, res){
         if(req.params.id != undefined){
@@ -20,6 +24,15 @@ module.exports = {
             return res.json(readComponent);
         }
         else return res.send('invalid input');
+    },
+    readAll: async function(req, res){
+        try{
+            const allComponents = await component.find({select: ["id", "name"]});
+            return res.json(allComponents);
+        }catch(error){
+            res.serverError(error);
+            console.log(error);
+        }
     },
     update: async function(req, res){
         if(req.body.id == undefined || Object.keys(req.body) == null)

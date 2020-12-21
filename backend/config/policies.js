@@ -44,5 +44,9 @@ module.exports.policies = {
   CompanyController: {
     create: true,
     read: true,
+  },
+  ComponentController: {
+    create: true,
+    readAll: true,
   }
 };

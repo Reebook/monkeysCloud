@@ -52,7 +52,7 @@ module.exports = {
       const projects = await user.findOne({id: (req.params.id)}).populate('createdProject', {select: ["id", "name"]});
       return res.json(projects);
     }catch(error){
-      res.serverError("Invalid Data");
+      res.serverError(error);
       console.log(error);
     }
   },
