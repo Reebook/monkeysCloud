@@ -26,7 +26,7 @@ module.exports ={
             unique:true
         },
         relatedProject: {
-            model: 'project',
+            model: 'projects',
             unique: true
         }
     },
