@@ -48,6 +48,10 @@ module.exports = {
         createdby:{
             model: 'user',
             required: true
+        },
+        relatedComponents: {
+            collection: 'component',
+            via: 'relatedProject'
         }
     }
 }

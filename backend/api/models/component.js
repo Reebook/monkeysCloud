@@ -24,6 +24,10 @@ module.exports ={
         taskComponent:{
             model: 'tasks',
             unique:true
+        },
+        relatedProject: {
+            model: 'project',
+            unique: true
         }
     },
 }
