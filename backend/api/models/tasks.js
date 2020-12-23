@@ -51,6 +51,10 @@ module.exports = {
       model: "tasks",
       required: false,
     },
+    relatedProject: {
+      model: 'projects',
+      required: true
+    },
     createdby: {
       model: "user",
     },

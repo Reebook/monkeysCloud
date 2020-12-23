@@ -52,6 +52,10 @@ module.exports = {
         relatedComponents: {
             collection: 'component',
             via: 'relatedProject'
+        },
+        relatedTasks: {
+            collection: 'tasks',
+            via: 'relatedProject'
         }
     }
 }
