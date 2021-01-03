@@ -1,14 +1,40 @@
 import React, { createContext, useContext, useReducer } from 'react';
-
 import actions from './constants';
 
 const defaultState = {
+  query: '',
+  loading: true,
   projects: [],
+  sortColumn: { path: '', order: 'asc' },
+  sortedProjects: [],
 };
 
 const reducer = (state = defaultState, action = {}) => {
-  const { type } = action;
+  const { type, payload } = action;
   switch (type) {
+    case actions.GET_PROJECTS:
+      return {
+        ...state,
+        projects: payload,
+        sortedProjects: payload,
+        loading: false,
+      };
+
+    case actions.SET_QUERY:
+      return {
+        ...state,
+        query: payload.value,
+        sortColumn: { path: '', order: 'asc' },
+        sortedProjects: payload.sortedProjects,
+      };
+
+    case actions.SORT_PROJECTS:
+      return {
+        ...state,
+        sortColumn: payload.sortColumn,
+        sortedProjects: payload.sortedProjects,
+      };
+
     default:
       return state;
   }

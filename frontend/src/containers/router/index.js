@@ -3,9 +3,12 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
 import AllEnviroment from '../../pages/allEnviroment';
+import CreateProject from '../../pages/createProject';
+import CreateCompany from '../../pages/createCompany';
 import DevEnviroment from '../../pages/devEnviroment';
 import Login from '../../pages/login';
 import Manage from '../../pages/manage';
+import Projects from '../../pages/projects';
 import Subscription from '../../pages/subscription';
 import UserDetail from '../../pages/userDetail';
 
@@ -23,7 +26,6 @@ import NewTask from '../../components/newTask';
 import useHistorialActions from '../../store/historial/actions';
 import useAuth from '../../store/auth/actions';
 import useSidebarActions from '../.././store/sidebar/actions';
-import CreateProject from '../../pages/createProject';
 
 function Router() {
   const {
@@ -57,13 +59,15 @@ function Router() {
                 <Route exact path='/' component={Manage} />
                 <Route path='/subscription' component={Subscription} />
                 <Route path='/all-enviroment' component={AllEnviroment} />
-                <Route path='/project/new' exact component={CreateProject} />
+                <Route path='/companies/new' exact component={CreateCompany} />
+                <Route path='/projects/new' exact component={CreateProject} />
+                <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />
                 <Route path='/wikiSection' component={WikiSection} />
                 <Route exact path='/user/details' component={UserDetail} />
                 <Route path='/userManagement' component={UserManagement} />
-                <Route path='/newTask' component={NewTask} />                
+                <Route path='/newTask' component={NewTask} />
                 <Route
                   path='/enviromentSection'
                   component={EnviromentSection}

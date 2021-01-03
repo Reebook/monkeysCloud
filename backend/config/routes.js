@@ -68,6 +68,7 @@ module.exports.routes = {
   'GET /User/Read/:id': {controller: "User", action: "read"},
   'GET /user/me': 'UserController.me',
   'GET /User/CreatedProjects/:id': {controller: "User", action: "createdProjects"},
+  'GET /user/projects': {controller: "User", action: "projects"},
 
   'PATCH /User/Update/:id': {controller: "User", action: "update"},
   'PATCH /user/changePassword/:id': 'UserController.changePassword',

@@ -1,0 +1,8 @@
+@import '../../sass/main.scss';
+
+.create-company {
+  width: 600px;
+  @include sm {
+    width: 300px;
+  }
+}

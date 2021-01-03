@@ -10,7 +10,7 @@ import { UserDetailsStore } from './userDetails/store';
 
 import { SettingsStore } from './settings/store';
 import { TaskStore } from './task/store';
-import { ProjectStore } from './project/store';
+import { ProjectStore } from './projects/store';
 import { SprintStore } from './sprint/store';
 
 const providers = [
