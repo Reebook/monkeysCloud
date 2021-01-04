@@ -1,12 +1,10 @@
 @import '../../../sass/main.scss';
 
 .user-detail-page-modal {
-  border-radius: 5px;
   width: 500px;
-  background: white;
-  border: 1px solid gray;
-  padding: 15px;
+
   @include sm {
+    width: 300px;
   }
   h4 {
     text-transform: capitalize;

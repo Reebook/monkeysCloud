@@ -1,0 +1,5 @@
+export default {
+  GET_PROJECTS: 'GET_PROJECTS',
+  SET_QUERY: 'SET_QUERY',
+  SORT_PROJECTS: 'SORT_PROJECTS',
+};

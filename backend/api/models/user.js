@@ -163,11 +163,15 @@ module.exports = {
       columnName: "typeMember",
       columnType: "varchar(20)",
     },
-
+    //
     createdProject: {
-      collection: 'projects',
-      via: 'createdby'
-    }
+      collection: "projects",
+      via: "owner",
+    },
+    projects: {
+      collection: "projects",
+      via: "members",
+    },
     //-----------------End of New fields--------------------
   },
 
