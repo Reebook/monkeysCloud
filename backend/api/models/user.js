@@ -161,13 +161,16 @@ module.exports = {
     },
     //
     createdProject: {
-      collection: "projects",
-      via: "lead",
+      collection: 'projects',
+      via: 'lead'
     },
-    projects: {
-      collection: "projects",
-      via: "members",
+    createdPR: {
+      collection: 'pullRequest',
+      via: 'idUser'
     },
+    prMerged: {
+      model: 'pullRequest'
+    }
     //-----------------End of New fields--------------------
   },
 

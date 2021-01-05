@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt, FaShareAlt } from 'react-icons/fa';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import './style.scss';
@@ -7,6 +7,7 @@ import BreadCrumb from '../../components/breadcrumb';
 import ProjectColumn from '../../components/projectcolumn';
 import TaskCard from '../../components/taskcard';
 import tasks from './tasks';
+import NewTask from '../../components/newTask';
 import SprintSettings from '../../components/sprintSettings';
 
 const userCollection = [
@@ -47,7 +48,14 @@ const Project = () => {
     },
   });
   const [selectedUser, setSelectedUser] = useState('');
-  const [mode, setMode] = useState('Issues');
+  const [mode, setMode] = useState('Issues');  
+  /*Open PopUp*/
+  const [isOpen, setIsOpen] = useState(false); 
+  const togglePopUp =(e)=>{
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  }     
+  /*Close PopUp*/
   const [completeSprint, setCompleteSprint] = useState(false);
 
   const onDragEnd = ({ destination, source }) => {
@@ -147,13 +155,16 @@ const Project = () => {
           {/*
             ---------------------------end user fields--------------------------------
         */}
-          <div className='project-action-buttons'>
-            <button onClick={() => setCompleteSprint(true)}>
-              Complete Sprint
-            </button>
-            <button>Edit Boards</button>
-            <button className='ction-button-special'>Share</button>
-          </div>
+        <div className='project-action-buttons'>
+          <button onClick={togglePopUp}>Add Task</button>
+          {isOpen && <NewTask
+            handleClose={togglePopUp}    
+          />}
+
+          <button>Complete Sprint</button>
+          <button>Edit Boards</button>
+          {/* <button className='ction-button-special'>Share</button> */}
+          <FaShareAlt style={{color: '#15225a', fontSize: '32px', margin: 'auto 6px'}}/>
         </div>
         <div className='project-tasks'>
           <DragDropContext onDragEnd={onDragEnd}>
@@ -171,7 +182,7 @@ const Project = () => {
             ))}
           </DragDropContext>
         </div>
-      </div>
+    </div>
     </>
   );
 };

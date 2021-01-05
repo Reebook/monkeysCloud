@@ -56,11 +56,24 @@ export default function useActions() {
     }
   };
 
+  /* const allProjects = async (id) =>{
+    try{
+      const { data:{createdProjects} } = await axios.get(baseUrl + '/CreatedProjects/' + id );
+      dispatch({
+        type: types.GET_PROJECTS,
+        payload: createdProjects,
+      })      
+    }catch(error){
+      console.log(error);
+    }
+  }; */
+
   return {
     autoLogin,
     googleLogin,
     logOut,
     login,
     state,
+    //createdProjects,
   };
 }

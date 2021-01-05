@@ -33,7 +33,7 @@ module.exports = {
         res.serverError("Invalid Data");
         console.log(error);
       }
-    },    
+    },
     update: async function (req, res) {
       if (Object.keys(req.body) == 0 || req.body.id == undefined) {
         return res.send("invalid input");

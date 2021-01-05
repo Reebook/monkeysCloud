@@ -51,6 +51,10 @@ module.exports = {
       model: "tasks",
       required: false,
     },
+    relatedProject: {
+      model: 'projects',
+      required: true
+    },
     createdby: {
       model: "user",
     },
@@ -148,6 +152,10 @@ module.exports = {
       collection: "tasks",
       via: "parents",
     },
+    pullRequestsRelated: {
+      collection: 'pullRequest',
+      via: 'taskRelated'
+    }
     //--------------------------End of new fields-----------------------------
   },
 };

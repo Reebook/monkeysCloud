@@ -36,9 +36,13 @@ module.exports.policies = {
     login: true,
     create: true,
     read: true,
+  },
+  ComponentController: {
+    create: true,
+    readAll: true,
     update: true,
     changePassword: true,
     googleLogin: true,
     createdProjects: true,
-  },
+  }
 };
