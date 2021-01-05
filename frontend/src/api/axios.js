@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { NotificationManager } from 'react-notifications';
 
 const axios = Axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -9,6 +10,10 @@ axios.interceptors.response.use(null, error => {
     error.response &&
     error.response.status >= 400 &&
     error.response.status < 500;
+
+  if (!expectedError) {
+    NotificationManager.error('Server Error');
+  }
 
   return Promise.reject(1 + error);
 });

@@ -1,7 +1,11 @@
 import React from "react";
 import {FaArrowUp} from "react-icons/fa";
  
-const PopUp = props => {      
+class PopUp extends React.Component {  
+  handleClick = () =>{
+    this.props.toggle();
+  } 
+  render(){
   return (
     <div className="popup-box">
       <div className="box">
@@ -41,18 +45,19 @@ const PopUp = props => {
               className="cancel-button"
               type="button"
               value="Cancel"
-              onClick={props.handleClose}
+              onClick={this.handleClick}
             />
             <input
                 className="deploy-button"
                 type="button"
                 value="Deploy"
-                onClick={props.handleClose}
+                onClick={this.handleClick}
             />
         </div>                         
       </div>
     </div>
   );
+}
 };
  
 export default PopUp;

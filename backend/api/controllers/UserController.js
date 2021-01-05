@@ -57,6 +57,21 @@ module.exports = {
     }
   },
 
+  /*  projects: async function (req, res) {
+    try {
+      const gg = await projects.find().populate("members", {
+        where: {
+          id: 1,
+        },
+      });
+
+      res.send(gg);
+    } catch (error) {
+      res.serverError();
+      console.log(error);
+    }
+  }, */
+
   me: async function (req, res) {
     try {
       const User = await user.findOne(req.user);

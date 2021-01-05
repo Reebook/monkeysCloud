@@ -10,29 +10,29 @@
   min-height: 100vh;
 }
 
-.main-content  {
+.main-content {
   min-height: 100%;
   min-width: 100%;
   display: grid;
   grid-template-columns: 80px 1fr;
   grid-template-rows: 80px 1fr;
   grid-template-areas:
-    "sidebar navbar"
-    "sidebar app";
+    'sidebar navbar'
+    'sidebar app';
   @include md {
     grid-template-rows: auto 1fr;
   }
 }
 //modificado para ajustar el sidebar exp
-.main-content-exp  {
+.main-content-exp {
   min-height: 100%;
   min-width: 100%;
   display: grid;
   grid-template-columns: 216px 1fr;
   grid-template-rows: 80px 1fr;
   grid-template-areas:
-    "sidebar navbar"
-    "sidebar app";
+    'sidebar navbar'
+    'sidebar app';
   @include md {
     grid-template-rows: auto 1fr;
   }
@@ -339,4 +339,38 @@ button {
   text-overflow: ellipsis;
 }
 
+.modal {
+  box-shadow: 0 0 3px #000000;
+  padding: 25px 15px;
+  border-radius: 5px;
+  background: #ffff;
+  .error-message {
+    font-size: 13px;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  input {
+    padding-left: 5px;
+    background: #fff;
+    height: 30px;
+    font-size: 14px;
+    &:focus {
+      outline-width: 0;
+      border: 1px solid $Brandeisblue-color;
+    }
+  }
 
+  &__button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    width: 90px;
+    height: 30px;
+    font-size: 14px;
+    margin: 8px 0;
+    justify-self: flex-end;
+    outline-width: 0;
+  }
+}

@@ -68,6 +68,7 @@ module.exports.routes = {
   'GET /User/Read/:id': {controller: "User", action: "read"},
   'GET /user/me': 'UserController.me',
   'GET /User/CreatedProjects/:id': {controller: "User", action: "createdProjects"},
+  'GET /user/projects': {controller: "User", action: "projects"},
 
   'PATCH /User/Update/:id': {controller: "User", action: "update"},
   'PATCH /user/changePassword/:id': 'UserController.changePassword',
@@ -85,11 +86,6 @@ module.exports.routes = {
   'PATCH /Workinformation/Update': {controller: "Workinfo", action: "update"},
   'DELETE /Workinformation/Delete': {controller: "Workinfo", action: "delete"},
 
-  //Agency Routes
-  'POST /Agency/Create': {controller: "Agency", action: "create"},
-  'GET /Agency/Read/:id': {controller: "Agency", action: "read"},
-  'PATCH /Agency/Update': {controller: "Agency", action: "update"},
-  'DELETE /Agency/Delete': {controller: "Agency", action: "delete"},
 
   //Backup Routes
   'POST /Backup/Create': {controller: "Backup", action: "create"},
