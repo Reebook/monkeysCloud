@@ -11,11 +11,11 @@ module.exports = {
         },
         numberPR: {
             type: 'number',
-            columnName: 'idPullRequest',
+            columnName: 'numberPR',
             columnType: 'int',
             required: false,
-            autoIncrement: true,
-            unique: true
+            //autoIncrement: true,
+            //unique: true
         },
         idUser:{ //References a user
             model: 'user',
@@ -71,7 +71,7 @@ module.exports = {
         },
         mergeable: {
             type: 'boolean',
-            columnName: 'isLocked',
+            columnName: 'mergeable',
             columnType: 'boolean',
             required: false
         },
@@ -100,5 +100,13 @@ module.exports = {
         taskRelated: {
             model: 'tasks'
         }
+    },
+    beforeCreate : function (values, proceed) {
+        // add seq number, use
+        Sequence.next("order", function(err, num) {
+            if (err) return proceed(err);
+            values.numberPR = num;
+            proceed();
+        });
     }
 }
