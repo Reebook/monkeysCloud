@@ -152,6 +152,10 @@ module.exports = {
       collection: "tasks",
       via: "parents",
     },
+    pullRequestsRelated: {
+      collection: 'pullRequest',
+      via: 'taskRelated'
+    }
     //--------------------------End of new fields-----------------------------
   },
 };
