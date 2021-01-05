@@ -101,11 +101,11 @@ module.exports = {
             model: 'tasks'
         }
     },
-    beforeCreate : function (values, proceed) {
+    beforeCreate : function (valuesToSet, proceed) {
         // add seq number, use
         Sequence.next("order", function(err, num) {
             if (err) return proceed(err);
-            values.numberPR = num;
+            valuesToSet.numberPR = num;
             proceed();
         });
     }
