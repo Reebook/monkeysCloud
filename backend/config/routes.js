@@ -86,11 +86,6 @@ module.exports.routes = {
   'PATCH /Workinformation/Update': {controller: "Workinfo", action: "update"},
   'DELETE /Workinformation/Delete': {controller: "Workinfo", action: "delete"},
 
-  //Agency Routes
-  'POST /Agency/Create': {controller: "Agency", action: "create"},
-  'GET /Agency/Read/:id': {controller: "Agency", action: "read"},
-  'PATCH /Agency/Update': {controller: "Agency", action: "update"},
-  'DELETE /Agency/Delete': {controller: "Agency", action: "delete"},
 
   //Backup Routes
   'POST /Backup/Create': {controller: "Backup", action: "create"},

@@ -48,12 +48,8 @@ module.exports = {
     enviromentsP: {
       collection: "enviroments",
     },
-    agency: {
-      //one to many relationship one agency can have multiple projects
-      model: "agency",
-    },
     //user relationships
-    owner: {
+    lead: {
       model: "user",
       required: true,
     },
