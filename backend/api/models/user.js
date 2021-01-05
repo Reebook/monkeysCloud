@@ -124,14 +124,10 @@ module.exports = {
       model: "backup",
       unique: true,
     },
-    agency: {
-      //one to many relationship
-      model: "agency",
-    },
-    managedAgency: {
+    owner: {
       //one to one relationship
-      collection: "agency",
-      via: "adminUser",
+      collection: "company",
+      via: "owner",
     },
     tasks: {
       collection: "tasks",
@@ -166,7 +162,7 @@ module.exports = {
     //
     createdProject: {
       collection: "projects",
-      via: "owner",
+      via: "lead",
     },
     projects: {
       collection: "projects",
