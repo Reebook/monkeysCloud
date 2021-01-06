@@ -9,7 +9,7 @@ module.exports = {
   create: async function (req, res) {
     try {
       const project = await projects
-        .create({ ...req.body, owner: req.user })
+        .create({ ...req.body, lead: req.user })
         .fetch();
       res.send({ project });
     } catch (error) {
@@ -21,10 +21,10 @@ module.exports = {
     try {
       const allProjects = await projects
         .find({
-          where: { owner: req.user },
+          where: { lead: req.user },
           select: ["key", "name"],
         })
-        .populate("owner");
+        .populate("lead");
       res.send({ projects: allProjects });
     } catch (error) {
       res.serverError(error);
