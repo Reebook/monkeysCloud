@@ -3,8 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
 import AllEnviroment from '../../pages/allEnviroment';
-import CreateProject from '../../pages/createProject';
-import CreateCompany from '../../pages/createCompany';
+import Companies from '../../pages/companies';
 import DevEnviroment from '../../pages/devEnviroment';
 import Login from '../../pages/login';
 import Manage from '../../pages/manage';
@@ -23,8 +22,8 @@ import EnviromentSection from '../../components/enviromentSection';
 import NewTask from '../../components/newTask';
 
 // Local
-import useHistorialActions from '../../store/historial/actions';
 import useAuth from '../../store/auth/actions';
+import useHistorialActions from '../../store/historial/actions';
 import useSidebarActions from '../.././store/sidebar/actions';
 
 function Router() {
@@ -59,8 +58,7 @@ function Router() {
                 <Route exact path='/' component={Manage} />
                 <Route path='/subscription' component={Subscription} />
                 <Route path='/all-enviroment' component={AllEnviroment} />
-                <Route path='/companies/new' exact component={CreateCompany} />
-                <Route path='/projects/new' exact component={CreateProject} />
+                <Route path='/companies' exact component={Companies} />
                 <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />

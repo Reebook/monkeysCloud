@@ -5,6 +5,14 @@
   @include sm {
     width: 300px;
   }
+  p {
+    color: red;
+    font-size: 15px;
+    a {
+      cursor: pointer;
+      color: $Brandeisblue-color;
+    }
+  }
   .form-group {
     margin: 15px 0;
     input[name='key'] {

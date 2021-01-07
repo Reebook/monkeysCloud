@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useFormikContext } from 'formik';
 
 import ErrorMessage from '../errorMessage';
@@ -22,4 +22,4 @@ const AppInput = ({ label, type = 'text', name, ...rest }) => {
   );
 };
 
-export default AppInput;
+export default memo(AppInput);

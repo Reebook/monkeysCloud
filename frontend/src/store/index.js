@@ -11,19 +11,21 @@ import { UserDetailsStore } from './userDetails/store';
 import { SettingsStore } from './settings/store';
 import { TaskStore } from './task/store';
 import { ProjectStore } from './projects/store';
+import { CompanyStore } from './companies/store';
 import { SprintStore } from './sprint/store';
 
 const providers = [
   <AuthStore.Provider />,
-  <SidebarStore.Provider />,
-  <OrganizationStore.Provider />,
+  <CompanyStore.Provider />,
   <HistorialStore.Provider />,
+  <OrganizationStore.Provider />,
   <ProjectStore.Provider />,
+  <TaskStore.Provider />,
+  <SettingsStore.Provider />,
+  <SidebarStore.Provider />,
+  <SprintStore.Provider />,
   <UserSettingsStore.Provider />,
   <UserDetailsStore.Provider />,
-  <SettingsStore.Provider />,
-  <TaskStore.Provider />,
-  <SprintStore.Provider />,
 ];
 
 const Store = ({ children: initial }) =>

@@ -2,25 +2,14 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import './style.scss';
-
-const customStyles = {
-  content: {
-    border: 'none',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import modalStyles from '../../utils/modalStyles';
 
 const SprintSettings = ({ closeModal, openModal = true }) => {
   return (
     <Modal
       onRequestClose={closeModal}
       isOpen={openModal}
-      style={customStyles}
+      style={modalStyles}
       ariaHideApp={false}
       over
     >

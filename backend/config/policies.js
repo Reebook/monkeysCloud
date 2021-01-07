@@ -19,7 +19,6 @@ module.exports.policies = {
   "*": ["auth"],
   // '*': true,
   CompanyController: {
-    create: true,
     read: true,
   },
   TasksController: {
@@ -44,5 +43,5 @@ module.exports.policies = {
     changePassword: true,
     googleLogin: true,
     createdProjects: true,
-  }
+  },
 };

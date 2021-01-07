@@ -48,13 +48,13 @@ const Project = () => {
     },
   });
   const [selectedUser, setSelectedUser] = useState('');
-  const [mode, setMode] = useState('Issues');  
+  const [mode, setMode] = useState('Issues');
   /*Open PopUp*/
-  const [isOpen, setIsOpen] = useState(false); 
-  const togglePopUp =(e)=>{
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopUp = e => {
     e.preventDefault();
     setIsOpen(!isOpen);
-  }     
+  };
   /*Close PopUp*/
   const [completeSprint, setCompleteSprint] = useState(false);
 
@@ -149,7 +149,7 @@ const Project = () => {
               </li>
             </ul>
           </div>
-            {/*
+          {/*
               ---------------------------end user fields--------------------------------
           */}
           <div className='project-action-buttons'>
@@ -157,11 +157,12 @@ const Project = () => {
             {isOpen && <NewTask
               handleClose={togglePopUp}    
             />}
-
             <button>Complete Sprint</button>
             <button>Edit Boards</button>
             {/* <button className='ction-button-special'>Share</button> */}
-            <FaShareAlt style={{color: '#15225a', fontSize: '32px', margin: 'auto 6px'}}/>
+            <FaShareAlt
+              style={{ color: '#15225a', fontSize: '32px', margin: 'auto 6px' }}
+            />
           </div>
           <div className='project-tasks'>
             <DragDropContext onDragEnd={onDragEnd}>

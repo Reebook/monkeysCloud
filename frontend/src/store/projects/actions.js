@@ -4,17 +4,23 @@ import { ProjectStore } from './store';
 
 export default function useActions() {
   const [state, dispatch] = ProjectStore.useProjects();
-  const baseUrl = action => `project/${action}`;
+  const baseUrl = (base, action) => `${base ? base : 'project'}/${action}`;
 
-  const getProjects = async () => {
+  const getData = async () => {
     try {
-      const { data } = await axios.get(baseUrl('read'));
+      const res = await Promise.all([
+        axios.get(baseUrl(null, 'read')),
+        axios.get(baseUrl('company', 'admin')),
+      ]);
       dispatch({
-        type: actions.GET_PROJECTS,
-        payload: data.projects,
+        type: actions.GET_DATA,
+        payload: {
+          projects: res[0].data.projects,
+          companies: res[1].data.companies,
+        },
       });
     } catch (error) {
-      console.log(error);
+      dispatch({ type: actions.ERROR });
     }
   };
 
@@ -23,17 +29,23 @@ export default function useActions() {
     if (state.sortColumn.path === path) {
       sortColumn.order = state.sortColumn.order === 'asc' ? 'desc' : 'asc';
     } else sortColumn.order = 'asc';
-    const property = sortColumn.path;
+    const property = item => {
+      if (path === 'lead') return item[path]['email'];
+      if (path === 'company') return item[path]['name'];
+      return item[path];
+    };
+
     const sortedProjects = [...state.sortedProjects];
+    sortedProjects.sort(
+      (a, b) =>
+        (property(a).toLowerCase() < property(b).toLowerCase() ? -1 : 1) *
+        (sortColumn.order === 'asc' ? 1 : -1)
+    );
     dispatch({
       type: actions.SORT_PROJECTS,
       payload: {
         sortColumn,
-        sortedProjects: sortedProjects.sort(
-          (a, b) =>
-            (a[property].toLowerCase() < b[property].toLowerCase() ? -1 : 1) *
-            (sortColumn.order === 'asc' ? 1 : -1)
-        ),
+        sortedProjects,
       },
     });
   };
@@ -52,9 +64,26 @@ export default function useActions() {
     });
   };
 
+  const onSelectProject = project => {
+    const data = project
+      ? {
+          id: project.id,
+          name: project.name,
+          key: project.key,
+          company: project.company.id,
+        }
+      : project;
+    dispatch({ type: actions.SELECT_PROJECT, payload: data });
+    dispatch({ type: actions.SET_MODAL });
+  };
+
+  const onOpenModal = () => dispatch({ type: actions.SET_MODAL });
+
   return {
-    getProjects,
+    getData,
+    onOpenModal,
     setQuery,
+    onSelectProject,
     sortProjects,
     state,
   };

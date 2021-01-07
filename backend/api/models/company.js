@@ -66,9 +66,7 @@ module.exports = {
       via: "company",
     },
     owner: {
-      //one to one relationship one admin user will manage only one company
       model: "user",
-      unique: true,
     },
     projects: {
       //one to many relationship one agency can have multiple projects
