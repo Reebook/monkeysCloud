@@ -128,10 +128,7 @@ const Project = () => {
         <div className='project-action-container'>
           <div className='project-mode-name'>
             <h3>Issues</h3>
-          </div>
-          {/*
-          ---------------------------user fields---------------------------------
-        */}
+          </div>            
           <div className='user-filter'>
             <ul>
               {userCollection.map(({ id, value }, i) => (
@@ -153,12 +150,13 @@ const Project = () => {
             </ul>
           </div>
           {/*
-            ---------------------------end user fields--------------------------------
-        */}
+              ---------------------------end user fields--------------------------------
+          */}
           <div className='project-action-buttons'>
             <button onClick={togglePopUp}>Add Task</button>
-            {isOpen && <NewTask handleClose={togglePopUp} />}
-
+            {isOpen && <NewTask
+              handleClose={togglePopUp}    
+            />}
             <button>Complete Sprint</button>
             <button>Edit Boards</button>
             {/* <button className='ction-button-special'>Share</button> */}
