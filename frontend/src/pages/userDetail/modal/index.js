@@ -6,17 +6,8 @@ import * as Yup from 'yup';
 import './style.scss';
 import AppForm from '../../../components/form/appForm';
 import AppInput from '../../../components/form/appInput';
+import modalStyles from '../../../utils/modalStyles';
 import useUserDetail from '../../../store/userDetails/actions';
-
-const customStyles = {
-  content: {
-    border: 'none',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    background: 'transparent',
-  },
-};
 
 const initialState = {
   currentPassword: '',
@@ -48,10 +39,10 @@ const CustomModal = ({ openModal = false, closeModal }) => {
     <Modal
       onRequestClose={closeModal}
       isOpen={openModal}
-      style={customStyles}
+      style={modalStyles}
       ariaHideApp={false}
     >
-      <div className='user-detail-page-modal'>
+      <div className='user-detail-page-modal modal'>
         <div className='top pdd-base'>
           <h4>Security</h4>
           <AiOutlineClose className='pointer' onClick={closeModal} />

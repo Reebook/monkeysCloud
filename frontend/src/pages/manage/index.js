@@ -8,6 +8,7 @@ import ProjectColumn from '../../components/projectcolumn';
 import TaskCard from '../../components/taskcard';
 import tasks from './tasks';
 import NewTask from '../../components/newTask';
+import SprintSettings from '../../components/sprintSettings';
 
 const userCollection = [
   { id: 1, value: 'Oscar Melendez' },
@@ -47,8 +48,7 @@ const Project = () => {
     },
   });
   const [selectedUser, setSelectedUser] = useState('');
-  const [mode, setMode] = useState('Issues');
-  
+  const [mode, setMode] = useState('Issues');  
   /*Open PopUp*/
   const [isOpen, setIsOpen] = useState(false); 
   const togglePopUp =(e)=>{
@@ -56,6 +56,7 @@ const Project = () => {
     setIsOpen(!isOpen);
   }     
   /*Close PopUp*/
+  const [completeSprint, setCompleteSprint] = useState(false);
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
@@ -95,58 +96,63 @@ const Project = () => {
   );
 
   return (
-    <div className='manage-page monkeys-p-5'>
-      <div className='project-header'>
-        <BreadCrumb />
-        <div className='monkeys-p-1'>
-          <span className='project-type'>Public</span>
+    <>
+      <SprintSettings
+        openModal={completeSprint}
+        closeModal={() => setCompleteSprint(false)}
+      />
+      <div className='manage-page monkeys-p-5'>
+        <div className='project-header'>
+          <BreadCrumb />
+          <div className='monkeys-p-1'>
+            <span className='project-type'>Public</span>
+          </div>
+          <div className='project-enviroment-buttons'>
+            <button className='env-button'>All Enviroment</button>
+            <button className='env-button env-active'>Dev Enviroment</button>
+          </div>
         </div>
-        <div className='project-enviroment-buttons'>
-          <button className='env-button'>All Enviroment</button>
-          <button className='env-button env-active'>Dev Enviroment</button>
+        <div className='project-filter-container'>
+          {actions.map((action, i) => (
+            <button
+              key={i}
+              onClick={() => setMode(action)}
+              className={`project-filter-button ${
+                action === mode ? 'filter-active' : ''
+              } `}
+            >
+              {action}
+            </button>
+          ))}
         </div>
-      </div>
-      <div className='project-filter-container'>
-        {actions.map((action, i) => (
-          <button
-            key={i}
-            onClick={() => setMode(action)}
-            className={`project-filter-button ${
-              action === mode ? 'filter-active' : ''
-            } `}
-          >
-            {action}
-          </button>
-        ))}
-      </div>
-      <div className='project-action-container'>
-        <div className='project-mode-name'>
-          <h3>Issues</h3>
-        </div>
-        {/*
+        <div className='project-action-container'>
+          <div className='project-mode-name'>
+            <h3>Issues</h3>
+          </div>
+          {/*
           ---------------------------user fields---------------------------------
         */}
-        <div className='user-filter'>
-          <ul>
-            {userCollection.map(({ id, value }, i) => (
-              <li key={i}>
-                <UserIcon
-                  id={id}
-                  value={value}
-                  onClick={() => setSelectedUser(id)}
-                  style={selectedUser === id ? 'selected-user' : ''}
-                />
+          <div className='user-filter'>
+            <ul>
+              {userCollection.map(({ id, value }, i) => (
+                <li key={i}>
+                  <UserIcon
+                    id={id}
+                    value={value}
+                    onClick={() => setSelectedUser(id)}
+                    style={selectedUser === id ? 'selected-user' : ''}
+                  />
+                </li>
+              ))}
+              <li
+                className='li-clear pointer'
+                onClick={() => setSelectedUser('')}
+              >
+                clear all
               </li>
-            ))}
-            <li
-              className='li-clear pointer'
-              onClick={() => setSelectedUser('')}
-            >
-              clear all
-            </li>
-          </ul>
-        </div>
-        {/*
+            </ul>
+          </div>
+          {/*
             ---------------------------end user fields--------------------------------
         */}
         <div className='project-action-buttons'>
@@ -159,26 +165,25 @@ const Project = () => {
           <button>Edit Boards</button>
           {/* <button className='ction-button-special'>Share</button> */}
           <FaShareAlt style={{color: '#15225a', fontSize: '32px', margin: 'auto 6px'}}/>
-
         </div>
-      </div>
-      <div className='project-tasks'>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {Object.keys(columns).map((i, index) => (
-            <ProjectColumn title={i} {...columns[i]} key={index}>
-              {columns[i].tasks.map((task, i) => (
-                <TaskCard
-                  {...task}
-                  key={i}
-                  index={i}
-                  visible={setVisible(task.assignee)}
-                />
-              ))}
-            </ProjectColumn>
-          ))}
-        </DragDropContext>
-      </div>
+        <div className='project-tasks'>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {Object.keys(columns).map((i, index) => (
+              <ProjectColumn title={i} {...columns[i]} key={index}>
+                {columns[i].tasks.map((task, i) => (
+                  <TaskCard
+                    {...task}
+                    key={i}
+                    index={i}
+                    visible={setVisible(task.assignee)}
+                  />
+                ))}
+              </ProjectColumn>
+            ))}
+          </DragDropContext>
+        </div>
     </div>
+    </>
   );
 };
 
