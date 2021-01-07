@@ -40,15 +40,12 @@ module.exports = {
     },
     //New fields
     company: {
-        model: 'company',
-        //unique: true,
-        required: true
+      model: "company",
+      //unique: true,
+      required: true,
     },
     enviromentsP: {
-        collection: 'enviroments'
-    },
-    agency: { //one to many relationship one agency can have multiple projects
-        model: 'agency'
+      collection: "enviroments",
     },
     //user relationships
     lead: {
@@ -60,16 +57,16 @@ module.exports = {
       via: "projects",
     },
     relatedComponents: {
-        collection: 'component',
-        via: 'relatedProject'
+      collection: "component",
+      via: "relatedProject",
     },
     relatedTasks: {
-        collection: 'tasks',
-        via: 'relatedProject'
-    }
-    beforeCreate: function (valuesToSet, proceed) {
-      valuesToSet.key = valuesToSet.key.toUpperCase();
-      return proceed();
+      collection: "tasks",
+      via: "relatedProject",
     },
-  }
-}
+  },
+  beforeCreate: function (valuesToSet, proceed) {
+    valuesToSet.key = valuesToSet.key.toUpperCase();
+    return proceed();
+  },
+};

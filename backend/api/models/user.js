@@ -124,7 +124,7 @@ module.exports = {
       model: "backup",
       unique: true,
     },
-    owner: {
+    companies: {
       //one to one relationship
       collection: "company",
       via: "owner",
@@ -161,16 +161,21 @@ module.exports = {
     },
     //
     createdProject: {
-      collection: 'projects',
-      via: 'lead'
+      collection: "projects",
+      via: "lead",
     },
+    projects: {
+      collection: "projects",
+      via: "members",
+    },
+
     createdPR: {
-      collection: 'pullRequest',
-      via: 'idUser'
+      collection: "pullRequest",
+      via: "idUser",
     },
     prMerged: {
-      model: 'pullRequest'
-    }
+      model: "pullRequest",
+    },
     //-----------------End of New fields--------------------
   },
 

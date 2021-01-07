@@ -2,26 +2,30 @@ import React, { createContext, useContext, useReducer } from 'react';
 import actions from './constants';
 
 const defaultState = {
-  companies: [],
   query: '',
   loading: true,
-  project: null,
-  projects: [],
+  company: null,
+  companies: [],
   sortColumn: { path: '', order: 'asc' },
-  sortedProjects: [],
+  sortedCompanies: [],
   openModal: false,
 };
 
 const reducer = (state = defaultState, action = {}) => {
   const { type, payload } = action;
   switch (type) {
-    case actions.GET_DATA:
+    case actions.GET_COMPANIES:
       return {
         ...state,
-        companies: payload.companies,
-        projects: payload.projects,
-        sortedProjects: payload.projects,
+        companies: payload,
+        sortedCompanies: payload,
         loading: false,
+      };
+
+    case actions.SELECT_COMPANY:
+      return {
+        ...state,
+        company: payload,
       };
 
     case actions.SET_QUERY:
@@ -29,7 +33,7 @@ const reducer = (state = defaultState, action = {}) => {
         ...state,
         query: payload.value,
         sortColumn: { path: '', order: 'asc' },
-        sortedProjects: payload.sortedProjects,
+        sortedCompanies: payload.sortedCompanies,
       };
 
     case actions.SET_MODAL:
@@ -38,17 +42,11 @@ const reducer = (state = defaultState, action = {}) => {
         openModal: !state.openModal,
       };
 
-    case actions.SELECT_PROJECT:
-      return {
-        ...state,
-        project: payload,
-      };
-
-    case actions.SORT_PROJECTS:
+    case actions.SORT_COMPANIES:
       return {
         ...state,
         sortColumn: payload.sortColumn,
-        sortedProjects: payload.sortedProjects,
+        sortedCompanies: payload.sortedCompanies,
       };
 
     case actions.ERROR:
@@ -75,9 +73,9 @@ export function Provider({ children }) {
   );
 }
 
-export const ProjectStore = {
+export const CompanyStore = {
   State,
   Dispatch,
   Provider,
-  useProjects: () => [useContext(State), useContext(Dispatch)],
+  useCompanies: () => [useContext(State), useContext(Dispatch)],
 };

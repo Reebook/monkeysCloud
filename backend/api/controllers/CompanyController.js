@@ -8,7 +8,9 @@
 module.exports = {
   create: async function (req, res) {
     try {
-      const newCompany = await company.create(req.body).fetch();
+      const newCompany = await company
+        .create({ ...req.body, owner: req.user })
+        .fetch();
       res.send({ company: newCompany });
     } catch (error) {
       res.serverError(error);
@@ -24,14 +26,14 @@ module.exports = {
     }
   },
   update: async function (req, res) {
-    if (req.body.id == undefined || Object.keys(req.body) == null) {
-      return res.send("invalid input");
-    } else {
+    try {
       const companyUpdated = await company
-        .update(req.body.id)
+        .update({ id: req.params.id, owner: req.user })
         .set(req.body)
         .fetch();
-      return res.json(companyUpdated);
+      res.send({ company: companyUpdated });
+    } catch (error) {
+      res.serverError();
     }
   },
   delete: async function (req, res) {
@@ -40,6 +42,20 @@ module.exports = {
       return res.json(deletedCompany);
     } else {
       return res.send("invalid input");
+    }
+  },
+  getMyCompanies: async function (req, res) {
+    try {
+      const companies = await company
+        .find({
+          where: { owner: req.user },
+          select: ["name", "website", "phone", "email"],
+        })
+        .select()
+        .populate("owner");
+      res.send({ companies });
+    } catch (error) {
+      res.serverError();
     }
   },
 };

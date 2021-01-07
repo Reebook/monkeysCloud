@@ -24,7 +24,8 @@ module.exports.routes = {
   //CompanyController Routes
   'POST /Company/Create': {controller: "Company", action: "create"},
   'GET /Company/Read/:id': {controller: "Company", action: "read"},
-  'PATCH /Company/Update': {controller: "Company", action: "update"},
+  'GET /Company/admin': {controller: "Company", action: "getMyCompanies"},
+  'PATCH /Company/Update/:id': {controller: "Company", action: "update"},
   'DELETE /Company/Delete': {controller: "Company", action: "delete"},
   
   //LanguagesController Routes
@@ -36,7 +37,7 @@ module.exports.routes = {
   //ProjectsController Routes
   'POST /Project/Create': {controller: "Projects", action: "create"},  
   'GET /Project/Read': {controller: "Projects", action: "read"},  
-  'PATCH /Project/Update': {controller: "Projects", action: "update"},
+  'PATCH /Project/Update/:id': {controller: "Projects", action: "update"},
   'DELETE /Project/Delete': {controller: "Projects", action: "delete"},
 
   //RecoveryCodeController Routes

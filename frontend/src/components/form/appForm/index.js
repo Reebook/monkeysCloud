@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Formik } from 'formik';
 
 const AppForm = ({ initialValues, validationSchema, onSubmit, children }) => (
@@ -10,4 +10,4 @@ const AppForm = ({ initialValues, validationSchema, onSubmit, children }) => (
     {({ handleSubmit }) => <form onSubmit={handleSubmit}>{children}</form>}
   </Formik>
 );
-export default AppForm;
+export default memo(AppForm);

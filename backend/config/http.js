@@ -62,7 +62,7 @@ module.exports.http = {
 
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH ,DELETE, OPTIONS, HEAD');
         res.header('Allow', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
         res.header('X-Powered-By', '');
 

@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const { reset } = require("nodemon");
+
 module.exports = {
   create: async function (req, res) {
     try {
@@ -24,7 +26,8 @@ module.exports = {
           where: { lead: req.user },
           select: ["key", "name"],
         })
-        .populate("lead");
+        .populate("lead")
+        .populate("company");
       res.send({ projects: allProjects });
     } catch (error) {
       res.serverError(error);
@@ -32,14 +35,14 @@ module.exports = {
     }
   },
   update: async function (req, res) {
-    if (Object.keys(req.body) == 0 || req.body.id == undefined) {
-      return res.send("invalid input");
-    } else {
-      const projectUpdated = await projects
-        .update(req.body.id)
+    try {
+      const project = await projects
+        .update(req.params.id)
         .set(req.body)
         .fetch();
-      return res.json(projectUpdated);
+      res.send({ project });
+    } catch (error) {
+      res.serverError();
     }
   },
   delete: async function (req, res) {

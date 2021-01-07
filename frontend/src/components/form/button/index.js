@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './style.scss';
 
 const Button = ({ title, ...rest }) => (
@@ -7,4 +7,4 @@ const Button = ({ title, ...rest }) => (
   </button>
 );
 
-export default Button;
+export default memo(Button);

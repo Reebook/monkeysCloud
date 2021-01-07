@@ -1,37 +1,57 @@
 import React, { memo } from 'react';
 import { NotificationManager } from 'react-notifications';
 import Modal from 'react-modal';
-import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import './style.scss';
-import AppForm from '../../components/form/appForm';
-import AppInput from '../../components/form/appInput';
-import AppButton from '../../components/form/button';
+import AppForm from '../form/appForm';
+import AppInput from '../form/appInput';
+import AppButton from '../form/button';
 import axios from '../../api/axios';
 import modalStyles from '../../utils/modalStyles';
 
-const CreateCompany = () => {
-  const history = useHistory();
-  const onSubmit = async values => {
+const NewCompany = ({ initialState, open, closeModal }) => {
+  const mode = initialState ? 'Update' : 'Create';
+
+  const createCompany = async data => {
     try {
-      await axios.post('company/create', values);
+      await axios.post('company/create', data);
       NotificationManager.success('Company created successfully!');
     } catch (error) {
       console.log(error);
     }
   };
+
+  const updateCompany = async ({ id, name, website, email, phone }) => {
+    try {
+      await axios.patch(`company/update/${id}`, {
+        name,
+        website,
+        email,
+        phone,
+      });
+      NotificationManager.success('Company updated successfully!');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const action = mode === 'Create' ? createCompany : updateCompany;
+
+  const onSubmit = async values => {
+    await action(values);
+  };
   return (
     <Modal
-      onRequestClose={() => history.push('/projects')}
-      isOpen={true}
+      onRequestClose={closeModal}
+      isOpen={open}
       style={modalStyles}
       ariaHideApp={false}
     >
       <div className='create-company modal'>
-        <h2>Create Company</h2>
+        <h2>{mode} Company</h2>
         <AppForm
-          initialValues={initialState}
+          initialValues={initialState || defaultState}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
@@ -39,7 +59,7 @@ const CreateCompany = () => {
             <AppInput key={i} {...o} />
           ))}
           <div className='modal__button-container'>
-            <AppButton title='Create' />
+            <AppButton title={mode} />
           </div>
         </AppForm>
       </div>
@@ -56,7 +76,7 @@ const validationSchema = Yup.object().shape({
   phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
-const initialState = {
+const defaultState = {
   name: '',
   website: '',
   phone: '',
@@ -86,4 +106,4 @@ const options = [
   },
 ];
 
-export default memo(CreateCompany);
+export default memo(NewCompany);
