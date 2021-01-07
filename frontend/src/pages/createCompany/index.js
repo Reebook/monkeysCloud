@@ -47,18 +47,42 @@ const CreateCompany = () => {
   );
 };
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label('Name'),
+  email: Yup.string().required().email().label('Email'),
+  website: Yup.string().required().url().label('Website'),
+  phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const initialState = {
   name: '',
+  website: '',
+  phone: '',
+  email: '',
 };
 const options = [
   {
     name: 'name',
     label: 'Name',
     placeholder: 'Company Name',
+  },
+  {
+    name: 'website',
+    label: 'Website',
+    placeholder: 'Company Website',
+  },
+  {
+    name: 'phone',
+    label: 'Phone Number',
+    placeholder: 'Company Phone',
+    type: 'number',
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    placeholder: 'Company Email',
   },
 ];
 

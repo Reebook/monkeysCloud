@@ -128,10 +128,7 @@ const Project = () => {
         <div className='project-action-container'>
           <div className='project-mode-name'>
             <h3>Issues</h3>
-          </div>
-          {/*
-          ---------------------------user fields---------------------------------
-        */}
+          </div>            
           <div className='user-filter'>
             <ul>
               {userCollection.map(({ id, value }, i) => (
@@ -152,37 +149,38 @@ const Project = () => {
               </li>
             </ul>
           </div>
-          {/*
-            ---------------------------end user fields--------------------------------
-        */}
-        <div className='project-action-buttons'>
-          <button onClick={togglePopUp}>Add Task</button>
-          {isOpen && <NewTask
-            handleClose={togglePopUp}    
-          />}
+            {/*
+              ---------------------------end user fields--------------------------------
+          */}
+          <div className='project-action-buttons'>
+            <button onClick={togglePopUp}>Add Task</button>
+            {isOpen && <NewTask
+              handleClose={togglePopUp}    
+            />}
 
-          <button>Complete Sprint</button>
-          <button>Edit Boards</button>
-          {/* <button className='ction-button-special'>Share</button> */}
-          <FaShareAlt style={{color: '#15225a', fontSize: '32px', margin: 'auto 6px'}}/>
+            <button>Complete Sprint</button>
+            <button>Edit Boards</button>
+            {/* <button className='ction-button-special'>Share</button> */}
+            <FaShareAlt style={{color: '#15225a', fontSize: '32px', margin: 'auto 6px'}}/>
+          </div>
+          <div className='project-tasks'>
+            <DragDropContext onDragEnd={onDragEnd}>
+              {Object.keys(columns).map((i, index) => (
+                <ProjectColumn title={i} {...columns[i]} key={index}>
+                  {columns[i].tasks.map((task, i) => (
+                    <TaskCard
+                      {...task}
+                      key={i}
+                      index={i}
+                      visible={setVisible(task.assignee)}
+                    />
+                  ))}
+                </ProjectColumn>
+              ))}
+            </DragDropContext>
+          </div>
         </div>
-        <div className='project-tasks'>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {Object.keys(columns).map((i, index) => (
-              <ProjectColumn title={i} {...columns[i]} key={index}>
-                {columns[i].tasks.map((task, i) => (
-                  <TaskCard
-                    {...task}
-                    key={i}
-                    index={i}
-                    visible={setVisible(task.assignee)}
-                  />
-                ))}
-              </ProjectColumn>
-            ))}
-          </DragDropContext>
-        </div>
-    </div>
+      </div>
     </>
   );
 };
