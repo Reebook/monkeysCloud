@@ -164,22 +164,22 @@ const Project = () => {
               style={{ color: '#15225a', fontSize: '32px', margin: 'auto 6px' }}
             />
           </div>
-          <div className='project-tasks'>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {Object.keys(columns).map((i, index) => (
-                <ProjectColumn title={i} {...columns[i]} key={index}>
-                  {columns[i].tasks.map((task, i) => (
-                    <TaskCard
-                      {...task}
-                      key={i}
-                      index={i}
-                      visible={setVisible(task.assignee)}
-                    />
-                  ))}
-                </ProjectColumn>
-              ))}
-            </DragDropContext>
-          </div>
+        </div>
+        <div className='project-tasks'>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {Object.keys(columns).map((i, index) => (
+              <ProjectColumn title={i} {...columns[i]} key={index}>
+                {columns[i].tasks.map((task, i) => (
+                  <TaskCard
+                    {...task}
+                    key={i}
+                    index={i}
+                    visible={setVisible(task.assignee)}
+                  />
+                ))}
+              </ProjectColumn>
+            ))}
+          </DragDropContext>
         </div>
       </div>
     </>
