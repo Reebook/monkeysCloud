@@ -1,24 +1,30 @@
 module.exports = {
-    datastore: 'default',
-    attributes: {
-        id: {
-            type: "number",            
-            columnType: "int",
-            columnName: "idState",
-            required: false,            
-            unique: true,
-            autoIncrement: true,
-        },
-        name: {
-            type: "string",            
-            columnType: "varchar(20)",
-            columnName: "stateName",                       
-            unique: true,            
-        },
-        state:{
-            model: 'tasks',
-            unique: true
-        }
+  datastore: "default",
+  attributes: {
+    id: {
+      type: "number",
+      columnType: "int",
+      columnName: "idState",
+      required: false,
+      unique: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: "string",
+      columnType: "varchar(20)",
+      columnName: "stateName",
+      unique: true,
+    },
+    taskState: {
+      collection: "tasks",
+      via: "state",
+    },
 
-    }
-}
+    //combio de llave foranea para tasks
+
+    //state:{
+    //  model: 'tasks',
+    // unique: true
+    // }
+  },
+};

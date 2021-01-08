@@ -31,15 +31,17 @@ module.exports.policies = {
   TasksController: {
     create: true,
     read: true,
+    readByState: true,
     readStates: true,
   },
   StateController: {
     create: true,
     read: true,
+    readAll: true,
   },
   ProjectsController: {
     create: true,
-    read: true,    
+    read: true,
   },
   CompanyController: {
     create: true,
