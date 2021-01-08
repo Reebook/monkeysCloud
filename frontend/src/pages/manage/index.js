@@ -240,11 +240,11 @@ const Project = () => {
       <div className="project-tasks">
         <DragDropContext onDragEnd={onDragEnd}>
           {pStates.map((col, index) => (
-            <ProjectColumn id={col.id} name={col.name} key={index}>
+            <ProjectColumn id={col.id} name={col.name} key={col.id}>
               {pStates[index].taskState.map((task, i) => (
                 <TaskCard
                   {...task}
-                  key={i}
+                  key={task.id}
                   index={i}
                   visible={setVisible(task.assignee)}
                 />

@@ -20,7 +20,7 @@ const borderColor = {
   Done: '#0070ff',
 };
 
-const TaskCard = ({ id, name, description, state, index, visible, priority, type }) => {
+const TaskCard = ({ id, name, state, index, visible, priority, type }) => {
   //Agregar parametro state que servira para saber a que columna pertenece
   const history = useHistory();
   const getStyle = dragStyle => ({
@@ -34,7 +34,7 @@ const TaskCard = ({ id, name, description, state, index, visible, priority, type
   else PriorityComponent = HiArrowDown;
 
   return (
-    <Draggable draggableId={name} key={name} index={index}>
+    <Draggable draggableId={name} key={id} index={index}>
       {provided => (
         <div
           className='task-card pointer'

@@ -34,14 +34,12 @@ module.exports = {
     }
   },
   update: async function (req, res) {
-    if (req.body.id == undefined || Object.keys(req.body) == null)
-      return res.send("invalid input");
-    else {
-      const updatedState = await state
-        .update(req.body.id)
-        .set(req.body)
-        .fetch();
-      return res.json(updatedState);
+    try {
+      const data = await state.update(req.params.id).set(req.body).fetch();
+      res.send({ state: data });
+    } catch (error) {
+      console.log(error);
+      res.badRequest();
     }
   },
   delete: async function (req, res) {

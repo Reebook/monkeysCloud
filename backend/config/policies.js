@@ -33,11 +33,13 @@ module.exports.policies = {
     read: true,
     readByState: true,
     readStates: true,
+    update: true,
   },
   StateController: {
     create: true,
     read: true,
     readAll: true,
+    update: true,
   },
   ProjectsController: {
     create: true,

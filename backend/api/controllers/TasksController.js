@@ -33,12 +33,6 @@ module.exports = {
       res.serverError("Invalid Data");
       console.log(error);
     }
-    // if (req.params.id != undefined) {
-    //   const readTask = await tasks.findOne(req.params.id);
-    //   return res.json(readTask);
-    // } else {
-    //   return res.send("invalid input");
-    // }
   },
   readStates: async function (req, res) {
     //Este campo permite cargar los estados que se le pueden asignar a una tarea
@@ -51,11 +45,12 @@ module.exports = {
     }
   },
   update: async function (req, res) {
-    if (Object.keys(req.body) == 0 || req.body.id == undefined) {
-      return res.send("invalid input");
-    } else {
-      const taskUpdated = await tasks.update(req.body.id).set(req.body).fetch();
-      return res.json(taskUpdated);
+    try {
+      const data = await tasks.update(req.params.id).set(req.body).fetch();
+      res.send({ tasks: data });
+    } catch (error) {
+      console.log(error);
+      res.badRequest();
     }
   },
   delete: async function (req, res) {

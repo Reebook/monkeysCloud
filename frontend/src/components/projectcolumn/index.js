@@ -12,7 +12,7 @@ const ProjectColumn = ({id, name, color, number, children }) => {
         <div
           className='project-column'
           {...provided.droppableProps}
-          key={name}
+          key={id}
           ref={provided.innerRef}
         >
           <div className='project-column-header'>
