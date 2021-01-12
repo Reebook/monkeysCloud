@@ -91,7 +91,8 @@ services:
       - gettingstarted
     networks:
      - stack
-
+    ports:
+     - 8983:8983
   #nginx:
   #  container_name: nginx
   #  hostname: nginx
