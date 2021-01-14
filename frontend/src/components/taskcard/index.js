@@ -34,7 +34,7 @@ const TaskCard = ({ id, name, state, index, visible, priority, type }) => {
   else PriorityComponent = HiArrowDown;
 
   return (
-    <Draggable draggableId={name} key={id} index={index}>
+    <Draggable draggableId={id.toString()} key={id} index={index}>
       {provided => (
         <div
           className='task-card pointer'

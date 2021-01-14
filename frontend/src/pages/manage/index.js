@@ -32,10 +32,18 @@ const actions = [
 
 //mostrar columnas y tareas
 const Project = () => {
+  //formulario para agregar columnas
+  const [newState, setNewState] = useState({ name: "" });
+  const [newTaskPosition, setNewTaskPosition] = useState({ state: "" });
   const [pStates, setPStates] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [mode, setMode] = useState("Issues");
+  const [openEditBoard, setOpenEditBoard] = useState(false);
+
   useEffect(() => {
     getStates();
   }, []);
+
   const getStates = () => {
     axios
       .get("State/ReadAll")
@@ -45,72 +53,75 @@ const Project = () => {
       })
       .catch((error) => console.log(error));
   };
-
-  //formulario para agregar columnas
-  const [newState, setNewState] = useState({ name: "" });
- // const { register, errors, handleSubmit } = useForm();
-
-      const handleFormChange = event => {
-        // use spread operator
-        setNewState({
-            ...newState,
-            [event.target.name]: event.target.value,
-        });
-        };
-
-  const handleSubmit = (event) => {
-    axios.post("State/Create",newState ).then((res)=>{console.log('Done!', res.data);}).catch((error) => console.log(error));
+  const handleFormChange = (event) => {
+    setNewState({
+      ...newState,
+      [event.target.name]: event.target.value,
+    });
   };
 
-
-  const [columns, setColumns] = useState({
-    "To do": {
-      color: "#FF4900",
-      number: 76,
-      id: 1,
-      tasks: tasks.filter((i) => i.state === "To do"),
-    },
-    Working: {
-      color: "#8798ad",
-      number: 69,
-      id: 2,
-      tasks: tasks.filter((i) => i.state === "Working"),
-    },
-    Done: {
-      color: "#0070ff",
-      number: 28,
-      id: 3,
-      tasks: tasks.filter((i) => i.state === "Done"),
-    },
-  });
-  const [selectedUser, setSelectedUser] = useState("");
-  const [mode, setMode] = useState("Issues");
-  const [openEditBoard, setOpenEditBoard] = useState(false);
+  const handleSubmit = () => {
+    axios
+      .post("State/Create", newState)
+      .then((res) => {
+        console.log("Done!", res.data);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
+    //     const itemCopy = {...pStates[source.index].taskState[source.index]};
+    // itemCopy.state = Number(destination.droppableId) ;
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
+      // setNewTaskPosition({
+      //   ...newTaskPosition,
+      //   state: Number(destination.droppableId),
+      // });
+      // axios
+      //   .patch(`Task/Update/${itemCopy.id}`, newTaskPosition)
+      //   .then((res) => {
+      //     console.log("Done!", res.data);
+      //   })
+      //   .catch((error) => console.log(error));
       return;
     }
 
     // Creating a copy of item before removing it from state
-    const itemCopy = { ...pStates[source.droppableId].tasks[source.index] };
-    itemCopy.state = destination.droppableId;
-    setPStates((prev) => {
-      prev = { ...prev };
-      // Remove from previous items array
-      prev[source.droppableId].tasks.splice(source.index, 1);
-      // Adding to new items array location
-      prev[destination.droppableId].tasks.splice(
-        destination.index,
-        0,
-        itemCopy
-      );
-      return prev;
-    });
+    const itemCopy = { ...pStates[source.index].taskState[source.index] };
+    itemCopy.state = Number(destination.droppableId);
+
+
+    const upDateTaskState = ()=>{
+      setNewTaskPosition({
+        ...newTaskPosition,
+        state: Number(destination.droppableId),
+      });
+      axios
+        .patch(`Task/Update/${itemCopy.id}`, newTaskPosition)
+        .then((res) => {
+          console.log("Done!", res.data);
+        })
+        .catch((error) => console.log(error));
+    }
+    // setPStates(prev => {
+    //   //       axios.patch(`Task/Update/${itemCopy.id}`, itemCopy.state).then((res) => {
+    //   //   console.log("Done!", res.data);
+    //   // }).catch((error) => console.log(error));
+    //   prev = { ...prev };
+    //   // Remove from previous items array
+    //   prev[source.index].taskState.splice(source.index, 1);
+    //   // Adding to new items array location
+    //   prev[destination.index].taskState.splice(
+    //     destination.index,
+    //     0,
+    //     itemCopy
+    //   );
+    //   return prev;
+    // });
   };
 
   const setVisible = useCallback(
@@ -256,8 +267,6 @@ const Project = () => {
     </div>
   );
 };
-//linea para mostrar states
-//pStates.map((col, index)=>(<projectcolumn key={index} value={col.id}>{col.name}</projectcolumn>))
 const UserIcon = ({ id, value, onClick, style }) => {
   return (
     <div className={"icon-container " + style} onClick={onClick}>

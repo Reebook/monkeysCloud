@@ -7,7 +7,7 @@ import './style.scss';
 const ProjectColumn = ({id, name, color, number, children }) => {
   const [show, setShow] = useState(false);
   return (
-    <Droppable droppableId={name}>
+    <Droppable droppableId={id.toString()}>
       {provided => (
         <div
           className='project-column'
