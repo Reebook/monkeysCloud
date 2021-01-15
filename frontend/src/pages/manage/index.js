@@ -71,57 +71,24 @@ const Project = () => {
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
-    //     const itemCopy = {...pStates[source.index].taskState[source.index]};
-    // itemCopy.state = Number(destination.droppableId) ;
+
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
-      // setNewTaskPosition({
-      //   ...newTaskPosition,
-      //   state: Number(destination.droppableId),
-      // });
-      // axios
-      //   .patch(`Task/Update/${itemCopy.id}`, newTaskPosition)
-      //   .then((res) => {
-      //     console.log("Done!", res.data);
-      //   })
-      //   .catch((error) => console.log(error));
       return;
     }
-
     // Creating a copy of item before removing it from state
-    const itemCopy = { ...pStates[source.index].taskState[source.index] };
-    itemCopy.state = Number(destination.droppableId);
-
-
-    const upDateTaskState = ()=>{
-      setNewTaskPosition({
-        ...newTaskPosition,
+    const itemCopy = pStates[source.index].taskState[source.index];
+    // itemCopy.state = Number(destination.droppableId);
+    axios
+      .patch(`Task/Update/${itemCopy.id}`, {
         state: Number(destination.droppableId),
-      });
-      axios
-        .patch(`Task/Update/${itemCopy.id}`, newTaskPosition)
-        .then((res) => {
-          console.log("Done!", res.data);
-        })
-        .catch((error) => console.log(error));
-    }
-    // setPStates(prev => {
-    //   //       axios.patch(`Task/Update/${itemCopy.id}`, itemCopy.state).then((res) => {
-    //   //   console.log("Done!", res.data);
-    //   // }).catch((error) => console.log(error));
-    //   prev = { ...prev };
-    //   // Remove from previous items array
-    //   prev[source.index].taskState.splice(source.index, 1);
-    //   // Adding to new items array location
-    //   prev[destination.index].taskState.splice(
-    //     destination.index,
-    //     0,
-    //     itemCopy
-    //   );
-    //   return prev;
-    // });
+      })
+      .then((res) => {
+        console.log("Done!", res.data);
+      })
+      .catch((error) => console.log(error));
   };
 
   const setVisible = useCallback(
