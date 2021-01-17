@@ -1,0 +1,26 @@
+{
+    "source": {
+        "includePattern": ".+\\.(js|jsdoc|jsx)?$",
+        "include": [
+            ".",
+            "README.md"
+        ],
+        "exclude": [
+            "node_modules"
+        ]
+    },
+    "recurseDepth": 10,
+    "opts": {
+        "destination": "./docs/",
+        "recurse": true
+    },
+    "plugins": [
+        "node_modules/better-docs/category"
+    ],
+    "templates": {
+        "better-docs": {
+            "name": "NodeJS Placeholder App",
+            "title": "NodeJS Placeholder App"
+        }
+    }
+}

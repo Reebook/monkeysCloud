@@ -1,0 +1,32 @@
+{
+  "name": "playground-nodejs",
+  "version": "0.1.0",
+  "description": "Backend template",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "deploy": "forever -a -l `pwd`/app.log restart app.js || forever -a -l `pwd`/app.log start app.js",
+    "undeploy": "forever stop app.js",
+    "debug": "nodemon app.js",
+    "test": "mocha --exit",
+    "docs": "jsdoc -c ./docs/docs.json --verbose -t ./node_modules/better-docs",
+    "fix-standard": "standard --fix",
+    "check-standard": "standard"
+  },
+  "author": "Luis Leon",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "better-docs": "^2.3.0",
+    "chai": "^3.5.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "forever": "^3.0.0",
+    "jsdoc": "^3.6.5",
+    "mocha": "^8.1.1",
+    "mongoose": "^5.10.0",
+    "nodemon": "^2.0.4",
+    "standard": "^16.0.3"
+  }
+}
