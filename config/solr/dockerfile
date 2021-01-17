@@ -1,0 +1,3 @@
+FROM solr:8.7
+
+CMD ["startup.sh"]
