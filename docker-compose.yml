@@ -85,7 +85,7 @@ services:
     stdin_open: true #development config
     tty: true #development config
     volumes:
-      - solrdata:/var/solr
+      - solrdata:/opt/solr/server/solr/monkeys
     command:
       - solr-precreate
       - gettingstarted
@@ -119,3 +119,4 @@ volumes:
   redis:
   logs:
   solrdata:
+    external: true # allows third party applications to interact with the core
