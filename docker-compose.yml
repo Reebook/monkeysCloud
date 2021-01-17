@@ -79,7 +79,7 @@ services:
 
   solr:
     image: solr:8.7
-    container_name: solr
+    container_name: solronkey
     hostname: solr
     restart: always
     stdin_open: true #development config
@@ -88,7 +88,7 @@ services:
       - solrdata:/opt/solr/server/solr/monkeys
     command:
       - solr-precreate
-      - gettingstarted
+      - monkeys
     networks:
      - stack
     ports:
@@ -119,4 +119,3 @@ volumes:
   redis:
   logs:
   solrdata:
-    external: true # allows third party applications to interact with the core

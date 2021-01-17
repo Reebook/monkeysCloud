@@ -1,3 +1,3 @@
 #!/bin/bash
 npm install
-sails lift --drop
+sails lift
