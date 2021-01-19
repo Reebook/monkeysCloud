@@ -1,0 +1,9 @@
+.chip-items {
+  min-height: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  .MuiChip-root {
+    margin-right: 10px;
+    margin-bottom: 8px;
+  }
+}

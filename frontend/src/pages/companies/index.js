@@ -8,8 +8,19 @@ import Spinner from '../../components/spinner';
 import useCompanies from '../../store/companies/actions';
 
 const columns = [
-  { name: 'name', link: true },
-  { name: 'owner', key: 'email', link: true },
+  {
+    name: 'name',
+    link: true,
+    to: function (value) {
+      return `companies/${value['id']}`;
+    },
+  },
+  {
+    name: 'owner',
+    key: 'email',
+    link: true,
+    to: value => `companies/${value}`,
+  },
 ];
 
 function useQuery() {

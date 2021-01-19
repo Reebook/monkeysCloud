@@ -1,0 +1,40 @@
+@import '../../../sass/main.scss';
+
+.card-info-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__img-container {
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  p {
+    text-transform: capitalize;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.avatar-big {
+  width: 160px;
+  div {
+    height: 160px;
+  }
+  p {
+    font-size: 20px;
+  }
+}
+
+.avatar-small {
+  background: #ffffff;
+  padding: 10px;
+  width: 120px;
+  div {
+    width: 80px;
+    height: 80px;
+  }
+  p {
+    font-size: 12px;
+  }
+}
