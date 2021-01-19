@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
 import AllEnviroment from '../../pages/allEnviroment';
+import Company from '../../pages/company';
 import Companies from '../../pages/companies';
 import DevEnviroment from '../../pages/devEnviroment';
 import Login from '../../pages/login';
@@ -59,6 +60,7 @@ function Router() {
                 <Route path='/subscription' component={Subscription} />
                 <Route path='/all-enviroment' component={AllEnviroment} />
                 <Route path='/companies' exact component={Companies} />
+                <Route path='/companies/:id' exact component={Company} />
                 <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />

@@ -14,15 +14,15 @@ module.exports = {
       res.send({ company: newCompany });
     } catch (error) {
       res.serverError(error);
-      console.log(error);
     }
   },
   read: async function (req, res) {
-    if (req.params.id != undefined) {
-      const readCompany = await company.findOne(req.params.id);
-      return res.json(readCompany);
-    } else {
-      return res.send("invalid input");
+    try {
+      const Company = await company.findOne(req.params.id).populate("owner");
+      if (!Company) return res.notFound();
+      res.send({ company: Company });
+    } catch (error) {
+      res.serverError(error);
     }
   },
   update: async function (req, res) {

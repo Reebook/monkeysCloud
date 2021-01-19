@@ -20,7 +20,9 @@ const TableBody = ({ data = [], columns = [], onSelect }) => (
                 <img className='project-logo' src={logo} alt='monkey' />
               )}
               {column.link ? (
-                <Link to='/'>{renderCell(column, item)}</Link>
+                <Link to={() => column.to(item)}>
+                  {renderCell(column, item)}
+                </Link>
               ) : (
                 renderCell(column, item)
               )}

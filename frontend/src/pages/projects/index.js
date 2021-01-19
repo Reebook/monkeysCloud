@@ -7,10 +7,21 @@ import Spinner from '../../components/spinner';
 import useProjects from '../../store/projects/actions';
 
 const columns = [
-  { name: 'name', link: true },
+  {
+    name: 'name',
+    link: true,
+    to: data => `projects/${data['id']}`,
+  },
   { name: 'key' },
-  { name: 'company', key: 'name' },
-  { name: 'lead', key: 'email', link: true },
+  {
+    name: 'company',
+    key: 'name',
+    link: true,
+    to: function (value) {
+      return `companies/${value.company.id}`;
+    },
+  },
+  { name: 'lead', key: 'email', link: true, to: value => `projects/${value}` },
 ];
 
 const Projects = () => {
