@@ -95,24 +95,24 @@ services:
      - solr-precreate
      - monkeys
 
-    #nginx:
-  #  container_name: nginx
-  #  hostname: nginx
-  #  build: ${PWD}/config/nginx
-  #  restart: on-failure
-  #  environment:
-  #    WAIT_HOSTS: sailsjs:1337,webapp:3000, mysql:3306
-  #  networks:
-  #    - local
-  #  #Expose port 80 to allow users to hit content and generate data for filebeat and packetbeat.
-  #  ports: ['80:80']
-  #  command: nginx -g 'daemon off;'
-  #  volumes:
-  #    #Logs are mounted to a relative path. These are also accessed by Filebeat and consumed by the Nginx module.
-  #    - ./logs/nginx/:/var/log/nginx/
-  #  depends_on:
-  #    - "sailsjs"
-  #    - "webapp"
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    build: ${PWD}/config/nginx
+    restart: on-failure
+    environment:
+      WAIT_HOSTS: sailsjs:1337,webapp:3000, mysql:3306
+    networks:
+      - stack
+    #Expose port 80 to allow users to hit content and generate data for filebeat and packetbeat.
+    ports: ['80:80']
+    command: nginx -g 'daemon off;'
+    volumes:
+      #Logs are mounted to a relative path. These are also accessed by Filebeat and consumed by the Nginx module.
+      - ./logs/nginx/:/var/log/nginx/
+    depends_on:
+      - "sailsjs"
+     # - "webapp"
 
 networks: {stack: {}}
 
