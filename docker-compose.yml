@@ -85,8 +85,8 @@ services:
     stdin_open: true #development config
     tty: true #development config
     volumes:
-      - ./solrdata:/opt/solr/server/solr/monkeys
-      - ./dummydata:/opt/solr/testdata
+      - ${PWD}/solrdata:/opt/solr/server/solr/monkeys
+      - ${PWD}/dummydata:/opt/solr/testdata
     networks:
      - stack
     ports:
