@@ -32,9 +32,28 @@ const actions = [
 
 //mostrar columnas y tareas
 const Project = () => {
+    const [columns, setColumns] = useState({
+    'To do': {
+      color: '#FF4900',
+      number: 76,
+      id: 1,
+      tasks: tasks.filter(i => i.state === 'To do'),
+    },
+    Working: {
+      color: '#8798ad',
+      number: 69,
+      id: 2,
+      tasks: tasks.filter(i => i.state === 'Working'),
+    },
+    Done: {
+      color: '#0070ff',
+      number: 28,
+      id: 3,
+      tasks: tasks.filter(i => i.state === 'Done'),
+    },
+  });
   //formulario para agregar columnas
   const [newState, setNewState] = useState({ name: "" });
-  const [newTaskPosition, setNewTaskPosition] = useState({ state: "" });
   const [pStates, setPStates] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [mode, setMode] = useState("Issues");
@@ -69,26 +88,32 @@ const Project = () => {
       .catch((error) => console.log(error));
   };
 
+  //código original que se encarga de actualizar la posición de las tareas en las columnas
+  //ahora el que trae las columnas desde la bd es: const [pStates, setPStates] = useState([]);
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
-
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
       return;
     }
+
     // Creating a copy of item before removing it from state
-    const itemCopy = pStates[source.index].taskState[source.index];
-    // itemCopy.state = Number(destination.droppableId);
-    axios
-      .patch(`Task/Update/${itemCopy.id}`, {
-        state: Number(destination.droppableId),
-      })
-      .then((res) => {
-        console.log("Done!", res.data);
-      })
-      .catch((error) => console.log(error));
+    const itemCopy = { ...columns[source.droppableId].tasks[source.index] };
+    itemCopy.state = destination.droppableId;
+    setColumns(prev => {
+      prev = { ...prev };
+      // Remove from previous items array
+      prev[source.droppableId].tasks.splice(source.index, 1);
+      // Adding to new items array location
+      prev[destination.droppableId].tasks.splice(
+        destination.index,
+        0,
+        itemCopy
+      );
+      return prev;
+    });
   };
 
   const setVisible = useCallback(
