@@ -13,6 +13,13 @@ module.exports = {
       type: "string",
       columnType: "varchar(20)",
       columnName: "stateName",
+    },
+    project: {
+      model: "projects",
+    },
+    tasks: {
+      collection: "tasks",
+      via: "state",
       unique: true,
     },
     taskState: {

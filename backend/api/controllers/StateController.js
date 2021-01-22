@@ -48,4 +48,13 @@ module.exports = {
       return res.json(deletedState);
     } else return res.send("invalid input");
   },
+  projectStates: async function (req, res) {
+    try {
+      const states = await state.find({ project: req.params.id });
+      res.send({ states });
+    } catch (error) {
+      res.serverError("Invalid Data");
+      console.log(error);
+    }
+  },
 };

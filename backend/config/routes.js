@@ -243,11 +243,12 @@ module.exports.routes = {
   },
 
   //State Routes
-  "POST /State/Create": { controller: "State", action: "create" },
-  "GET /State/Read/:id": { controller: "State", action: "read" },
-  "GET /State/ReadAll": { controller: "State", action: "readAll" },
-  "PATCH /State/Update/:id": { controller: "State", action: "update" },
-  "DELETE /State/Delete": { controller: "State", action: "delete" },
+  'POST /State/Create': {controller: "State", action: "create"},
+  'GET /State/Read/:id': {controller: "State", action: "read"},
+  'GET /State/ReadAll': { controller: "State", action: "readAll" },
+  'PATCH /State/Update': {controller: "State", action: "update"},
+  'DELETE /State/Delete': {controller: "State", action: "delete"},
+  'GET /state/project/:id':{controller:"State",action:"projectStates"},
 
   //TypeEnviroments Routes
   "POST /TypeEnviroment/Create": {

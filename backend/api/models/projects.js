@@ -64,6 +64,10 @@ module.exports = {
       collection: "tasks",
       via: "relatedProject",
     },
+    states: {
+      collection: "state",
+      via: "project",
+    },
   },
   beforeCreate: function (valuesToSet, proceed) {
     valuesToSet.key = valuesToSet.key.toUpperCase();

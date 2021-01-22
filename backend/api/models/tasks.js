@@ -60,8 +60,8 @@ module.exports = {
       required: false,
     },
     relatedProject: {
-      model: 'projects',
-      required: true
+      model: "projects",
+      required: true,
     },
     createdby: {
       model: "user",
@@ -128,7 +128,9 @@ module.exports = {
       collection: "component",
       via: "taskComponent",
     },
-
+    state: {
+      model: "state",
+    },
     //se cambio la relación para state
     // taskState: {
     //   collection: "state",
@@ -163,9 +165,9 @@ module.exports = {
       via: "parents",
     },
     pullRequestsRelated: {
-      collection: 'pullRequest',
-      via: 'taskRelated'
-    }
+      collection: "pullRequest",
+      via: "taskRelated",
+    },
     //--------------------------End of new fields-----------------------------
   },
 };
