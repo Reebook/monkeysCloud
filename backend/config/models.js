@@ -14,7 +14,7 @@
  */
 
 module.exports.models = {
-  connection: "mysql",
+  datastore: "mysql",
   /***************************************************************************
    *                                                                          *
    * Whether model methods like `.create()` and `.update()` should ignore     *
@@ -51,7 +51,7 @@ module.exports.models = {
    *                                                                          *
    ***************************************************************************/
 
-  migrate: "alter",
+  migrate: "drop",
 
   /***************************************************************************
    *                                                                          *

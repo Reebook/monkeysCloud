@@ -16,9 +16,10 @@
 #    during development.
 #
 ################################################
-
+mysqldata
+solrdata
 backend/config/local.js
-
+mysqldata
 
 
 ################################################

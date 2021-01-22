@@ -14,6 +14,7 @@ import tasks from "./tasks";
 
 Modal.setAppElement("#root");
 
+
 const userCollection = [
   { id: 1, value: "Oscar Melendez" },
   { id: 2, value: "Eduardo Alvarez" },
@@ -52,6 +53,7 @@ const Project = () => {
       tasks: tasks.filter(i => i.state === 'Done'),
     },
   });
+
   //formulario para agregar columnas
   const [newState, setNewState] = useState({ name: "" });
   const [pStates, setPStates] = useState([]);
@@ -78,6 +80,17 @@ const Project = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+
+  /*Open PopUp*/
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopUp = e => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+  /*Close PopUp*/
+  const [completeSprint, setCompleteSprint] = useState(false);
+
 
   const handleSubmit = () => {
     axios
@@ -128,67 +141,91 @@ const Project = () => {
   );
 
   return (
-    <div className="manage-page monkeys-p-5">
-      <div className="project-header">
-        <BreadCrumb />
-        <div className="monkeys-p-1">
-          <span className="project-type">Public</span>
-        </div>
-        <div className="project-enviroment-buttons">
-          <button className="env-button">All Enviroment</button>
-          <button className="env-button env-active">Dev Enviroment</button>
-        </div>
-      </div>
-      <div className="project-filter-container">
-        {actions.map((action, i) => (
-          <button
-            key={i}
-            onClick={() => setMode(action)}
-            className={`project-filter-button ${
-              action === mode ? "filter-active" : ""
-            } `}
-          >
-            {action}
-          </button>
-        ))}
-      </div>
-      <div className="project-action-container">
-        <div className="project-mode-name">
-          <h3>Issues</h3>
-        </div>
-        {/*
-          ---------------------------user fields---------------------------------
-        */}
-        <div className="user-filter">
-          <ul>
-            {userCollection.map(({ id, value }, i) => (
-              <li key={i}>
-                <UserIcon
-                  id={id}
-                  value={value}
-                  onClick={() => setSelectedUser(id)}
-                  style={selectedUser === id ? "selected-user" : ""}
-                />
-              </li>
-            ))}
-            <li
-              className="li-clear pointer"
-              onClick={() => setSelectedUser("")}
-            >
-              clear all
-            </li>
-          </ul>
-        </div>
-        {/*
-            ---------------------------end user fields--------------------------------
-        */}
 
-        <div className="project-action-buttons">
-          <button>Complete Sprint</button>
-          <button className="ction-button-special">Share</button>
-          <button onClick={() => setOpenEditBoard(!openEditBoard)}>
-            Edit Boards
-          </button>
+    <>
+      <SprintSettings
+        openModal={completeSprint}
+        closeModal={() => setCompleteSprint(false)}
+      />
+      <div className='manage-page monkeys-p-5'>
+        <div className='project-header'>
+          <BreadCrumb />
+          <div className='monkeys-p-1'>
+            <span className='project-type'>Public</span>
+          </div>
+          <div className='project-enviroment-buttons'>
+            <button className='env-button'>All Enviroment</button>
+            <button className='env-button env-active'>Dev Enviroment</button>
+          </div>
+        </div>
+        <div className='project-filter-container'>
+          {actions.map((action, i) => (
+            <button
+              key={i}
+              onClick={() => setMode(action)}
+              className={`project-filter-button ${
+                action === mode ? 'filter-active' : ''
+              } `}
+            >
+              {action}
+            </button>
+          ))}
+        </div>
+        <div className='project-action-container'>
+          <div className='project-mode-name'>
+            <h3>Issues</h3>
+          </div>            
+          <div className='user-filter'>
+            <ul>
+              {userCollection.map(({ id, value }, i) => (
+                <li key={i}>
+                  <UserIcon
+                    id={id}
+                    value={value}
+                    onClick={() => setSelectedUser(id)}
+                    style={selectedUser === id ? 'selected-user' : ''}
+                  />
+                </li>
+              ))}
+              <li
+                className='li-clear pointer'
+                onClick={() => setSelectedUser('')}
+              >
+                clear all
+              </li>
+            </ul>
+          </div>
+          {/*
+              ---------------------------end user fields--------------------------------
+          */}
+          <div className='project-action-buttons'>
+            <button onClick={togglePopUp}>Add Task</button>
+            {isOpen && <NewTask
+              handleClose={togglePopUp}    
+            />}
+            <button>Complete Sprint</button>
+            <button>Edit Boards</button>
+            {/* <button className='ction-button-special'>Share</button> */}
+            <FaShareAlt
+              style={{ color: '#15225a', fontSize: '32px', margin: 'auto 6px' }}
+            />
+          </div>
+        </div>
+        <div className='project-tasks'>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {Object.keys(columns).map((i, index) => (
+              <ProjectColumn title={i} {...columns[i]} key={index}>
+                {columns[i].tasks.map((task, i) => (
+                  <TaskCard
+                    {...task}
+                    key={i}
+                    index={i}
+                    visible={setVisible(task.assignee)}
+                  />
+                ))}
+              </ProjectColumn>
+            ))}
+          </DragDropContext>
         </div>
         <Modal
           isOpen={openEditBoard}
@@ -240,6 +277,7 @@ const Project = () => {
         </Modal>
       </div>
 
+
       <div className="project-tasks">
         <DragDropContext onDragEnd={onDragEnd}>
           {pStates.map((col, index) => (
@@ -257,6 +295,7 @@ const Project = () => {
         </DragDropContext>
       </div>
     </div>
+
   );
 };
 const UserIcon = ({ id, value, onClick, style }) => {

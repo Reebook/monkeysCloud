@@ -1,0 +1,32 @@
+@import '../../sass/main.scss';
+
+.invite-users-modal {
+  width: 800px;
+  h5 {
+    font-size: 15px;
+  }
+  .form-group {
+    label {
+      color: #6b778c;
+      font-weight: bold;
+    }
+  }
+  p {
+    color: #6b778c;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .buttons-container {
+    margin: 10px 0;
+    button {
+      border: none;
+      background: transparent;
+      color: black;
+      font-weight: bold;
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+}

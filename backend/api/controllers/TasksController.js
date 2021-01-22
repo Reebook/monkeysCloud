@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+
   create: async function (req, res) {
     try {
       const newTask = await tasks.create(req.body).fetch();
@@ -81,3 +82,4 @@ module.exports = {
     }
   },
 };
+

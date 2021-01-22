@@ -124,14 +124,10 @@ module.exports = {
       model: "backup",
       unique: true,
     },
-    agency: {
-      //one to many relationship
-      model: "agency",
-    },
-    managedAgency: {
+    companies: {
       //one to one relationship
-      collection: "agency",
-      via: "adminUser",
+      collection: "company",
+      via: "owner",
     },
     tasks: {
       collection: "tasks",
@@ -163,11 +159,23 @@ module.exports = {
       columnName: "typeMember",
       columnType: "varchar(20)",
     },
-
+    //
     createdProject: {
-      collection: 'projects',
-      via: 'createdby'
-    }
+      collection: "projects",
+      via: "lead",
+    },
+    projects: {
+      collection: "projects",
+      via: "members",
+    },
+
+    createdPR: {
+      collection: "pullRequest",
+      via: "idUser",
+    },
+    prMerged: {
+      model: "pullRequest",
+    },
     //-----------------End of New fields--------------------
   },
 

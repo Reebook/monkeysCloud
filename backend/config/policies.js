@@ -18,15 +18,8 @@ module.exports.policies = {
 
   "*": ["auth"],
   // '*': true,
-  UserController: {
-    //'*': 'isLoggedIn',
-    login: true,
-    create: true,
+  CompanyController: {
     read: true,
-    update: true,
-    changePassword: true,
-    googleLogin: true,
-    createdProjects: true
   },
   TasksController: {
     create: true,
@@ -41,12 +34,18 @@ module.exports.policies = {
     readAll: true,
     update: true,
   },
-  ProjectsController: {
+  UserController: {
+    //'*': 'isLoggedIn',
+    login: true,
     create: true,
     read: true,
   },
-  CompanyController: {
+  ComponentController: {
     create: true,
-    read: true,
-  }
+    readAll: true,
+    update: true,
+    changePassword: true,
+    googleLogin: true,
+    createdProjects: true,
+  },
 };

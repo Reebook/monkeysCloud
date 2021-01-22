@@ -1,0 +1,16 @@
+@import '../../../sass/main.scss';
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    text-transform: capitalize;
+    margin-bottom: 5px;
+  }
+  select {
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+  }
+}

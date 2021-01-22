@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useFormikContext } from 'formik';
+
 import './style.scss';
 
-const Button = ({ title, ...rest }) => (
-  <button className='form-button' type='submit' {...rest}>
-    {title}
-  </button>
-);
+const Button = ({ title, disabled, ...rest }) => {
+  const { isValid, dirty } = useFormikContext();
+  return (
+    <button
+      className='form-button'
+      disabled={disabled || !(isValid && dirty)}
+      type='submit'
+      {...rest}
+    >
+      {title}
+    </button>
+  );
+};
 
-export default Button;
+export default memo(Button);

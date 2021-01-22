@@ -1,0 +1,71 @@
+@import '../../sass/main.scss';
+
+.sortable-table {
+  margin-top: 20px;
+  h3 {
+    text-align: center;
+    font-size: 20px;
+    color: $Brandeisblue-color;
+  }
+  @include sm {
+    overflow: scroll;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  p {
+    display: flex;
+    align-items: center;
+  }
+
+  th,
+  td {
+    width: 100px;
+    .project-logo {
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+  }
+
+  thead {
+    border-bottom: 2px solid #dfe1e7;
+    th {
+      &:first-of-type {
+        width: 200px;
+      }
+      padding: 5px 3px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: bold;
+      color: #808b9e;
+      text-transform: capitalize;
+      svg {
+        margin-left: 8px;
+      }
+    }
+  }
+  tbody {
+    border-bottom: 2px solid #dfe1e7;
+    td {
+      padding: 8px 3px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4b5a75;
+      a {
+        color: $Brandeisblue-color;
+      }
+      svg {
+        font-size: 16px;
+      }
+      &:last-of-type {
+        text-align: end;
+        padding-right: 20px;
+      }
+    }
+  }
+}

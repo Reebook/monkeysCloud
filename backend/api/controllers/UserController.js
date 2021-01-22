@@ -49,13 +49,28 @@ module.exports = {
 
   createdProjects: async function(req, res){
     try{
-      const projects = await user.findOne({id: (req.params.id)}).populate('createdProject');
+      const projects = await user.findOne({id: (req.params.id)}).populate('createdProject', {select: ["id", "name"]});
       return res.json(projects);
     }catch(error){
-      res.serverError("Invalid Data");
+      res.serverError(error);
       console.log(error);
     }
   },
+
+  /*  projects: async function (req, res) {
+    try {
+      const gg = await projects.find().populate("members", {
+        where: {
+          id: 1,
+        },
+      });
+
+      res.send(gg);
+    } catch (error) {
+      res.serverError();
+      console.log(error);
+    }
+  }, */
 
   me: async function (req, res) {
     try {

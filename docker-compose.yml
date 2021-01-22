@@ -1,0 +1,124 @@
+version: "3.7"
+
+services:
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:5.0.5
+    volumes:
+      - type: volume
+        source: redis
+        target: /data
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    networks:
+      - stack
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: monkeysapp
+    ports:
+      - "3306:3306"
+    networks:
+      - stack
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql/
+
+  sailsjs:
+    container_name: sailsjs
+    hostname: sailsjs
+    tty: true
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    ports:
+      - 1337:1337
+      - 9337:9337
+    environment:
+      PORT: 1337
+      DEBUG_PORT: 9337
+      WAIT_HOSTS: mysql:3306,redis:6379
+      NODE_ENV: development
+      MYSQL_URL: mysql://root:123456@mysql:3306/monkeysapp
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - stack
+    depends_on:
+      - "mysql"
+      - "redis"
+
+  #webapp:
+  #  container_name: webapp
+  #  hostname: webapp
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
+  #  build:
+  #    context: ./frontend
+  #    dockerfile: Dockerfile.frontend
+  #  ports:
+  #    - "3000:3000"
+  #  volumes:
+  #    - "./frontend:/app"
+  #    - "/app/node_modules"
+  #  environment:
+  #    REACT_APP_API_URL: http://webapp.monkeys.local
+  #    # - CHOKIDAR_USEPOLLING=true
+  #  networks:
+  #    - stack
+  #  depends_on:
+  #    - "sailsjs"
+
+  solr:
+    image: solr:8.7
+    container_name: solr
+    hostname: solr
+    restart: always
+    stdin_open: true #development config
+    tty: true #development config
+    volumes:
+      - ${PWD}/solrdata:/opt/solr/server/solr/monkeys
+      - ${PWD}/dummydata:/opt/solr/testdata
+    networks:
+     - stack
+    ports:
+     - 8983:8983
+    command:
+     - solr-precreate
+     - monkeys
+
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    build: ${PWD}/config/nginx
+    restart: on-failure
+    environment:
+      WAIT_HOSTS: sailsjs:1337,webapp:3000, mysql:3306
+    networks:
+      - stack
+    #Expose port 80 to allow users to hit content and generate data for filebeat and packetbeat.
+    ports: ['80:80']
+    command: nginx -g 'daemon off;'
+    volumes:
+      #Logs are mounted to a relative path. These are also accessed by Filebeat and consumed by the Nginx module.
+      - ./logs/nginx/:/var/log/nginx/
+    depends_on:
+      - "sailsjs"
+     # - "webapp"
+
+networks: {stack: {}}
+
+volumes:
+  mysql:
+  redis:
+  logs:
+  solrdata:
+  dummydata:

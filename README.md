@@ -1,14 +1,13 @@
-# monkeycloud
+# README
+For setting up the project simply run docker-compose up -d
+# Getting data inside the solr instance
 
-Task Manager and React frontend app
+* Get a json file that contains the data you want to ingest into solr and get it inside the dummy data directory
+* Make sure the json file contains the data as an array of json documents
+  (check the file thats on dummy data for an example)
+* Run docker exec exec -it solr bash
+* Run bin/post -c monkeys testdata/*.json
 
-## Requirements for local environment
-Is needed to have the ports 80 and 8080 to be able to run the containers set.
-Need to install docker and docker compose [Installation Guide](https://docs.docker.com/compose/install/)
-
-## Docker Local Buils
-
-Run docker compose up: `docker-compose up -d`
- 
-### To stop the containers:
-Run docker compose down: `docker-compose down -v`
+Doing that in order will fetch the data inside the solr docker container.
+Now if u want to search here is some quick doc that details how the search api works.
+https://lucene.apache.org/solr/guide/8_7/json-query-dsl.html
