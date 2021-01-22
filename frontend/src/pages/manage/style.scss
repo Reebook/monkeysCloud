@@ -16,6 +16,17 @@
   }
 }
 
+.modal {
+  top: '35%';
+  left: '50%';
+  right: 'auto';
+  bottom: 'auto';
+  margin-right: '-50%';
+  width: '10%';
+  transform: 'translate(-40%, -10%)';
+  background-color: orangered;
+}
+
 .project-mode-name {
   @include md {
     margin-bottom: 10px;
