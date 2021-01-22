@@ -5,14 +5,18 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const { reset } = require("nodemon");
-
 module.exports = {
   create: async function (req, res) {
+    const defaultStates = ["to do", "working", "done"];
+    const statesPromises = [];
     try {
       const project = await projects
         .create({ ...req.body, lead: req.user })
         .fetch();
+      for (const item of defaultStates) {
+        statesPromises.push(state.create({ name: item, project: project.id }));
+      }
+      await Promise.all(statesPromises);
       res.send({ project });
     } catch (error) {
       console.log(error);

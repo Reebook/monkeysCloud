@@ -8,6 +8,7 @@ import Companies from '../../pages/companies';
 import DevEnviroment from '../../pages/devEnviroment';
 import Login from '../../pages/login';
 import Manage from '../../pages/manage';
+import Planning from '../../components/planning';
 import Projects from '../../pages/projects';
 import Subscription from '../../pages/subscription';
 import UserDetail from '../../pages/userDetail';
@@ -61,6 +62,7 @@ function Router() {
                 <Route path='/all-enviroment' component={AllEnviroment} />
                 <Route path='/companies' exact component={Companies} />
                 <Route path='/companies/:id' exact component={Company} />
+                <Route path='/planning' exact component={Planning} />
                 <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />

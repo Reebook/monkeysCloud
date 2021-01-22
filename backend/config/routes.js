@@ -172,6 +172,7 @@ module.exports.routes = {
   'GET /State/Read/:id': {controller: "State", action: "read"},
   'PATCH /State/Update': {controller: "State", action: "update"},
   'DELETE /State/Delete': {controller: "State", action: "delete"},
+  'GET /state/project/:id':{controller:"State",action:"projectStates"},
 
   //TypeEnviroments Routes
   'POST /TypeEnviroment/Create': {controller: "TypeEnviroments", action: "create"},

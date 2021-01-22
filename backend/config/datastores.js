@@ -47,5 +47,7 @@ module.exports.datastores = {
      ***************************************************************************/
     adapter: require("sails-mysql"),
     url: process.env.MYSQL_URL,
+    /*  adapter: "sails-mysql",
+    url: "mysql://root:password@localhost:3306/monkeysapp", */
   },
 };
