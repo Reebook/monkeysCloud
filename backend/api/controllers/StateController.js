@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+//const state = require("../models/state");
+
 module.exports = {
   create: async function (req, res) {
     try {
@@ -22,15 +24,22 @@ module.exports = {
       return res.json(readState);
     } else return res.send("invalid input");
   },
+  readAll: async function (req, res) {
+    try {
+      const allStates = await state.find().populate("taskState");
+      return res.json(allStates);
+    } catch (error) {
+      res.serverError("Invalid Data");
+      console.log(error);
+    }
+  },
   update: async function (req, res) {
-    if (req.body.id == undefined || Object.keys(req.body) == null)
-      return res.send("invalid input");
-    else {
-      const updatedState = await state
-        .update(req.body.id)
-        .set(req.body)
-        .fetch();
-      return res.json(updatedState);
+    try {
+      const data = await state.update(req.params.id).set(req.body).fetch();
+      res.send({ state: data });
+    } catch (error) {
+      console.log(error);
+      res.badRequest();
     }
   },
   delete: async function (req, res) {

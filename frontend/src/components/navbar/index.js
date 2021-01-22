@@ -37,7 +37,7 @@ function Navbar() {
         {/*<input type="submit" value="Search" onClick={onClick} />*/}
 
         <Iconconfig className="nav-icon" />
-        <FaBell className="nav-icon" />
+        <FaBell className="nav-icon"/>
         <Avatar className="nav-avatar" />
       </div>
     </nav>

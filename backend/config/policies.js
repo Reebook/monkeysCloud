@@ -24,11 +24,15 @@ module.exports.policies = {
   TasksController: {
     create: true,
     read: true,
+    readByState: true,
     readStates: true,
+    update: true,
   },
   StateController: {
     create: true,
     read: true,
+    readAll: true,
+    update: true,
   },
   UserController: {
     //'*': 'isLoggedIn',

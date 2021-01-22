@@ -45,6 +45,7 @@ module.exports.datastores = {
      *    (See https://sailsjs.com/config/datastores for help.)                 *
      *                                                                          *
      ***************************************************************************/
+
     adapter: require("sails-mysql"),
     url: process.env.MYSQL_URL,
     /*  adapter: "sails-mysql",

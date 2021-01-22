@@ -21,6 +21,7 @@ module.exports = {
       columnName: "description",
       columnType: "varchar(45)",
     },
+
     summary: {
       type: "string",
       required: false,
@@ -33,6 +34,7 @@ module.exports = {
       columnName: "timetracking",
       columnType: "varchar(45)",
     },
+    //
     watching: {
       type: "string",
       required: false,
@@ -41,6 +43,12 @@ module.exports = {
     },
     sprint: {
       model: "sprints",
+      required: false,
+    },
+    //se agrega campo que hace referencia a tabla state
+    //anteriormente se hacía referencia a task en state
+        state: {
+      model: "state",
       required: false,
     },
     linkedto: {
@@ -123,6 +131,11 @@ module.exports = {
     state: {
       model: "state",
     },
+    //se cambio la relación para state
+    // taskState: {
+    //   collection: "state",
+    //   via: "state",
+    // },
     attachment: {
       type: "ref",
       columnName: "attachment",

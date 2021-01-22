@@ -20,6 +20,18 @@ module.exports = {
     tasks: {
       collection: "tasks",
       via: "state",
+      unique: true,
     },
+    taskState: {
+      collection: "tasks",
+      via: "state",
+    },
+
+    //combio de llave foranea para tasks
+
+    //state:{
+    //  model: 'tasks',
+    // unique: true
+    // }
   },
 };
