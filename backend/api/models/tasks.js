@@ -45,12 +45,6 @@ module.exports = {
       model: "sprints",
       required: false,
     },
-    //se agrega campo que hace referencia a tabla state
-    //anteriormente se hacía referencia a task en state
-        state: {
-      model: "state",
-      required: false,
-    },
     linkedto: {
       collection: "tasks",
       via: "relatedto",
@@ -131,11 +125,6 @@ module.exports = {
     state: {
       model: "state",
     },
-    //se cambio la relación para state
-    // taskState: {
-    //   collection: "state",
-    //   via: "state",
-    // },
     attachment: {
       type: "ref",
       columnName: "attachment",

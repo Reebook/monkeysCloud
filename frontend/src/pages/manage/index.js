@@ -1,39 +1,40 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
-import Modal from "react-modal";
-import { FaUserAlt } from "react-icons/fa";
-import { DragDropContext } from "react-beautiful-dnd";
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import { FaShareAlt } from 'react-icons/fa';
+import { DragDropContext } from 'react-beautiful-dnd';
 //import { useForm } from "react-hook-form";
 
-import axios from "../../api/axios";
+import './style.scss';
+import axios from '../../api/axios';
+import BreadCrumb from '../../components/breadcrumb';
+import NewTask from '../../components/newTask';
+import ProjectColumn from '../../components/projectcolumn';
+import SprintSettings from '../../components/sprintSettings';
+import TaskCard from '../../components/taskcard';
+import tasks from './tasks';
+import User from './User';
 
-import "./style.scss";
-import BreadCrumb from "../../components/breadcrumb";
-import ProjectColumn from "../../components/projectcolumn";
-import TaskCard from "../../components/taskcard";
-import tasks from "./tasks";
-
-Modal.setAppElement("#root");
-
+Modal.setAppElement('#root');
 
 const userCollection = [
-  { id: 1, value: "Oscar Melendez" },
-  { id: 2, value: "Eduardo Alvarez" },
-  { id: 3, value: "Carlos Gutierrez" },
-  { id: 4, value: "Alejandro Melendez" },
+  { id: 1, value: 'Oscar Melendez' },
+  { id: 2, value: 'Eduardo Alvarez' },
+  { id: 3, value: 'Carlos Gutierrez' },
+  { id: 4, value: 'Alejandro Melendez' },
 ];
 
 const actions = [
-  "Issues",
-  "Planning",
-  "Boards",
-  "Labels",
-  "Service Desk",
-  "Reports",
+  'Issues',
+  'Planning',
+  'Boards',
+  'Labels',
+  'Service Desk',
+  'Reports',
 ];
 
 //mostrar columnas y tareas
 const Project = () => {
-    const [columns, setColumns] = useState({
+  const [columns, setColumns] = useState({
     'To do': {
       color: '#FF4900',
       number: 76,
@@ -55,32 +56,19 @@ const Project = () => {
   });
 
   //formulario para agregar columnas
-  const [newState, setNewState] = useState({ name: "" });
-  const [pStates, setPStates] = useState([]);
-  const [selectedUser, setSelectedUser] = useState("");
-  const [mode, setMode] = useState("Issues");
+  const [newState, setNewState] = useState({ name: '' });
+  const [selectedUser, setSelectedUser] = useState('');
+  const [mode, setMode] = useState('Issues');
   const [openEditBoard, setOpenEditBoard] = useState(false);
 
-  useEffect(() => {
-    getStates();
-  }, []);
+  useEffect(() => {}, []);
 
-  const getStates = () => {
-    axios
-      .get("State/ReadAll")
-      .then((res) => {
-        const allStates = res.data;
-        setPStates(allStates);
-      })
-      .catch((error) => console.log(error));
-  };
-  const handleFormChange = (event) => {
+  const handleFormChange = event => {
     setNewState({
       ...newState,
       [event.target.name]: event.target.value,
     });
   };
-
 
   /*Open PopUp*/
   const [isOpen, setIsOpen] = useState(false);
@@ -91,14 +79,13 @@ const Project = () => {
   /*Close PopUp*/
   const [completeSprint, setCompleteSprint] = useState(false);
 
-
   const handleSubmit = () => {
     axios
-      .post("State/Create", newState)
-      .then((res) => {
-        console.log("Done!", res.data);
+      .post('State/Create', newState)
+      .then(res => {
+        console.log('Done!', res.data);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 
   //código original que se encarga de actualizar la posición de las tareas en las columnas
@@ -130,7 +117,7 @@ const Project = () => {
   };
 
   const setVisible = useCallback(
-    (assignee) => {
+    assignee => {
       if (selectedUser) {
         if (selectedUser === assignee) return true;
         else return false;
@@ -141,7 +128,6 @@ const Project = () => {
   );
 
   return (
-
     <>
       <SprintSettings
         openModal={completeSprint}
@@ -174,12 +160,12 @@ const Project = () => {
         <div className='project-action-container'>
           <div className='project-mode-name'>
             <h3>Issues</h3>
-          </div>            
+          </div>
           <div className='user-filter'>
             <ul>
               {userCollection.map(({ id, value }, i) => (
                 <li key={i}>
-                  <UserIcon
+                  <User
                     id={id}
                     value={value}
                     onClick={() => setSelectedUser(id)}
@@ -200,9 +186,7 @@ const Project = () => {
           */}
           <div className='project-action-buttons'>
             <button onClick={togglePopUp}>Add Task</button>
-            {isOpen && <NewTask
-              handleClose={togglePopUp}    
-            />}
+            {isOpen && <NewTask handleClose={togglePopUp} />}
             <button>Complete Sprint</button>
             <button>Edit Boards</button>
             {/* <button className='ction-button-special'>Share</button> */}
@@ -232,42 +216,42 @@ const Project = () => {
           onRequestClose={() => setOpenEditBoard(false)}
           style={{
             overlay: {
-              position: "fixed",
-              top: "40%",
-              left: "60%",
-              right: "5%",
+              position: 'fixed',
+              top: '40%',
+              left: '60%',
+              right: '5%',
               bottom: 100,
-              backgroundColor: "rgba(255, 255, 255, 0.75)",
+              backgroundColor: 'rgba(255, 255, 255, 0.75)',
             },
             content: {
-              position: "absolute",
-              top: "40px",
-              left: "40px",
-              right: "40px",
-              bottom: "40px",
-              border: "1px solid #ccc",
-              background: "#fff",
-              overflow: "auto",
-              WebkitOverflowScrolling: "touch",
-              borderRadius: "4px",
-              outline: "none",
-              padding: "20px",
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+              right: '40px',
+              bottom: '40px',
+              border: '1px solid #ccc',
+              background: '#fff',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px',
             },
           }}
         >
-          <nav className="menuBoard">
-            <ul className="monkeys-menu-container">
-              <li className="monkeys-p-2 pointer">Add Column</li>
+          <nav className='menuBoard'>
+            <ul className='monkeys-menu-container'>
+              <li className='monkeys-p-2 pointer'>Add Column</li>
             </ul>
             <form onSubmit={handleSubmit}>
               <input
-                name="name"
-                type="text"
-                placeholder="Column Name"
+                name='name'
+                type='text'
+                placeholder='Column Name'
                 value={newState.name}
                 onChange={handleFormChange}
               ></input>
-              <button type="submit">Add</button>
+              <button type='submit'>Add</button>
             </form>
 
             <div>
@@ -276,34 +260,7 @@ const Project = () => {
           </nav>
         </Modal>
       </div>
-
-
-      <div className="project-tasks">
-        <DragDropContext onDragEnd={onDragEnd}>
-          {pStates.map((col, index) => (
-            <ProjectColumn id={col.id} name={col.name} key={col.id}>
-              {pStates[index].taskState.map((task, i) => (
-                <TaskCard
-                  {...task}
-                  key={task.id}
-                  index={i}
-                  visible={setVisible(task.assignee)}
-                />
-              ))}
-            </ProjectColumn>
-          ))}
-        </DragDropContext>
-      </div>
-    </div>
-
-  );
-};
-const UserIcon = ({ id, value, onClick, style }) => {
-  return (
-    <div className={"icon-container " + style} onClick={onClick}>
-      <input id={id} type="checkbox" value={value} />
-      <FaUserAlt className="user-icon-center" />
-    </div>
+    </>
   );
 };
 

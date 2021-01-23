@@ -4,10 +4,10 @@ import { Droppable } from 'react-beautiful-dnd';
 
 import './style.scss';
 
-const ProjectColumn = ({id, name, color, number, children }) => {
+const ProjectColumn = ({ id, title, color, number, children }) => {
   const [show, setShow] = useState(false);
   return (
-    <Droppable droppableId={id.toString()}>
+    <Droppable droppableId={title}>
       {provided => (
         <div
           className='project-column'
@@ -17,7 +17,7 @@ const ProjectColumn = ({id, name, color, number, children }) => {
         >
           <div className='project-column-header'>
             <h5 className='title'>
-              {name}
+              {title}
               <span className='badge-counter' style={{ color }}>
                 {number}
               </span>
