@@ -23,8 +23,8 @@ module.exports.session = {
   host: "localhost",
   port: 3306,
   user: "root",
-  /*   password: null, */
-  password: "password",
+  password: null,
+  /* password: "password", */
   database: "monkeysapp",
   ssl: false,
   stringify: true,
