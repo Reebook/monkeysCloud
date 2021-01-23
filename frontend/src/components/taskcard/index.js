@@ -21,6 +21,7 @@ const borderColor = {
 };
 
 const TaskCard = ({ id, name, state, index, visible, priority, type }) => {
+  console.log(name);
   //Agregar parametro state que servira para saber a que columna pertenece
   const history = useHistory();
   const getStyle = dragStyle => ({
