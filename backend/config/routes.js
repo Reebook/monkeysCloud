@@ -241,6 +241,12 @@ module.exports.routes = {
     controller: "ScheduleBackup",
     action: "delete",
   },
+  
+  //PullRequest Routes
+  'POST /PullRequest/Create': {controller: "PullRequest", action: "create"},
+  'GET /PullRequest/Read/:id': {controller: "PullRequest", action: "read"},
+  'PATCH /PullRequest/Update': {controller: "PullRequest", action: "update"},
+  'DELETE /PullRequest/Delete': {controller: "PullRequest", action: "delete"},
 
   //State Routes
   'POST /State/Create': {controller: "State", action: "create"},
