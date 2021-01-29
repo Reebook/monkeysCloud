@@ -6,6 +6,12 @@
   overflow: hidden;
 }
 
+.bread-container {
+  @include sm {
+    flex-direction: column;
+  }
+}
+
 .breadcrumb-bg {
   position: absolute;
   height: 100%;

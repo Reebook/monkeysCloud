@@ -11,7 +11,7 @@ module.exports = {
     },
     name: {
       type: "string",
-      required: false,
+      required: true,
       columnName: "name",
       columnType: "varchar(20)",
     },
@@ -20,6 +20,10 @@ module.exports = {
       required: false,
       columnName: "description",
       columnType: "varchar(45)",
+    },
+    position: {
+      type: "number",
+      defaultsTo: 999,
     },
 
     summary: {
@@ -53,7 +57,7 @@ module.exports = {
       model: "tasks",
       required: false,
     },
-    relatedProject: {
+    project: {
       model: "projects",
       required: true,
     },
@@ -101,10 +105,10 @@ module.exports = {
     //------------------------------
 
     priority: {
-      type: "string",
+      type: "number",
       required: true,
       columnName: "priority",
-      columnType: "varchar(20)",
+      columnType: "int",
     },
     estimated: {
       type: "number",

@@ -1,9 +1,9 @@
 // Third libs
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { useHistory } from 'react-router-dom';
 import { FaCheckSquare, FaCommentAlt } from 'react-icons/fa';
 import { HiArrowUp, HiArrowDown } from 'react-icons/hi';
+import { useHistory } from 'react-router-dom';
 // Local
 import './style.scss';
 
@@ -14,19 +14,10 @@ const priorityColors = {
   4: '#F7141C',
 };
 
-const borderColor = {
-  'To do': '#FF4900',
-  Working: '#8798ad',
-  Done: '#0070ff',
-};
-
-const TaskCard = ({ id, name, state, index, visible, priority, type }) => {
-  console.log(name);
-  //Agregar parametro state que servira para saber a que columna pertenece
+const TaskCard = ({ id, name, priority, index, state, type }) => {
   const history = useHistory();
   const getStyle = dragStyle => ({
-    display: !visible ? 'none' : '',
-    borderLeftColor: borderColor[state],
+    borderLeftColor: priorityColors[priority],
     ...dragStyle,
   });
 
@@ -35,7 +26,7 @@ const TaskCard = ({ id, name, state, index, visible, priority, type }) => {
   else PriorityComponent = HiArrowDown;
 
   return (
-    <Draggable draggableId={id.toString()} key={id} index={index}>
+    <Draggable draggableId={id.toString()} index={index} type='task'>
       {provided => (
         <div
           className='task-card pointer'

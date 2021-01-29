@@ -1,25 +1,45 @@
 import React, { memo, useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import './style.scss';
+import TaskCard from '../taskcard';
+import useDimension from '../../hooks/useDimension';
 
-const ProjectColumn = ({ id, title, color, number, children }) => {
+const getRandomColor = () => {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+const ProjectColumn = ({ columnId, name, tasks, index, counter, last }) => {
+  const { width } = useDimension();
   const [show, setShow] = useState(false);
   return (
-    <Droppable droppableId={title}>
+    <Draggable
+      draggableId={columnId}
+      index={index}
+      type='column'
+      isDragDisabled={width < 500 && true}
+    >
       {provided => (
         <div
           className='project-column'
-          {...provided.droppableProps}
-          key={id}
           ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
           <div className='project-column-header'>
             <h5 className='title'>
-              {title}
-              <span className='badge-counter' style={{ color }}>
-                {number}
+              {name}
+              <span
+                className='badge-counter'
+                style={{ color: getRandomColor() }}
+              >
+                {counter}
               </span>
             </h5>
             <div className='accordion-icon-container'>
@@ -29,13 +49,25 @@ const ProjectColumn = ({ id, title, color, number, children }) => {
               />
             </div>
           </div>
-          <ul className={`project-tasks-container ${show ? 'show-tasks' : ''}`}>
-            {children}
-          </ul>
-          {provided.placeholder}
+          <Droppable droppableId={columnId} type='task'>
+            {provided => (
+              <div
+                className={`project-tasks-container ${
+                  show ? 'show-tasks' : ''
+                } ${last && 'last-column'} `}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {tasks.map((task, index) => (
+                  <TaskCard key={task.id} {...task} index={index} />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
       )}
-    </Droppable>
+    </Draggable>
   );
 };
 export default memo(ProjectColumn);

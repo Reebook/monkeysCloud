@@ -110,6 +110,7 @@ const options = [
   {
     name: 'key',
     label: 'Key',
+    placeholder:"Key"
   },
 ];
 

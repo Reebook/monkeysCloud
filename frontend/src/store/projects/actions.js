@@ -12,6 +12,7 @@ export default function useActions() {
         axios.get(baseUrl(null, 'read')),
         axios.get(baseUrl('company', 'admin')),
       ]);
+
       dispatch({
         type: actions.GET_DATA,
         payload: {

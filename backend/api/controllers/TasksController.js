@@ -6,12 +6,10 @@
  */
 
 module.exports = {
-
   create: async function (req, res) {
     try {
       const newTask = await tasks.create(req.body).fetch();
-      const token = await sails.helpers.generateAuthToken(newTask.id);
-      return res.json({ tasks: newTask, token });
+      return res.json({ tasks: newTask });
     } catch (error) {
       res.serverError("Invalid Data");
       console.log(error);
@@ -25,10 +23,23 @@ module.exports = {
       return res.send("invalid input");
     }
   },
+  readAll: async function (req, res) {
+    try {
+      const projectTasks = await tasks.find({
+        where: { project: 1 },
+        sort: "position ASC",
+      });
+      res.send({ tasks: projectTasks });
+    } catch (error) {
+      res.serverError();
+      console.log(error);
+    }
+  },
+
   readByState: async function (req, res) {
     try {
       //const getState = await state.findOne(req.params.id);
-      var readTask = await tasks.find({where: {state: req.params.id}});
+      var readTask = await tasks.find({ where: { state: req.params.id } });
       return res.json(readTask);
     } catch (error) {
       res.serverError("Invalid Data");
@@ -47,8 +58,8 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const data = await tasks.update(req.params.id).set(req.body).fetch();
-      res.send({ tasks: data });
+      const task = await tasks.update(req.params.id).set(req.body).fetch();
+      res.send({ task });
     } catch (error) {
       console.log(error);
       res.badRequest();
@@ -82,4 +93,3 @@ module.exports = {
     }
   },
 };
-

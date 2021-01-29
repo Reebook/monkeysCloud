@@ -13,9 +13,15 @@ module.exports = {
       type: "string",
       columnType: "varchar(20)",
       columnName: "stateName",
+      required: true,
+    },
+    position: {
+      type: "number",
+      defaultsTo: 999,
     },
     project: {
       model: "projects",
+      required: true,
     },
     tasks: {
       collection: "tasks",

@@ -59,7 +59,7 @@ const NewCompany = ({ initialState, open, closeModal }) => {
             <AppInput key={i} {...o} />
           ))}
           <div className='modal__button-container'>
-            <AppButton title={mode} />
+            <AppButton title={mode} disabled={false} />
           </div>
         </AppForm>
       </div>

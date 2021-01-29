@@ -10,7 +10,7 @@ const columns = [
   {
     name: 'name',
     link: true,
-    to: data => `projects/${data['id']}`,
+    to: data => `projects/${data['id']}/dashboard`,
   },
   { name: 'key' },
   {
