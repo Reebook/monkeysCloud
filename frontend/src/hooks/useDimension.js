@@ -1,0 +1,22 @@
+import { useEffect, useState } from 'react';
+
+const useDimension = () => {
+  const [size, setSize] = useState({
+    width: '',
+    height: '',
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return size;
+};
+
+export default useDimension;

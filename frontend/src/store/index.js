@@ -4,6 +4,7 @@ import React, { memo, cloneElement } from 'react';
 import { AuthStore } from './auth/store';
 import { CompanyDetailsStore } from './companyDetails/store';
 import { CompanyStore } from './companies/store';
+import { DashboardStore } from './dashboard/store';
 import { SidebarStore } from './sidebar/store';
 import { OrganizationStore } from './organization/store';
 import { HistorialStore } from './historial/store';
@@ -18,6 +19,7 @@ const providers = [
   <AuthStore.Provider />,
   <CompanyDetailsStore.Provider />,
   <CompanyStore.Provider />,
+  <DashboardStore.Provider />,
   <HistorialStore.Provider />,
   <OrganizationStore.Provider />,
   <ProjectStore.Provider />,

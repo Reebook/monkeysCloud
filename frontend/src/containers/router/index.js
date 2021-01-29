@@ -7,7 +7,7 @@ import Company from '../../pages/company';
 import Companies from '../../pages/companies';
 import DevEnviroment from '../../pages/devEnviroment';
 import Login from '../../pages/login';
-import Manage from '../../pages/manage';
+import Dashboard from '../../pages/dashboard';
 import Planning from '../../components/planning';
 import Projects from '../../pages/projects';
 import Subscription from '../../pages/subscription';
@@ -57,12 +57,12 @@ function Router() {
             <div className='app'>
               {historialState.isHistorialVisible && <Historial />}
               <Switch>
-                <Route exact path='/' component={Manage} />
+                <Route exact path='/' component={AllEnviroment} />
                 <Route path='/subscription' component={Subscription} />
-                <Route path='/all-enviroment' component={AllEnviroment} />
                 <Route path='/companies' exact component={Companies} />
                 <Route path='/companies/:id' exact component={Company} />
                 <Route path='/planning' exact component={Planning} />
+                <Route path='/projects/:id/dashboard' component={Dashboard} />
                 <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />

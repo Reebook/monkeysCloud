@@ -72,6 +72,7 @@ module.exports.routes = {
   //TasksController Routes
   "POST /Task/Create": { controller: "Tasks", action: "create" },
   "GET /Task/Read/:id": { controller: "Tasks", action: "read" },
+  "GET /task/read": {controller:"Tasks", action:"readAll"},
   "GET /Task/ReadByState/:id": { controller: "Tasks", action: "readByState" },
   "GET /Task/ReadStates": { controller: "Tasks", action: "readStates" },
   "PATCH /Task/Update/:id": { controller: "Tasks", action: "update" },
@@ -244,11 +245,11 @@ module.exports.routes = {
 
   //State Routes
   'POST /State/Create': {controller: "State", action: "create"},
-  'GET /State/Read/:id': {controller: "State", action: "read"},
+  'GET /state/project/:id/tasks':{controller:"State",action:"getStateTasks"},
   'GET /State/ReadAll': { controller: "State", action: "readAll" },
-  'PATCH /State/Update': {controller: "State", action: "update"},
+  'PATCH /State/Update/:id': {controller: "State", action: "update"},
   'DELETE /State/Delete': {controller: "State", action: "delete"},
-  'GET /state/project/:id':{controller:"State",action:"projectStates"},
+  
 
   //TypeEnviroments Routes
   "POST /TypeEnviroment/Create": {

@@ -56,12 +56,12 @@ module.exports = {
       collection: "user",
       via: "projects",
     },
+    tasks: {
+      collection: "tasks",
+      via: "project",
+    },
     relatedComponents: {
       collection: "component",
-      via: "relatedProject",
-    },
-    relatedTasks: {
-      collection: "tasks",
       via: "relatedProject",
     },
     states: {

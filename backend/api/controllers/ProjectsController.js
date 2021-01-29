@@ -7,14 +7,18 @@
 
 module.exports = {
   create: async function (req, res) {
-    const defaultStates = ["to do", "working", "done"];
+    const defaultStates = [
+      { name: "to do", position: 0 },
+      { name: "working", position: 1 },
+      { name: "done", position: 2 },
+    ];
     const statesPromises = [];
     try {
       const project = await projects
         .create({ ...req.body, lead: req.user })
         .fetch();
       for (const item of defaultStates) {
-        statesPromises.push(state.create({ name: item, project: project.id }));
+        statesPromises.push(state.create({ ...item, project: project.id }));
       }
       await Promise.all(statesPromises);
       res.send({ project });
