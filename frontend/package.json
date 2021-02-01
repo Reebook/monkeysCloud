@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "@material-ui/core": "^4.11.2",
+    "@material-ui/pickers": "^3.2.10",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -14,6 +16,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
     "color": "^3.1.3",
+    "date-fns": "^2.0.0-beta.5",
     "faker": "^5.1.0",
     "formik": "^2.1.5",
     "gulp-sass": "^4.1.0",
@@ -33,7 +36,6 @@
     "react-notifications": "^1.7.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-
     "react-select-with-icon": "^0.1.1",
     "sass-loader": "^10.1.0",
     "suneditor-react": "^2.14.4",

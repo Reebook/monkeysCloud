@@ -2,6 +2,7 @@ import React, { memo, cloneElement } from 'react';
 
 // Local
 import { AuthStore } from './auth/store';
+import { BacklogStore } from './backlog/store';
 import { CompanyDetailsStore } from './companyDetails/store';
 import { CompanyStore } from './companies/store';
 import { DashboardStore } from './dashboard/store';
@@ -17,6 +18,7 @@ import { SprintStore } from './sprint/store';
 
 const providers = [
   <AuthStore.Provider />,
+  <BacklogStore.Provider />,
   <CompanyDetailsStore.Provider />,
   <CompanyStore.Provider />,
   <DashboardStore.Provider />,
@@ -31,10 +33,6 @@ const providers = [
   <UserDetailsStore.Provider />,
 ];
 
-const Store = ({ children: initial }) =>
-  providers.reduce(
-    (children, parent) => cloneElement(parent, { children }),
-    initial
-  );
+const Store = ({ children: initial }) => providers.reduce((children, parent) => cloneElement(parent, { children }), initial);
 
 export default memo(Store);

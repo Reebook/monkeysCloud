@@ -20,14 +20,7 @@ const userCollection = [
   { id: 4, value: 'Alejandro Melendez' },
 ];
 
-const actions = [
-  'Issues',
-  'Planning',
-  'Boards',
-  'Labels',
-  'Service Desk',
-  'Reports',
-];
+const actions = ['Issues', 'Planning', 'Boards', 'Labels', 'Service Desk', 'Reports'];
 
 const Project = () => {
   const { id } = useParams();
@@ -60,11 +53,7 @@ const Project = () => {
   return (
     <>
       <SprintSettings openModal={springModal} closeModal={openSprintModal} />
-      <NewState
-        openModal={newStateModal}
-        closeModal={openNewStateModal}
-        project={id}
-      />
+      <NewState openModal={newStateModal} closeModal={openNewStateModal} project={id} />
       <div className='dashboard-page'>
         <div className='dashboard-page__header'>
           <div className='project-header'>
@@ -75,21 +64,13 @@ const Project = () => {
               </div>
               <div className='project-enviroment-buttons'>
                 <button className='env-button'>All Enviroment</button>
-                <button className='env-button env-active'>
-                  Dev Enviroment
-                </button>
+                <button className='env-button env-active'>Dev Enviroment</button>
               </div>
             </div>
           </div>
           <div className='project-filter-container'>
             {actions.map((action, i) => (
-              <button
-                key={i}
-                onClick={() => setMode(action)}
-                className={`project-filter-button ${
-                  action === mode ? 'filter-active' : ''
-                } `}
-              >
+              <button key={i} onClick={() => setMode(action)} className={`project-filter-button ${action === mode ? 'filter-active' : ''} `}>
                 {action}
               </button>
             ))}
@@ -118,18 +99,10 @@ const Project = () => {
             <ul>
               {userCollection.map(({ id, value }, i) => (
                 <li key={i}>
-                  <User
-                    id={id}
-                    value={value}
-                    onClick={() => setSelectedUser(id)}
-                    style={selectedUser === id ? 'selected-user' : ''}
-                  />
+                  <User id={id} value={value} onClick={() => setSelectedUser(id)} style={selectedUser === id ? 'selected-user' : ''} />
                 </li>
               ))}
-              <li
-                className='li-clear pointer'
-                onClick={() => setSelectedUser('')}
-              >
+              <li className='li-clear pointer' onClick={() => setSelectedUser('')}>
                 clear all
               </li>
             </ul>
@@ -137,17 +110,9 @@ const Project = () => {
         </div>
         <div className='dashboard-page__content'>
           <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable
-              droppableId='all-column'
-              type='column'
-              direction='horizontal'
-            >
+            <Droppable droppableId='all-column' type='column' direction='horizontal'>
               {provided => (
-                <div
-                  className='project-columns-container'
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
+                <div className='project-columns-container' {...provided.droppableProps} ref={provided.innerRef}>
                   {columnOrder.map((columnId, index) => (
                     <ProjectColumn
                       {...columns[columnId]}
