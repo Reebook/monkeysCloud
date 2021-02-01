@@ -1,0 +1,11 @@
+@import '../../sass/main.scss';
+
+.new-sprint {
+  width: 600px;
+  .dates-container {
+    display: flex;
+    div + div {
+      margin-left: 10px;
+    }
+  }
+}

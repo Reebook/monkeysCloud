@@ -66,6 +66,7 @@
     padding-top: 0;
     flex-grow: 1;
     overflow: auto;
+
     @include md {
       padding: 2rem;
     }

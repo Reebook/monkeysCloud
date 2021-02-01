@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
 import AllEnviroment from '../../pages/allEnviroment';
+import Backlog from '../../pages/backlog';
 import Company from '../../pages/company';
 import Companies from '../../pages/companies';
 import DevEnviroment from '../../pages/devEnviroment';
@@ -46,11 +47,7 @@ function Router() {
         ) : (
           <div
             //código tomado del index de sidebar
-            className={
-              sidebarState.isSidebarExpanded
-                ? 'main-content-exp'
-                : 'main-content'
-            }
+            className={sidebarState.isSidebarExpanded ? 'main-content-exp' : 'main-content'}
           >
             <Navbar />
             <Sidebar />
@@ -61,8 +58,9 @@ function Router() {
                 <Route path='/subscription' component={Subscription} />
                 <Route path='/companies' exact component={Companies} />
                 <Route path='/companies/:id' exact component={Company} />
-                <Route path='/planning' exact component={Planning} />
                 <Route path='/projects/:id/dashboard' component={Dashboard} />
+                <Route path='/projects/:id/planning' exact component={Planning} />
+                <Route path='/projects/:id/backlog' exact component={Backlog} />
                 <Route path='/projects' exact component={Projects} />
                 <Route path='/dev-enviroment' component={DevEnviroment} />
                 <Route path='/task-detail/:id' component={TaskDetail} />
@@ -70,10 +68,7 @@ function Router() {
                 <Route exact path='/user/details' component={UserDetail} />
                 <Route path='/userManagement' component={UserManagement} />
                 <Route path='/newTask' component={NewTask} />
-                <Route
-                  path='/enviromentSection'
-                  component={EnviromentSection}
-                />
+                <Route path='/enviromentSection' component={EnviromentSection} />
               </Switch>
             </div>
           </div>

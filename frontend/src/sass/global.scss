@@ -88,6 +88,10 @@ a {
 
 button {
   cursor: pointer;
+  outline: none;
+  &:active {
+    opacity: 0.8;
+  }
 }
 
 .d-flex {
