@@ -1,0 +1,21 @@
+@import '../../../sass/main.scss';
+
+.task-row {
+  width: 100%;
+  margin-bottom: 2px;
+  border: 1px solid #dfe1e6;
+  display: flex;
+  padding: 5px 3px;
+  justify-content: space-between;
+  align-items: center;
+  .task-row-name {
+    flex: 1;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    span {
+      margin-left: 5px;
+    }
+  }
+}

@@ -1,9 +1,10 @@
 @import '../../sass/main.scss';
 
-.planning-page {
+.planning {
   padding: 30px 40px;
   height: 100%;
   padding-bottom: 0;
+
   &__header {
     margin: 10px 0;
     display: flex;
@@ -28,13 +29,6 @@
       }
       .icon-share {
         margin-right: 5px;
-      }
-      button {
-        color: rgb(66, 82, 110) !important;
-        padding: 5px;
-        border: none;
-        display: flex;
-        align-items: center;
       }
     }
   }
