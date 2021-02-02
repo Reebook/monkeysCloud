@@ -49,8 +49,6 @@ const Backlog = () => {
             <SprintColumn {...sprint} />
             <SprintColumn {...sprint} />
             <SprintColumn {...sprint} />
-            <SprintColumn {...sprint} />
-            <SprintColumn {...sprint} />
             <SprintColumn {...{ name: 'backlog', backlog: true }} />
           </div>
         </div>
