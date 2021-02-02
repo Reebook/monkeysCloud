@@ -18,7 +18,11 @@ module.exports = {
     }
   },
 
-  getStateTasks:async function(req,res){
+  getStateTasks: async function (req, res) {
+    const query = {};
+    if (req.query.query) {
+      query.name = { contains: req.query.query };
+    }
     try {
       const states = await state
         .find({
@@ -30,13 +34,13 @@ module.exports = {
           select: ["name", "position", "state", "priority"],
           sort: "position ASC",
         });
+
       res.send({ states });
     } catch (error) {
       res.serverError();
       console.log(error);
     }
   },
-
 
   readAll: async function (req, res) {
     try {

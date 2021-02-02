@@ -7,7 +7,7 @@ import './style.scss';
 import PopUp from './popUp';
 import SprintTask from '../sprintTask';
 
-const SprintColumn = ({ name, startDate, endDate, tasks = [] }) => {
+const SprintColumn = ({ name, startDate, endDate, tasks = [], backlog }) => {
   const [show, setShow] = useState(true);
   const [popUp, setPopUp] = useState(false);
 
@@ -29,28 +29,41 @@ const SprintColumn = ({ name, startDate, endDate, tasks = [] }) => {
           <span className='name'>{name}</span>
         </div>
         <span className='text-secondary'>{tasks.length} issues</span>
-        <div className='sprint-options'>
-          <button className='outline-button' onClick={onOpenPopUp}>
-            <BsThreeDots />
-          </button>
-          <PopUp open={popUp} close={closePopUp} />
-        </div>
+        {!backlog && (
+          <div className='sprint-options'>
+            <button className='outline-button' onClick={onOpenPopUp}>
+              <BsThreeDots />
+            </button>
+            <PopUp open={popUp} close={closePopUp} />
+          </div>
+        )}
       </div>
       {show && (
         <>
-          <div className='d-flex align-items-center monkeys-text-gray'>
-            <span className='monkeys-p-2 date'>
-              <Moment format='DD/MM/YYYY'>{startDate}</Moment>
-            </span>
-            <span className='monkeys-p-2 date'>~</span>
-            <span className='monkeys-p-2 date'>
-              <Moment format='DD/MM/YYYY'>{endDate}</Moment>
-            </span>
-          </div>
+          {endDate && startDate && (
+            <div className='d-flex align-items-center monkeys-text-gray'>
+              <span className='monkeys-p-2 date'>
+                <Moment format='DD/MM/YYYY'>{startDate}</Moment>
+              </span>
+              <span className='monkeys-p-2 date'>~</span>
+              <span className='monkeys-p-2 date'>
+                <Moment format='DD/MM/YYYY'>{endDate}</Moment>
+              </span>
+            </div>
+          )}
           <div className='tasks-row-container d-flex align-items-center flex-column'>
-            {tasks.map(task => (
-              <SprintTask {...task} key={`planning-sprint-issue-id-${task.id}`} />
-            ))}
+            {tasks.length ? (
+              tasks.map(task => <SprintTask {...task} key={`planning-sprint-issue-id-${task.id}`} />)
+            ) : (
+              <>
+                <div className='drag-issues'>
+                  <p>Plan a sprint by dragging the sprint footer down below some issues, or by dragging issues here.</p>
+                </div>
+                <button id='create' className='outline-button'>
+                  + Create issue
+                </button>
+              </>
+            )}
           </div>
         </>
       )}

@@ -39,6 +39,7 @@ module.exports.routes = {
 
   'POST /Project/Create': {controller: "Projects", action: "create"},  
   'GET /Project/Read': {controller: "Projects", action: "read"},  
+  "GET /project/:id/users": {controller: "Projects", action: "users"} ,
   'PATCH /Project/Update/:id': {controller: "Projects", action: "update"},
   'DELETE /Project/Delete': {controller: "Projects", action: "delete"},
 
@@ -66,6 +67,7 @@ module.exports.routes = {
   //SprintsController Routes
   "POST /Sprint/Create": { controller: "Sprints", action: "create" },
   "GET /Sprint/Read/:id": { controller: "Sprints", action: "read" },
+  "GET /sprint/project/:id/tasks": {controller: "sprints" , action:"sprintTasks"},
   "PATCH /Sprint/Update": { controller: "Sprints", action: "update" },
   "DELETE /Sprint/Delete": { controller: "Sprints", action: "delete" },
 

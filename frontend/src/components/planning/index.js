@@ -91,7 +91,12 @@ function Planning(props) {
             <MonkeyAvatar className='staked-avatar' user={u} key={i} />
           ))}
           <div style={{ width: 32, height: 32 }} className='staked-avatar position-relative'>
-            <MonkeyAvatar color='#dfe1e6' className='position-absolute font-size-12' data-el_name='btnShowMenu' onClick={handleClick}>
+            <MonkeyAvatar
+              color='#dfe1e6'
+              className='position-absolute font-size-12'
+              data-el_name='btnShowMenu'
+              onClick={handleClick}
+            >
               + {users.length - 4}
             </MonkeyAvatar>
             {isLatestUserOpen && (
@@ -150,7 +155,12 @@ function Planning(props) {
           <div className='planning-version-container shadow'>
             <div className='planning-container-title'>
               <span className='monkeys-text-gray'>Versions</span>
-              <small className='monkeys-text-secondary-blue pointer' onClick={handleClick} data-el_name='btnCreateNewVersion'>
+              <small
+                data-el
+                className='monkeys-text-secondary-blue pointer'
+                onClick={handleClick}
+                data-el_name='btnCreateNewVersion'
+              >
                 Create version
               </small>
               <MonkeyButtonBase
@@ -187,7 +197,9 @@ function Planning(props) {
             .filter(
               s =>
                 s.name.toLowerCase().includes(planningSearch.toLowerCase()) ||
-                s.issues.some(issue => `${issue.assignee.first_name}${issue.assignee.first_name}`.toLowerCase().includes(planningSearch.toLowerCase()))
+                s.issues.some(issue =>
+                  `${issue.assignee.first_name}${issue.assignee.first_name}`.toLowerCase().includes(planningSearch.toLowerCase())
+                )
             )
             .map(sf => (
               <PlanningSprint key={`planning-id-${sf.id}`} sprint={sf} />

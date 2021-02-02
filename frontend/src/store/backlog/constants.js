@@ -1,4 +1,5 @@
 export default {
-  getInitialData: 'getInitialData',
-  openModal: 'openModal',
+  GET_INITIAL_DATA: 'GET_INITIAL_DATA',
+  OPEN_MODAL: 'OPEN_MODAL',
+  SELECT_TASK: 'SELECT_TASK',
 };
