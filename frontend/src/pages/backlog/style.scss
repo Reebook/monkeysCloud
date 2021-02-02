@@ -39,12 +39,10 @@
     margin-top: 10px;
     overflow-y: auto;
     flex: 1;
-    padding-bottom: 15px;
     display: flex;
-    position: relative;
+    flex-direction: column;
   }
   .sprint-column-container {
     flex: 1;
-    overflow-y: auto;
   }
 }

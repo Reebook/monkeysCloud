@@ -1,6 +1,8 @@
 @import '../../../sass/main.scss';
 
 .sprint-column {
+  padding: 5px 20px;
+  margin-bottom: 25px;
   .name {
     color: #333;
     font-size: 14px;
@@ -29,7 +31,7 @@
 
   .popup-over-options {
     position: absolute;
-    top: 28px;
+    top: 30px;
     background: #ffffff;
     border-radius: 5px;
     padding: 5px 0;

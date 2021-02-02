@@ -10,15 +10,15 @@ import MainFilter from './mainFilter';
 import NewSprint from '../../components/newSprint';
 import SprintColumn from './sprintColumn';
 import useBacklog from '../../store/backlog/actions';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const Backlog = () => {
   const { id } = useParams();
   const {
+    onDragEnd,
     onOpenModal,
-    state: { openModal, selectedTask },
+    state: { openModal, sprints },
   } = useBacklog();
-
-  const onDragEnd = () => {};
 
   return (
     <>
@@ -46,42 +46,16 @@ const Backlog = () => {
         </>
         <div className='planning__content'>
           <div className='sprint-column-container'>
-            <SprintColumn {...sprint} />
-            <SprintColumn {...sprint} />
-            <SprintColumn {...sprint} />
-            <SprintColumn {...{ name: 'backlog', backlog: true }} />
+            <DragDropContext onDragEnd={onDragEnd}>
+              {Object.keys(sprints).map((i, index) => (
+                <SprintColumn {...sprints[i]} key={index} />
+              ))}
+            </DragDropContext>
           </div>
         </div>
       </div>
     </>
   );
-};
-
-const sprint = {
-  createdAt: 1612205868818,
-  updatedAt: 1612205868818,
-  id: 1,
-  name: 'MC-1',
-  duration: 0,
-  startDate: 1612204069181,
-  endDate: 1612204069181,
-  sprintGoal: '55',
-  isActive: true,
-  project: 1,
-  tasks: [
-    {
-      name: 'Logic Sprints',
-      priority: 4,
-      epic: {
-        name: 'user',
-        color: 'gray',
-      },
-    },
-    {
-      name: 'Logic Sprints',
-      priority: 2,
-    },
-  ],
 };
 
 export default Backlog;
