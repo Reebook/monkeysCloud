@@ -5,7 +5,7 @@ import Cards from './cards.js';
 import EnviromentCard from './enviromentCard.js';
 import CreateEnviromentCard from './createCard.js';
 import initialData from './initial-data';
-
+import MenuAllEnviroments from '../menuAllEnviroments';
 class EnviromentSection extends React.Component{
     state = initialData;
     onDragEnd = result =>{
@@ -74,6 +74,9 @@ class EnviromentSection extends React.Component{
     return(
         <div className="main-container">
             <div className="header-container">
+              <div className="enviroment-header">
+              <MenuAllEnviroments/>
+              </div>
                 <div className="actions-header">
                     <a href="#" className="action-button">settings</a>
                     <a href="#" className="action-button">wiki</a>
