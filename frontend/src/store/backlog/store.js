@@ -7,21 +7,23 @@ const defaultState = {
   sprint: [],
   loading: true,
   openModal: false,
+  selectedTask: true,
 };
 
 const reducer = (state = defaultState, action = {}) => {
   const { type } = action;
   switch (type) {
-    case actions.getInitialData:
+    case actions.GET_INITIAL_DATA:
       return {
         ...state,
       };
 
-    case actions.openModal:
+    case actions.OPEN_MODAL:
       return {
         ...state,
         openModal: !state.openModal,
       };
+
     default:
       return state;
   }

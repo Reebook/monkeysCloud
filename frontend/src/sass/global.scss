@@ -320,6 +320,10 @@ button {
   color: inherit !important;
 }
 
+.color-white {
+  color: #ffffff !important;
+}
+
 .font-size-12 {
   font-size: 12px;
 }
@@ -426,4 +430,12 @@ button {
     right: 5px;
     position: absolute;
   }
+}
+
+.outline-button {
+  color: rgb(66, 82, 110) !important;
+  padding: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
 }

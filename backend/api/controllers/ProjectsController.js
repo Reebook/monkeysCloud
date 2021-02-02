@@ -27,6 +27,18 @@ module.exports = {
       res.serverError();
     }
   },
+
+  users: async function (req, res) {
+    try {
+      const project = await projects.findOne(req.params.id).populate("members",{
+        select: ["name", "avatar" ],
+      })
+      res.send({project})
+    } catch (error) {
+      res.serverError()
+    }
+  },
+
   read: async function (req, res) {
     try {
       const allProjects = await projects
