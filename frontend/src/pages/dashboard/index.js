@@ -27,9 +27,8 @@ const Project = () => {
   const {
     getData,
     onDragEnd,
-    openNewStateModal,
-    openSprintModal,
-    state: { columns, columnOrder, loading, springModal, newStateModal },
+    openModal,
+    state: { columns, columnOrder, loading, sprintModal, newStateModal, newTaskModal },
   } = useDashboard();
 
   const [selectedUser, setSelectedUser] = useState('');
@@ -40,20 +39,13 @@ const Project = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  /*Open PopUp*/
-  const [isOpen, setIsOpen] = useState(false);
-  const togglePopUp = e => {
-    e.preventDefault();
-    setIsOpen(!isOpen);
-  };
-  /*Close PopUp*/
-
   if (loading) return <Spinner />;
 
   return (
     <>
-      <SprintSettings openModal={springModal} closeModal={openSprintModal} />
-      <NewState openModal={newStateModal} closeModal={openNewStateModal} project={id} />
+      <NewTask openModal={newTaskModal} closeModal={() => openModal('newTask')} />
+      <SprintSettings openModal={sprintModal} closeModal={() => openModal('sprintModal')} />
+      <NewState openModal={newStateModal} closeModal={() => openModal('newStateModal')} project={id} />
       <div className='dashboard-page'>
         <div className='dashboard-page__header'>
           <div className='project-header'>
@@ -70,7 +62,11 @@ const Project = () => {
           </div>
           <div className='project-filter-container'>
             {actions.map((action, i) => (
-              <button key={i} onClick={() => setMode(action)} className={`project-filter-button ${action === mode ? 'filter-active' : ''} `}>
+              <button
+                key={i}
+                onClick={() => setMode(action)}
+                className={`project-filter-button ${action === mode ? 'filter-active' : ''} `}
+              >
                 {action}
               </button>
             ))}
@@ -80,10 +76,9 @@ const Project = () => {
               <h3>Issues</h3>
             </div>
             <div className='project-action-buttons'>
-              <button onClick={togglePopUp}>Add Task</button>
-              {isOpen && <NewTask handleClose={togglePopUp} />}
-              <button onClick={openSprintModal}>Complete Sprint</button>
-              <button onClick={openNewStateModal}>New State</button>
+              <button onClick={() => openModal('newTaskModal')}>Add Task</button>
+              <button onClick={() => openModal('sprintModal')}>Complete Sprint</button>
+              <button onClick={() => openModal('newStateModal')}>New State</button>
               <button>Edit Boards</button>
               {/* <button className='ction-button-special'>Share</button> */}
               <FaShareAlt
@@ -99,7 +94,12 @@ const Project = () => {
             <ul>
               {userCollection.map(({ id, value }, i) => (
                 <li key={i}>
-                  <User id={id} value={value} onClick={() => setSelectedUser(id)} style={selectedUser === id ? 'selected-user' : ''} />
+                  <User
+                    id={id}
+                    value={value}
+                    onClick={() => setSelectedUser(id)}
+                    style={selectedUser === id ? 'selected-user' : ''}
+                  />
                 </li>
               ))}
               <li className='li-clear pointer' onClick={() => setSelectedUser('')}>

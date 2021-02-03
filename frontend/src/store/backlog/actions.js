@@ -1,10 +1,53 @@
 import { BacklogStore } from './store';
 import actions from './constants';
+import axios from '../../api/axios';
+
+const backlog = {
+  id: 0,
+  name: 'backlog',
+};
 
 export default function useActions() {
   const [state, dispatch] = BacklogStore.useBacklog();
 
-  const onOpenModal = () => dispatch({ type: actions.openModal });
+  const loadSprints = async id => {
+    try {
+      const sprints = {};
+      const { data } = await axios.get(`sprint/project/${id}?finished=false`);
+      for (const item of data.sprints) {
+        sprints[`${item.id}-col`] = { ...item };
+      }
+      Object.assign(sprints, { '0-col': backlog });
+      dispatch({
+        type: actions.LOAD_SPRINTS,
+        payload: {
+          sprints,
+          project: id,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadTasks = async id => {
+    try {
+      const col = `${id}-col`;
+      const { data } = await axios.get(`task/project/${state.project}?sprint=${id}`);
+      const prev = { ...state.sprints[col] };
+      prev.tasks = data.tasks;
+      dispatch({
+        type: actions.SET_TASKS,
+        payload: {
+          [col]: prev,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onOpenModal = () => dispatch({ type: actions.OPEN_MODAL });
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
@@ -22,6 +65,8 @@ export default function useActions() {
   };
 
   return {
+    loadTasks,
+    loadSprints,
     onDragEnd,
     onOpenModal,
     state,

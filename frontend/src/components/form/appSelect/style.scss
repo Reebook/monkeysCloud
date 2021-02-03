@@ -4,13 +4,21 @@
   display: flex;
   flex-direction: column;
 
-  label {
-    text-transform: capitalize;
-    margin-bottom: 5px;
+  .MuiOutlinedInput-input {
+    padding: 5px 8px;
   }
-  select {
-    width: 50%;
-    height: 30px;
-    border-radius: 5px;
+  .MuiSelect {
+    margin-top: 5px;
+  }
+  .MuiSelect-selectMenu {
+    text-transform: capitalize;
+    font-size: 14px;
+  }
+
+  label {
+    color: #5e6c84;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
   }
 }

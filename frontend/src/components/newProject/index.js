@@ -40,30 +40,20 @@ const NewProject = ({ companies = [], closeModal, initialState, open }) => {
   };
 
   return (
-    <Modal
-      onRequestClose={closeModal}
-      isOpen={open}
-      style={modalStyles}
-      ariaHideApp={false}
-    >
+    <Modal onRequestClose={closeModal} isOpen={open} style={modalStyles} ariaHideApp={false}>
       <div className='create-project modal'>
         <div className='create-project__main'>
           <h2>{mode} Project</h2>
-          <AppForm
-            initialValues={initialState || defaultState}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
+          <AppForm initialValues={initialState || defaultState} validationSchema={validationSchema} onSubmit={onSubmit}>
             {options.map((o, i) => (
               <AppInput key={i} {...o} />
             ))}
 
             {companies.length ? (
-              <AppSelect options={companies} name='company' property='name' />
+              <AppSelect options={companies} name='company' />
             ) : (
               <p>
-                Do not have any associated company, before creating any project
-                related, please{' '}
+                Do not have any associated company, before creating any project related, please{' '}
                 <Link
                   to={{
                     pathname: `companies`,
@@ -78,10 +68,7 @@ const NewProject = ({ companies = [], closeModal, initialState, open }) => {
             )}
 
             <div className='modal__button-container'>
-              <AppButton
-                title={mode}
-                disabled={companies.length ? false : true}
-              />
+              <AppButton title={mode} disabled={companies.length ? false : true} />
             </div>
           </AppForm>
         </div>
@@ -110,7 +97,7 @@ const options = [
   {
     name: 'key',
     label: 'Key',
-    placeholder:"Key"
+    placeholder: 'Key',
   },
 ];
 

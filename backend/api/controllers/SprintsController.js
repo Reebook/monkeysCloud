@@ -16,17 +16,21 @@ module.exports = {
     }
   },
   read: async function (req, res) {
-    if (req.params.id != undefined) {
-      const readSprint = await sprints.findOne(req.params.id);
-      return res.json(readSprint);
-    } else {
-      return res.send("invalid input");
+    const query = { project: req.params.id };
+    if (req.query.finished) {
+      query.finished = req.query.finished === "true" ? true : false;
+    }
+    try {
+      const data = await sprints.find(query);
+      res.send({ sprints: data });
+    } catch (error) {
+      res.serverError();
     }
   },
   sprintTasks: async function (req, res) {
     try {
-      const sprint = await sprints.find({});
-      res.send(sprint);
+      const data = await sprints.find({ project: req.params.id });
+      res.send({ sprints: data });
     } catch (error) {
       res.serverError();
     }

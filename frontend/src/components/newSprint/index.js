@@ -14,7 +14,7 @@ import modalStyles from '../../utils/modalStyles';
 const NewSprint = ({ closeModal, openModal, project }) => {
   const onSubmit = async values => {
     try {
-      await axios.post('state/create', { ...values, project });
+      await axios.post('sprint/create', { ...values, project });
       NotificationManager.success('Sprint created successfully!');
       closeModal();
     } catch (error) {

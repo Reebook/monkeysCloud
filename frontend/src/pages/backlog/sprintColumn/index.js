@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from 'react-icons/md';
 import { Droppable } from 'react-beautiful-dnd';
@@ -7,19 +7,38 @@ import Moment from 'react-moment';
 import './style.scss';
 import PopUp from './popUp';
 import SprintTask from '../sprintTask';
+import usePlanning from '../../../store/backlog/actions';
 
-const SprintColumn = ({ name, startDate, endDate, tasks = [], backlog }) => {
+const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) => {
+  const { loadTasks } = usePlanning();
+  const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(true);
-  const [popOver, setPopOver] = useState(false);
+  const [popOver, setPopOver] = useState(null);
 
   const onToggle = () => setShow(prev => !prev);
-  //popover
-  const onClosePopOver = e => {
-    if (e.currentTarget?.contains(ref.current)) return setPopOver(!popOver);
-    setPopOver(false);
+
+  const getData = async () => {
+    await loadTasks(id);
+    setLoading(false);
   };
 
-  const ref = useRef(null);
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClick = event => {
+    setPopOver(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setPopOver(null);
+  };
+
+  const open = Boolean(popOver);
+  const popOverId = open ? 'simple-popover' : undefined;
+
+  if (loading) return null;
 
   return (
     <div className='sprint-column d-flex flex-column '>
@@ -30,13 +49,16 @@ const SprintColumn = ({ name, startDate, endDate, tasks = [], backlog }) => {
         <div className='monkeys-p-2'>
           <span className='name'>{name}</span>
         </div>
-        <span className='text-secondary'>{tasks.length} issues</span>
+        <span className='text-secondary'>{tasks?.length} issues</span>
         {!backlog && (
           <div className='sprint-options'>
-            <button ref={ref} className='outline-button' onClick={onClosePopOver}>
+            <button disabled={true} className='outline-button'>
+              Start sprint
+            </button>
+            <button className='outline-button' onClick={handleClick}>
               <BsThreeDots />
             </button>
-            <PopUp open={popOver} close={onClosePopOver} />
+            <PopUp open={open} id={popOverId} handleClose={handleClose} popOver={popOver} />
           </div>
         )}
       </div>
@@ -45,42 +67,44 @@ const SprintColumn = ({ name, startDate, endDate, tasks = [], backlog }) => {
           {endDate && startDate && (
             <div className='d-flex align-items-center monkeys-text-gray'>
               <span className='monkeys-p-2 date'>
-                <Moment format='DD/MM/YYYY'>{startDate}</Moment>
+                <Moment format='MM/DD/YYYY'>{startDate}</Moment>
               </span>
               <span className='monkeys-p-2 date'>~</span>
               <span className='monkeys-p-2 date'>
-                <Moment format='DD/MM/YYYY'>{endDate}</Moment>
+                <Moment format='MM/DD/YYYY'>{endDate}</Moment>
               </span>
             </div>
           )}
-          <Droppable droppableId={name}>
-            {provided => (
-              <div
-                {...provided.droppableProps}
-                key={name}
-                ref={provided.innerRef}
-                className='tasks-row-container d-flex align-items-center flex-column'
-              >
-                {tasks.length ? (
-                  tasks.map((task, index) => <SprintTask {...task} index={index} key={`planning-sprint-issue-id-${task.id}`} />)
-                ) : (
-                  <>
-                    <div className='drag-issues'>
-                      <p>Plan a sprint by dragging the sprint footer down below some issues, or by dragging issues here.</p>
-                    </div>
-                    <button id='create' className='outline-button'>
-                      + Create issue
-                    </button>
-                  </>
-                )}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          {!loading && (
+            <Droppable droppableId={`${id}-col`}>
+              {provided => (
+                <div
+                  {...provided.droppableProps}
+                  key={name}
+                  ref={provided.innerRef}
+                  className='tasks-row-container d-flex align-items-center flex-column'
+                >
+                  {tasks?.length ? (
+                    tasks.map((task, index) => <SprintTask {...task} index={index} key={`planning-sprint-issue-id-${task.id}`} />)
+                  ) : (
+                    <>
+                      <div className='drag-issues'>
+                        <p>Plan a sprint by dragging the sprint footer down below some issues, or by dragging issues here.</p>
+                      </div>
+                      <button id='create' className='outline-button'>
+                        + Create issue
+                      </button>
+                    </>
+                  )}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )}
         </>
       )}
     </div>
   );
 };
 
-export default memo(SprintColumn);
+export default SprintColumn;

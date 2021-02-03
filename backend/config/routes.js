@@ -22,12 +22,11 @@ module.exports.routes = {
 
   //CompanyController Routes
 
-  'POST /Company/Create': {controller: "Company", action: "create"},
-  'GET /Company/Read/:id': {controller: "Company", action: "read"},
-  'GET /Company/admin': {controller: "Company", action: "getMyCompanies"},
-  'PATCH /Company/Update/:id': {controller: "Company", action: "update"},
-  'DELETE /Company/Delete': {controller: "Company", action: "delete"},
-  
+  "POST /Company/Create": { controller: "Company", action: "create" },
+  "GET /Company/Read/:id": { controller: "Company", action: "read" },
+  "GET /Company/admin": { controller: "Company", action: "getMyCompanies" },
+  "PATCH /Company/Update/:id": { controller: "Company", action: "update" },
+  "DELETE /Company/Delete": { controller: "Company", action: "delete" },
 
   //LanguagesController Routes
   "POST /Language/Create": { controller: "Languages", action: "create" },
@@ -37,12 +36,11 @@ module.exports.routes = {
 
   //ProjectsController Routes
 
-  'POST /Project/Create': {controller: "Projects", action: "create"},  
-  'GET /Project/Read': {controller: "Projects", action: "read"},  
-  "GET /project/:id/users": {controller: "Projects", action: "users"} ,
-  'PATCH /Project/Update/:id': {controller: "Projects", action: "update"},
-  'DELETE /Project/Delete': {controller: "Projects", action: "delete"},
-
+  "POST /Project/Create": { controller: "Projects", action: "create" },
+  "GET /Project/Read": { controller: "Projects", action: "read" },
+  "GET /project/:id/users": { controller: "Projects", action: "users" },
+  "PATCH /Project/Update/:id": { controller: "Projects", action: "update" },
+  "DELETE /Project/Delete": { controller: "Projects", action: "delete" },
 
   //RecoveryCodeController Routes
   "POST /RecoveryCode/Create": { controller: "RecoveryCode", action: "create" },
@@ -66,15 +64,14 @@ module.exports.routes = {
 
   //SprintsController Routes
   "POST /Sprint/Create": { controller: "Sprints", action: "create" },
-  "GET /Sprint/Read/:id": { controller: "Sprints", action: "read" },
-  "GET /sprint/project/:id/tasks": {controller: "sprints" , action:"sprintTasks"},
+  "GET /Sprint/project/:id": { controller: "Sprints", action: "read" },
   "PATCH /Sprint/Update": { controller: "Sprints", action: "update" },
   "DELETE /Sprint/Delete": { controller: "Sprints", action: "delete" },
 
   //TasksController Routes
   "POST /Task/Create": { controller: "Tasks", action: "create" },
   "GET /Task/Read/:id": { controller: "Tasks", action: "read" },
-  "GET /task/read": {controller:"Tasks", action:"readAll"},
+  "GET /task/project/:id": { controller: "Tasks", action: "readAll" },
   "GET /Task/ReadByState/:id": { controller: "Tasks", action: "readByState" },
   "GET /Task/ReadStates": { controller: "Tasks", action: "readStates" },
   "PATCH /Task/Update/:id": { controller: "Tasks", action: "update" },
@@ -84,23 +81,24 @@ module.exports.routes = {
   //'POST /user/create': 'UserController.create',
   //'GET /user/read/:id': 'UserController.read',
 
+  "POST /User/Create": { controller: "User", action: "create" },
+  "GET /User/Read/:id": { controller: "User", action: "read" },
+  "GET /user/me": "UserController.me",
+  "GET /User/CreatedProjects/:id": {
+    controller: "User",
+    action: "createdProjects",
+  },
+  "GET /user/projects": { controller: "User", action: "projects" },
 
-  'POST /User/Create': {controller: "User", action: "create"},
-  'GET /User/Read/:id': {controller: "User", action: "read"},
-  'GET /user/me': 'UserController.me',
-  'GET /User/CreatedProjects/:id': {controller: "User", action: "createdProjects"},
-  'GET /user/projects': {controller: "User", action: "projects"},
-
-  'PATCH /User/Update/:id': {controller: "User", action: "update"},
-  'PATCH /user/changePassword/:id': 'UserController.changePassword',
-  'DELETE /User/Delete': {controller: "User", action: "delete"},
-  'POST /User/LogIn': {controller: "User", action: "login"},
-  'POST /User/GoogleLogIn': {controller: "User", action: "googleLogin"},
-  'POST /user/checkout/subscription': 'UserController.subscription',
-  'POST /user/checkout/changeCreditCard': 'UserController.changeCreditCard',
-  'POST /user/checkout/cancel': 'UserController.cancelSubscription',
-  'POST /user/checkout/test': 'UserController.test',
-
+  "PATCH /User/Update/:id": { controller: "User", action: "update" },
+  "PATCH /user/changePassword/:id": "UserController.changePassword",
+  "DELETE /User/Delete": { controller: "User", action: "delete" },
+  "POST /User/LogIn": { controller: "User", action: "login" },
+  "POST /User/GoogleLogIn": { controller: "User", action: "googleLogin" },
+  "POST /user/checkout/subscription": "UserController.subscription",
+  "POST /user/checkout/changeCreditCard": "UserController.changeCreditCard",
+  "POST /user/checkout/cancel": "UserController.cancelSubscription",
+  "POST /user/checkout/test": "UserController.test",
 
   //WorkinfoController Routes
   "POST /Workinformation/Create": { controller: "Workinfo", action: "create" },
@@ -111,13 +109,11 @@ module.exports.routes = {
     action: "delete",
   },
 
-
   //Agency Routes
   "POST /Agency/Create": { controller: "Agency", action: "create" },
   "GET /Agency/Read/:id": { controller: "Agency", action: "read" },
   "PATCH /Agency/Update": { controller: "Agency", action: "update" },
   "DELETE /Agency/Delete": { controller: "Agency", action: "delete" },
-
 
   //Backup Routes
   "POST /Backup/Create": { controller: "Backup", action: "create" },
@@ -133,12 +129,11 @@ module.exports.routes = {
 
   //Component Routes
 
-  'POST /Component/Create': {controller: "Component", action: "create"},
-  'GET /Component/Read/:id': {controller: "Component", action: "read"},
-  'GET /Component/ReadAll': {controller: "Component", action: "readAll"},
-  'PATCH /Component/Update': {controller: "Component", action: "update"},
-  'DELETE /Component/Delete': {controller: "Component", action: "delete"},
-
+  "POST /Component/Create": { controller: "Component", action: "create" },
+  "GET /Component/Read/:id": { controller: "Component", action: "read" },
+  "GET /Component/ReadAll": { controller: "Component", action: "readAll" },
+  "PATCH /Component/Update": { controller: "Component", action: "update" },
+  "DELETE /Component/Delete": { controller: "Component", action: "delete" },
 
   //ConnectionType Routes
   "POST /ConnectionType/Create": {
@@ -244,20 +239,22 @@ module.exports.routes = {
     controller: "ScheduleBackup",
     action: "delete",
   },
-  
+
   //PullRequest Routes
-  'POST /PullRequest/Create': {controller: "PullRequest", action: "create"},
-  'GET /PullRequest/Read/:id': {controller: "PullRequest", action: "read"},
-  'PATCH /PullRequest/Update': {controller: "PullRequest", action: "update"},
-  'DELETE /PullRequest/Delete': {controller: "PullRequest", action: "delete"},
+  "POST /PullRequest/Create": { controller: "PullRequest", action: "create" },
+  "GET /PullRequest/Read/:id": { controller: "PullRequest", action: "read" },
+  "PATCH /PullRequest/Update": { controller: "PullRequest", action: "update" },
+  "DELETE /PullRequest/Delete": { controller: "PullRequest", action: "delete" },
 
   //State Routes
-  'POST /State/Create': {controller: "State", action: "create"},
-  'GET /state/project/:id/tasks':{controller:"State",action:"getStateTasks"},
-  'GET /State/ReadAll': { controller: "State", action: "readAll" },
-  'PATCH /State/Update/:id': {controller: "State", action: "update"},
-  'DELETE /State/Delete': {controller: "State", action: "delete"},
-  
+  "POST /State/Create": { controller: "State", action: "create" },
+  "GET /state/project/:id/tasks": {
+    controller: "State",
+    action: "getStateTasks",
+  },
+  "GET /State/ReadAll": { controller: "State", action: "readAll" },
+  "PATCH /State/Update/:id": { controller: "State", action: "update" },
+  "DELETE /State/Delete": { controller: "State", action: "delete" },
 
   //TypeEnviroments Routes
   "POST /TypeEnviroment/Create": {
