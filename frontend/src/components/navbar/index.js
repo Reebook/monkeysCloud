@@ -1,6 +1,9 @@
 import React, { memo, useState } from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { useHistory, Link } from 'react-router-dom'
+import {makeStyles} from '@material-ui/core/styles';
+import Badge from '@material-ui/core/Badge';
+
 // Local
 import "./style.scss";
 
@@ -8,6 +11,19 @@ import "./style.scss";
 import Avatar from "../avatar";
 import Iconconfig from "../configicon";
 import SearchFilter from "./SearchFilter";
+//estilo alert Notifications
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(2),
+      
+    },
+  },
+  badge:{
+    right: '0.5em'
+  },
+
+}))
 
 function Navbar() {
   // const sampleData = [
@@ -19,7 +35,7 @@ function Navbar() {
 
   const [showSearchBox, setSearchBox] = useState(false);
   const onClick = () => setSearchBox(!showSearchBox);
-
+  const classes = useStyles();
   return (
     <nav className="monkeys-nav">
       <Link to="/" className="logo-container">
@@ -35,9 +51,14 @@ function Navbar() {
       <div className="navbar-icons">
         <FaSearch className="nav-icon" value="Search" onClick={onClick} />
         {/*<input type="submit" value="Search" onClick={onClick} />*/}
-
+        
         <Iconconfig className="nav-icon" />
-        <FaBell className="nav-icon"/>
+        <div  className={classes.root}>
+        <Badge badgeContent={5} color="secondary" className={classes.badge}>
+        <FaBell className="nav-icon-notification"/>
+    
+        </Badge>
+        </div>
         <Avatar className="nav-avatar" />
       </div>
     </nav>
