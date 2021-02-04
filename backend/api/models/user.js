@@ -61,13 +61,9 @@ module.exports = {
       collection: "workinfo",
       via: "user",
     },
-    taskscreated: {
+    assigned: {
       collection: "tasks",
-      via: "createdby",
-    },
-    workingon: {
-      collection: "tasks",
-      via: "takenby",
+      via: "assignee",
     },
     //-----------------New fields--------------------
     userImg: {
@@ -159,7 +155,7 @@ module.exports = {
       columnName: "typeMember",
       columnType: "varchar(20)",
     },
-    //
+    /////////////////
     createdProject: {
       collection: "projects",
       via: "lead",

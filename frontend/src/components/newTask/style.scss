@@ -3,6 +3,7 @@
 .new-task {
   width: 800px;
   height: 800px;
+  overflow: auto;
   .create-issue {
     color: #172b4d;
     font-weight: normal;
@@ -31,28 +32,4 @@
     text-align: center;
     margin-top: -10px;
   }
-}
-
-.img-preview {
-  display: block;
-  width: auto;
-  height: 100%;
-}
-
-.thumb {
-  display: inline-flex;
-  border-radius: 2;
-  border: 1px solid #eaeaea;
-  margin-bottom: 8;
-  margin-right: 8;
-  width: 100;
-  height: 100;
-  padding: 4;
-  box-sizing: border-box;
-}
-
-.thumbInner {
-  display: flex;
-  min-width: 0;
-  overflow: hidden;
 }

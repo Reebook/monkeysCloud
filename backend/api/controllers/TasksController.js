@@ -8,19 +8,23 @@
 module.exports = {
   create: async function (req, res) {
     try {
-      const newTask = await tasks.create(req.body).fetch();
-      return res.json({ tasks: newTask });
+      const task = await tasks.create(req.body).fetch();
+      if (req.body.assignee) {
+        await tasks.addToCollection(task.id, "assignee", req.params.users);
+      }
+      res.json({ task });
     } catch (error) {
-      res.serverError("Invalid Data");
+      res.serverError();
       console.log(error);
     }
   },
   read: async function (req, res) {
-    if (req.params.id != undefined) {
-      const readTask = await tasks.findOne(req.params.id);
-      return res.json(readTask);
-    } else {
-      return res.send("invalid input");
+    try {
+      const task = await tasks.findOne(req.params.id).populateAll();
+      if (!task) return res.notFound();
+      res.send({ task });
+    } catch (error) {
+      res.serverError();
     }
   },
   readAll: async function (req, res) {
@@ -32,7 +36,6 @@ module.exports = {
         where: query,
         sort: "position ASC",
       });
-
       res.send({ tasks: projectTasks });
     } catch (error) {
       res.serverError();
@@ -40,26 +43,6 @@ module.exports = {
     }
   },
 
-  readByState: async function (req, res) {
-    try {
-      //const getState = await state.findOne(req.params.id);
-      var readTask = await tasks.find({ where: { state: req.params.id } });
-      return res.json(readTask);
-    } catch (error) {
-      res.serverError("Invalid Data");
-      console.log(error);
-    }
-  },
-  readStates: async function (req, res) {
-    //Este campo permite cargar los estados que se le pueden asignar a una tarea
-    try {
-      var allStates = await state.find();
-      return res.json(allStates);
-    } catch (error) {
-      res.serverError("Invalid Data");
-      console.log(error);
-    }
-  },
   update: async function (req, res) {
     try {
       const task = await tasks.update(req.params.id).set(req.body).fetch();

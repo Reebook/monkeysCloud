@@ -72,10 +72,11 @@ module.exports.routes = {
   "POST /Task/Create": { controller: "Tasks", action: "create" },
   "GET /Task/Read/:id": { controller: "Tasks", action: "read" },
   "GET /task/project/:id": { controller: "Tasks", action: "readAll" },
-  "GET /Task/ReadByState/:id": { controller: "Tasks", action: "readByState" },
-  "GET /Task/ReadStates": { controller: "Tasks", action: "readStates" },
   "PATCH /Task/Update/:id": { controller: "Tasks", action: "update" },
   "DELETE /Task/Delete": { controller: "Tasks", action: "delete" },
+
+  "POST /epic/:id/tasks": "TasksController.addSubTask",
+  "GET /epic/:id/tasks": "TasksController.getEpicTasks",
 
   //UserController Routes
   //'POST /user/create': 'UserController.create',
@@ -84,17 +85,13 @@ module.exports.routes = {
   "POST /User/Create": { controller: "User", action: "create" },
   "GET /User/Read/:id": { controller: "User", action: "read" },
   "GET /user/me": "UserController.me",
-  "GET /User/CreatedProjects/:id": {
-    controller: "User",
-    action: "createdProjects",
-  },
   "GET /user/projects": { controller: "User", action: "projects" },
-
   "PATCH /User/Update/:id": { controller: "User", action: "update" },
   "PATCH /user/changePassword/:id": "UserController.changePassword",
   "DELETE /User/Delete": { controller: "User", action: "delete" },
   "POST /User/LogIn": { controller: "User", action: "login" },
   "POST /User/GoogleLogIn": { controller: "User", action: "googleLogin" },
+  //checkout
   "POST /user/checkout/subscription": "UserController.subscription",
   "POST /user/checkout/changeCreditCard": "UserController.changeCreditCard",
   "POST /user/checkout/cancel": "UserController.cancelSubscription",
@@ -131,7 +128,7 @@ module.exports.routes = {
 
   "POST /Component/Create": { controller: "Component", action: "create" },
   "GET /Component/Read/:id": { controller: "Component", action: "read" },
-  "GET /Component/ReadAll": { controller: "Component", action: "readAll" },
+  "GET /Component/project/:id": { controller: "Component", action: "readAll" },
   "PATCH /Component/Update": { controller: "Component", action: "update" },
   "DELETE /Component/Delete": { controller: "Component", action: "delete" },
 
@@ -279,9 +276,6 @@ module.exports.routes = {
   "GET /WorkLog/Read/:id": { controller: "WorkLog", action: "read" },
   "PATCH /WorkLog/Update": { controller: "WorkLog", action: "update" },
   "DELETE /WorkLog/Delete": { controller: "WorkLog", action: "delete" },
-
-  "POST /epic/:id/tasks": "TasksController.addSubTask",
-  "GET /epic/:id/tasks": "TasksController.getEpicTasks",
 
   /***************************************************************************
    *                                                                          *

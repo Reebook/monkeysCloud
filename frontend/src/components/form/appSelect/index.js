@@ -5,7 +5,7 @@ import { Select, MenuItem } from '@material-ui/core';
 import './style.scss';
 import ErrorMessage from '../errorMessage';
 
-const AppSelect = ({ defaultValue, name, label, options = [], property, width = 300, ...rest }) => {
+const AppSelect = ({ defaultValue, name, label, options = [], property = 'id', width = 300, ...rest }) => {
   const { values, handleChange, errors, touched } = useFormikContext();
   return (
     <div className='form-group'>
@@ -27,7 +27,7 @@ const AppSelect = ({ defaultValue, name, label, options = [], property, width = 
       >
         {defaultValue && <MenuItem value=''>{defaultValue}</MenuItem>}
         {options.map((o, i) => (
-          <MenuItem key={i} value={+o[property] || +o.id} style={{ textTransform: 'capitalize' }}>
+          <MenuItem key={i} value={o[property]} style={{ textTransform: 'capitalize' }}>
             {o.icon && o.icon()} {o.name}
           </MenuItem>
         ))}

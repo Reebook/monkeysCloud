@@ -5,6 +5,7 @@ const defaultState = {
   columns: {},
   columnOrder: [],
   loading: true,
+  project: {},
   sprintModal: false,
   newStateModal: false,
   newTaskModal: true,
