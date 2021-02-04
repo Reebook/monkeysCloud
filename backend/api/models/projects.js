@@ -60,9 +60,9 @@ module.exports = {
       collection: "tasks",
       via: "project",
     },
-    relatedComponents: {
+    components: {
       collection: "component",
-      via: "relatedProject",
+      via: "project",
     },
     states: {
       collection: "state",

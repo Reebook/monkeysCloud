@@ -6,6 +6,7 @@ export default {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(139,149, 166, 0.75)',
+    zIndex: 999,
   },
   content: {
     border: 'none',

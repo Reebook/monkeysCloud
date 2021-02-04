@@ -25,7 +25,6 @@ module.exports = {
       type: "number",
       defaultsTo: 999,
     },
-
     summary: {
       type: "string",
       required: false,
@@ -61,12 +60,13 @@ module.exports = {
       model: "projects",
       required: true,
     },
-    createdby: {
+    reporter: {
       model: "user",
+      required: true,
     },
-    takenby: {
+    assignee: {
       collection: "user",
-      required: false,
+      via: "assigned",
     },
 
     //------------------------------New fields -------------------------------
