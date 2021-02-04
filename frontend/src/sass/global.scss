@@ -356,7 +356,7 @@ button {
 
 .modal {
   box-shadow: 0 0 4px #000000;
-  padding: 25px 15px;
+  padding: 25px 30px;
   border-radius: 5px;
   background: #ffff;
   .error-message {
@@ -438,4 +438,7 @@ button {
   border: none;
   display: flex;
   align-items: center;
+  &:disabled {
+    opacity: 0.3;
+  }
 }

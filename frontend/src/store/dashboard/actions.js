@@ -29,10 +29,7 @@ export default function useActions() {
 
   const onDragEnd = ({ destination, source, draggableId, type }) => {
     if (!destination) return;
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.droppableId
-    ) {
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
       return;
     }
     const { columns, columnOrder } = state;
@@ -62,8 +59,7 @@ export default function useActions() {
       });
       if (sourceRef !== destRef) {
         prevColumns[sourceRef].tasks.forEach(({ id, position }, index) => {
-          if (position !== index)
-            axios.patch(`task/update/${id}`, { position: index });
+          if (position !== index) axios.patch(`task/update/${id}`, { position: index });
         });
       }
       ////////////////////////
@@ -83,16 +79,12 @@ export default function useActions() {
     dispatch({ type: actions.UPDATE_COLUMNS, payload: newOrder });
   };
 
-  const openSprintModal = () => dispatch({ type: actions.SET_SPRINT_MODAL });
-
-  const openNewStateModal = () =>
-    dispatch({ type: actions.SET_NEWSTATE_MODAL });
+  const openModal = key => dispatch({ type: actions.OPEN_MODAL, payload: key });
 
   return {
     getData,
     onDragEnd,
-    openSprintModal,
-    openNewStateModal,
+    openModal,
     state,
   };
 }

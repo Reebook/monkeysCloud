@@ -15,12 +15,6 @@ module.exports = {
       columnType: "varchar(20)",
       columnName: "name",
     },
-    // duda el campo va ser varchar , int o char
-    /* 
-        type:'ref',
-        columnType:'char'
-
-        */
     duration: {
       type: "number",
       columnName: "duration",
@@ -46,7 +40,12 @@ module.exports = {
     isActive: {
       type: "boolean",
       columnName: "isActive",
-      defaultsTo: true,
+      defaultsTo: false,
+    },
+    finished: {
+      type: "boolean",
+      columnName: "finished",
+      defaultsTo: false,
     },
     // duda con relacion entre sprint y historial , si la entidad es historyLog
     project: {

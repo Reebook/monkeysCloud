@@ -5,8 +5,9 @@ const defaultState = {
   columns: {},
   columnOrder: [],
   loading: true,
-  springModal: false,
+  sprintModal: false,
   newStateModal: false,
+  newTaskModal: true,
 };
 
 const reducer = (state = defaultState, action = {}) => {
@@ -26,11 +27,8 @@ const reducer = (state = defaultState, action = {}) => {
     case actions.UPDATE_COLUMNS:
       return { ...state, columnOrder: payload };
 
-    case actions.SET_SPRINT_MODAL:
-      return { ...state, springModal: !state.springModal };
-
-    case actions.SET_NEWSTATE_MODAL:
-      return { ...state, newStateModal: !state.newStateModal };
+    case actions.OPEN_MODAL:
+      return { ...state, [payload]: !state[payload] };
 
     default:
       return state;

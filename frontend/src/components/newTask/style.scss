@@ -1,225 +1,69 @@
-.main-container{      
-    width: 65%;
-    margin: 2em auto;
-    display: block;
-    background-color: #f5f4f4;
-    border-radius: 10px;
-    border: solid 1.5px #D3D3D3;  
-}
+@import '../../sass/main.scss';
 
-h3{
-    color: #15225a;   
-    height: 40px;
-    font-family: Rubik;
-    font-size: 30px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.14;
-    letter-spacing: normal;
-}
-
-.form-container{
-    width: 100%;
-    margin: auto;    
-}
-
-.input-divider{
-    width: 100%;
-    display: flex;
-}
-
-.form-control{
-    border-radius: 3px;
-    border: solid 1.5px #D3D3D3;  
-    transition: 0s;
-    padding: 5px 12px;    
-    font-size: 14px;
-    line-height: 20px;        
-    font-weight: 500;
-    display: block;
-    width: 100%;
-    margin: 0.5em;
-}
-
-.divided-control{
-    border-radius: 3px;
-    border: solid 1.5px #D3D3D3;  
-    transition: 0s;
-    padding: 5px 12px;    
-    font-size: 14px;
-    line-height: 20px;        
-    font-weight: 500;
-    display: block;
-    width: 50%;
-    margin: 0.5em;
-}
-
-.title-control{ 
-    margin-top: 2%;
-    padding: 0px 8px;    
-    font-size: 14px;
-    line-height: 20px;        
-    font-weight: 500;
-    display: block;
-    width: 50%;
-    color: #83848a;
-}
-
-.description{
-    color: #83848a;
-    font-weight: 100;              
-    padding: 5px 12px;    
-    font-size: 12px;
-    line-height: 20px;     
-    text-align: center;
-}
-
-hr{
-    margin: 10px auto;
-    width: 85%;
-}
-
-.actions{
-    display: flex;
-    padding-bottom: 1em;
-    margin-top: 1em;
-    position: absolute;
-    right: 2em;
-}
-
-.span{
-    color: #5a5b5f;
-    font-weight: 500;              
-    padding: 5px 12px;    
-    font-size: 15px;
-    line-height: 12px;       
-    margin-top: 3px;
-}
-
-.submit-button{
-    padding: 5px 15px;
-    background-color:#0759bd;
-    color: #fff;
-    border-radius: 4px;
-    transition: 0s;
-}
-
-.submit-button:hover{
-    background-color:#15225a;    
-    color: #fff;
-}
-
-.cancel{
-    margin-left: 8px;
-    padding: 5px 15px;
-    color:#0759bd;    
-    border-radius: 4px;
-    border: solid 1.5px #D3D3D3;
-    transition: 0s;
-}
-
-.cancel:hover{
-    background-color:#15225a;    
-    color: #fff;
-}
-
-.upload-container{
-    width: 100%;
-    display: block;
-    padding: 10px;    
-}
-
-.dropzone{
-    margin: auto;
-    width: 100%;
-    font-weight: 300;
-    text-align: center;
-    font-size: 14px;
-    line-height: 20px;
-    border: dashed 1px #aeafb1;
-    padding: 1em;
-}
-
-.uploaded-files{
-    margin: 2px auto;
-    padding: 6px;
-    font-weight: 300;
-    text-align: center;
-    font-size: 14px;
-    line-height: 20px;
-    color: #aeafb1;
-    
-}
-
-.lb-description{
-    font-size: 14px;
-    line-height: 20px; 
-    font-weight: 300;
-    color: #aeafb1;
-    padding-bottom: 10px;
-}
-
-/* Popup style begginin*/
-.popup-box {
-  position: fixed;
-  background: #00000050;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-}
- 
-.boxContent {
-  position: relative;
-  width: 50%;
-  margin: 0 auto;
-  height: auto;
-  max-height: 90vh;
-  margin-top: calc(93vh - 90vh - 20px);
-  background-color:rgb(248, 248, 255);
-  border-radius: 4px;
-  padding: 32px 20px;
-  border: 1px solid #999;  
-  overflow: auto;
-}
- /* Popup style ending*/
-
-.priority-style{
-    padding-right: 6px;
+.new-task {
+  width: 800px;
+  height: 800px;
+  .create-issue {
+    color: #172b4d;
+    font-weight: normal;
     font-size: 20px;
-    line-height: 20px; 
-    font-weight: 300;
-}
-
-.thumbsContainer{    
+    line-height: 1.5;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .new-one {
+    margin-right: 5px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;    
-    margin-top: 16;    
+    align-items: center;
+    input {
+      margin-right: 8px;
+    }
+  }
+  .description {
+    color: #83848a;
+    font-weight: 100;
+    padding: 5px 12px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+  }
+  .cancel {
+    margin-left: 5px;
+    padding: 5px 15px;
+    color: #0759bd;
+    border-radius: 4px;
+    border: solid 1.5px #d3d3d3;
+    transition: 0s;
+    &:hover {
+      background-color: #15225a;
+      color: #fff;
+    }
+  }
 }
 
 .img-preview {
-    display: block;
-    width: auto;
-    height: 100%;
+  display: block;
+  width: auto;
+  height: 100%;
 }
 
 .thumb {
-    display: inline-flex;
-    border-radius: 2;
-    border: 1px solid #eaeaea;
-    margin-bottom: 8;
-    margin-right: 8;
-    width: 100;
-    height: 100;
-    padding: 4;
-    box-sizing: border-box;
+  display: inline-flex;
+  border-radius: 2;
+  border: 1px solid #eaeaea;
+  margin-bottom: 8;
+  margin-right: 8;
+  width: 100;
+  height: 100;
+  padding: 4;
+  box-sizing: border-box;
 }
 
 .thumbInner {
-    display: flex;
-    min-width: 0;
-    overflow: hidden;
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
 }
-

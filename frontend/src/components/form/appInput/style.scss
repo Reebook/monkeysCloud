@@ -2,7 +2,7 @@
 
 .form-group {
   margin: 10px 0;
-  min-height: 75px;
+  min-height: 70px;
 }
 
 .form-group input {
@@ -20,6 +20,7 @@
   letter-spacing: normal;
   color: $dark-blue;
   margin-top: 5px;
+  outline-color: $Brandeisblue-color !important;
 }
 
 .form-group label {
@@ -32,6 +33,7 @@
   line-height: normal;
   letter-spacing: 1.13px;
   color: $secondary-gray;
+  text-transform: capitalize;
 }
 
 .danger {

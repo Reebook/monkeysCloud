@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 import actions from './constants';
-import sprints from './sprints';
 
 const defaultState = {
-  project: {},
-  sprints: sprints,
+  project: '',
+  sprints: {},
   loading: true,
   openModal: false,
   selectedTask: true,
@@ -14,9 +13,21 @@ const defaultState = {
 const reducer = (state = defaultState, action = {}) => {
   const { type, payload } = action;
   switch (type) {
-    case actions.GET_INITIAL_DATA:
+    case actions.LOAD_SPRINTS:
       return {
         ...state,
+        sprints: payload.sprints,
+        project: payload.project,
+        loading: false,
+      };
+
+    case actions.SET_TASKS:
+      return {
+        ...state,
+        sprints: {
+          ...state.sprints,
+          ...payload,
+        },
       };
 
     case actions.OPEN_MODAL:

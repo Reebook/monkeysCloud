@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo, useEffect } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { FaShareAlt } from 'react-icons/fa';
 import { BsThreeDots } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
@@ -8,17 +9,24 @@ import Breadcrumb from '../../components/breadcrumb';
 import EditTask from './editTask';
 import MainFilter from './mainFilter';
 import NewSprint from '../../components/newSprint';
+import Spinner from '../../components/spinner';
 import SprintColumn from './sprintColumn';
 import useBacklog from '../../store/backlog/actions';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 const Backlog = () => {
   const { id } = useParams();
   const {
+    loadSprints,
     onDragEnd,
     onOpenModal,
-    state: { openModal, sprints },
+    state: { openModal, sprints, loading },
   } = useBacklog();
+
+  useEffect(() => {
+    loadSprints(id);
+  }, []);
+
+  if (loading) return <Spinner />;
 
   return (
     <>
@@ -58,4 +66,4 @@ const Backlog = () => {
   );
 };
 
-export default Backlog;
+export default memo(Backlog);

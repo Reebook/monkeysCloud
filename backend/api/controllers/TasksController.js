@@ -24,11 +24,15 @@ module.exports = {
     }
   },
   readAll: async function (req, res) {
+    const query = { project: req.params.id };
+    if (req.query.sprint)
+      query.sprint = req.query.sprint === "0" ? null : req.query.sprint;
     try {
       const projectTasks = await tasks.find({
-        where: { project: 1 },
+        where: query,
         sort: "position ASC",
       });
+
       res.send({ tasks: projectTasks });
     } catch (error) {
       res.serverError();
