@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect, memo } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Modal from 'react-modal';
-import axios from 'axios';
 
 import './style.scss';
 import AppButton from '../form/button';
@@ -9,6 +8,7 @@ import AppForm from '../form/appForm';
 import AppInput from '../form/appInput';
 import AppTextArea from '../form/appTextArea';
 import AppSelect from '../form/appSelect';
+import axios from '../../api/axios';
 import modalStyles from '../../utils/modalStyles';
 import priorities from '../../utils/priorities';
 
@@ -74,8 +74,6 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-const width = 300;
-
 const NewTask = ({ closeModal, openModal }) => {
   const [projects, setProjects] = useState([]);
   const [components, setComponents] = useState([]);
@@ -136,7 +134,7 @@ const NewTask = ({ closeModal, openModal }) => {
 
   const getProjects = () => {
     axios
-      .get('http://localhost:1337/User/CreatedProjects/1')
+      .get('user/createdProjects/1')
       .then(res => {
         const allProjects = res.data.createdProject;
         setProjects(allProjects); //add projects to the hook
@@ -146,7 +144,7 @@ const NewTask = ({ closeModal, openModal }) => {
 
   const getComponents = () => {
     axios
-      .get('http://localhost:1337/Component/ReadAll')
+      .get('component/readAll')
       .then(res => {
         const allComponents = res.data;
         setComponents(allComponents);
@@ -162,39 +160,24 @@ const NewTask = ({ closeModal, openModal }) => {
     });
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(form);
-
-    axios
-      .post('http://localhost:1337/Task/Create', form)
-      .then(res => {
-        console.log('Done!', res.data);
-      })
-      .catch(error => console.log(error));
+  const onSubmit = values => {
+    console.log(values);
   };
-  console.log(Object.keys(priorities).map(i => ({ value: i, name: priorities[i].name })));
 
   return (
     <Modal onRequestClose={closeModal} isOpen={openModal} style={modalStyles} ariaHideApp={false}>
       <div className='modal new-task'>
-        <AppForm initialValues={defaultState}>
+        <AppForm initialValues={defaultState} onSubmit={onSubmit}>
           <h3 className='create-issue'>Create Issue</h3>
-
-          <AppSelect width={width} options={projects} empty={false} name='project' property='name' />
-          <AppSelect width={width} options={types} empty={false} label='issue type' name='isEpic' property='value' />
+          <AppSelect options={projects} name='project' property='name' />
+          <AppSelect options={types} label='issue type' name='isEpic' property='value' />
           <p className='description'>
             Some issue types are unavailable due to incompatible field configuration and/or workflow associations.
           </p>
           <hr />
           <AppInput name='summary' label='Summary' />
-          <AppSelect width={width} options={components1} name='components' />
-          <AppSelect
-            width={width}
-            property='value'
-            options={Object.keys(priorities).map(i => ({ ...priorities[i] }))}
-            name='priority'
-          />
+          <AppSelect options={components1} name='component' />
+          <AppSelect property='value' options={Object.keys(priorities).map(i => ({ ...priorities[i] }))} name='priority' />
           <section className='upload-container'>
             <div {...getRootProps({ style })}>
               <input {...getInputProps()} name='attachment' value={form.attachment} onChange={handleFormChange} />
@@ -208,14 +191,13 @@ const NewTask = ({ closeModal, openModal }) => {
             </div>
           </section>
           <AppTextArea label='Description' name='description' />
-
-          <div className='modal__button-container'>
-            <span className='new-one'>
-              <input type='checkbox' />
+          <div className='d-flex align-items-center justify-content-end'>
+            <span className='d-flex align-items-center monkeys-mr-2 '>
+              <input className='monkeys-mr-1' type='checkbox' />
               Create another
             </span>
             <AppButton title='Create' />
-            <button className='cancel' onClick={closeModal}>
+            <button className='btn-cancel' onClick={closeModal}>
               Cancel
             </button>
           </div>
@@ -226,7 +208,7 @@ const NewTask = ({ closeModal, openModal }) => {
 };
 
 const defaultState = {
-  relatedProject: '',
+  project: '',
   isEpic: '',
   priority: 3,
   summary: '',

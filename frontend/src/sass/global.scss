@@ -370,23 +370,6 @@ button {
     background: #fff;
     height: 30px;
     font-size: 14px;
-    &:focus {
-      outline-width: 0;
-      border: 1px solid $Brandeisblue-color;
-    }
-  }
-
-  &__button-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  button {
-    width: 90px;
-    height: 30px;
-    font-size: 14px;
-    margin: 8px 0;
-    justify-self: flex-end;
-    outline-width: 0;
   }
 }
 
@@ -440,5 +423,32 @@ button {
   align-items: center;
   &:disabled {
     opacity: 0.3;
+  }
+}
+
+.btn-submit {
+  width: 90px;
+  border-radius: 4px;
+  background-color: $Egyptianblue-color;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  font-size: 14px;
+  margin: 15px 0;
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.btn-cancel {
+  padding: 5px 18px;
+  font-size: 14px;
+  color: #0759bd;
+  border-radius: 4px;
+  border: none;
+  transition: 0s;
+  &:hover {
+    text-decoration: underline;
   }
 }

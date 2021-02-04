@@ -16,5 +16,7 @@ export default {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'transparent',
+    /*  width: '95%',
+    maxWidth: 800, */
   },
 };

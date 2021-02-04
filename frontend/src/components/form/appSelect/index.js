@@ -1,31 +1,33 @@
 import React, { memo } from 'react';
 import { useFormikContext } from 'formik';
-import Select from '@material-ui/core/Select';
-import { Fa500Px } from 'react-icons/fa';
+import { Select, MenuItem } from '@material-ui/core';
 
 import './style.scss';
 import ErrorMessage from '../errorMessage';
-import MenuItem from '@material-ui/core/MenuItem';
 
-const mt = 5;
-
-const AppSelect = ({ empty = true, name, label, options = [], property, width = '50%', ...rest }) => {
+const AppSelect = ({ defaultValue, name, label, options = [], property, width = 300, ...rest }) => {
   const { values, handleChange, errors, touched } = useFormikContext();
-
   return (
     <div className='form-group'>
       <label>{label || name}</label>
       <Select
         {...rest}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          getContentAnchorEl: null,
+        }}
         name={name}
         value={values[name]}
         onChange={handleChange}
         variant='outlined'
-        style={{ width, marginTop: mt }}
+        style={{ width }}
       >
-        {empty && <option value=''></option>}
+        {defaultValue && <MenuItem value=''>{defaultValue}</MenuItem>}
         {options.map((o, i) => (
-          <MenuItem key={i} value={o[property || 'id']} style={{ textTransform: 'capitalize' }}>
+          <MenuItem key={i} value={+o[property] || +o.id} style={{ textTransform: 'capitalize' }}>
             {o.icon && o.icon()} {o.name}
           </MenuItem>
         ))}

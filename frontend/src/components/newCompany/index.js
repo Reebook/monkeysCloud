@@ -42,23 +42,14 @@ const NewCompany = ({ initialState, open, closeModal }) => {
     await action(values);
   };
   return (
-    <Modal
-      onRequestClose={closeModal}
-      isOpen={open}
-      style={modalStyles}
-      ariaHideApp={false}
-    >
+    <Modal onRequestClose={closeModal} isOpen={open} style={modalStyles} ariaHideApp={false}>
       <div className='create-company modal'>
         <h2>{mode} Company</h2>
-        <AppForm
-          initialValues={initialState || defaultState}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
+        <AppForm initialValues={initialState || defaultState} validationSchema={validationSchema} onSubmit={onSubmit}>
           {options.map((o, i) => (
             <AppInput key={i} {...o} />
           ))}
-          <div className='modal__button-container'>
+          <div className='d-flex justify-content-end'>
             <AppButton title={mode} disabled={false} />
           </div>
         </AppForm>

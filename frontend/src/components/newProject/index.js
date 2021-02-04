@@ -67,7 +67,7 @@ const NewProject = ({ companies = [], closeModal, initialState, open }) => {
               </p>
             )}
 
-            <div className='modal__button-container'>
+            <div className='d-flex justify-content-end'>
               <AppButton title={mode} disabled={companies.length ? false : true} />
             </div>
           </AppForm>
