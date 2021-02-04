@@ -43,7 +43,7 @@ const Project = () => {
 
   return (
     <>
-      <NewTask openModal={newTaskModal} closeModal={() => openModal('newTask')} />
+      <NewTask openModal={newTaskModal} closeModal={() => openModal('newTaskModal')} />
       <SprintSettings openModal={sprintModal} closeModal={() => openModal('sprintModal')} />
       <NewState openModal={newStateModal} closeModal={() => openModal('newStateModal')} project={id} />
       <div className='dashboard-page'>

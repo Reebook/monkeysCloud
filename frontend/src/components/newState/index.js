@@ -21,21 +21,12 @@ const NewState = ({ closeModal, openModal, project }) => {
     }
   };
   return (
-    <Modal
-      onRequestClose={closeModal}
-      isOpen={openModal}
-      style={modalStyles}
-      ariaHideApp={false}
-    >
+    <Modal onRequestClose={closeModal} isOpen={openModal} style={modalStyles} ariaHideApp={false}>
       <div className='new-state modal'>
         <h2>Create New State</h2>
-        <AppForm
-          initialValues={defaultState}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
-        >
+        <AppForm initialValues={defaultState} onSubmit={onSubmit} validationSchema={validationSchema}>
           <AppInput name='name' placeholder='State Name' label='State Name' />
-          <div className='modal__button-container'>
+          <div className='d-flex justify-content-end'>
             <AppButton title='Create' />
           </div>
         </AppForm>

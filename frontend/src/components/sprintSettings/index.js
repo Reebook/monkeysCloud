@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Modal from 'react-modal';
 
 import './style.scss';
@@ -6,13 +6,7 @@ import modalStyles from '../../utils/modalStyles';
 
 const SprintSettings = ({ closeModal, openModal = true }) => {
   return (
-    <Modal
-      onRequestClose={closeModal}
-      isOpen={openModal}
-      style={modalStyles}
-      ariaHideApp={false}
-      over
-    >
+    <Modal onRequestClose={closeModal} isOpen={openModal} style={modalStyles} ariaHideApp={false} over>
       <div className='sprint-settings'>
         <h3>Complete sprint: Mc Sprint 3</h3>
         <div className='sprint-settings__info'>
@@ -32,8 +26,7 @@ const SprintSettings = ({ closeModal, openModal = true }) => {
             </select>
           </div>
           <span>
-            Sub-tasks are not included in the total above, and are always
-            included in the same sprint as their parent issue.
+            Sub-tasks are not included in the total above, and are always included in the same sprint as their parent issue.
           </span>
         </div>
         <div className='sprint-settings__buttons'>
@@ -45,4 +38,4 @@ const SprintSettings = ({ closeModal, openModal = true }) => {
   );
 };
 
-export default SprintSettings;
+export default memo(SprintSettings);

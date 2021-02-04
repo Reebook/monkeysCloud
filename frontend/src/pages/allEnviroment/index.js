@@ -3,7 +3,7 @@ import { FaFolder } from 'react-icons/fa';
 
 import './style.scss';
 import Activitycontainer from '../../components/activitycontainer';
-import BreadCrumb from "../../components/breadcrumb";
+import BreadCrumb from '../../components/breadcrumb';
 
 const AllEnviroment = () => {
   const [mode, setMode] = useState('Issues');
@@ -31,9 +31,7 @@ const AllEnviroment = () => {
           <button
             key={i}
             onClick={() => setMode(action)}
-            className={`project-filter-button ${
-              action === mode ? 'filter-active' : ''
-            } `}
+            className={`project-filter-button ${action === mode ? 'filter-active' : ''} `}
           >
             {action}
           </button>

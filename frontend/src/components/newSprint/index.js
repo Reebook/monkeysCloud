@@ -32,8 +32,8 @@ const NewSprint = ({ closeModal, openModal, project }) => {
             <AppDatePicker label='End Date *' name='endDate' />
           </div>
           <AppInput name='sprintGoal' placeholder='Sprint Goal' label='Sprint Goal *' />
-          <div className='modal__button-container'>
-            <AppButton title='Create' disabled={false} />
+          <div className='d-flex justify-content-end'>
+            <AppButton title='Create' />
           </div>
         </AppForm>
       </div>
