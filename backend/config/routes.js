@@ -24,7 +24,7 @@ module.exports.routes = {
 
   "POST /Company/Create": { controller: "Company", action: "create" },
   "GET /Company/Read/:id": { controller: "Company", action: "read" },
-  "GET /Company/admin": { controller: "Company", action: "getMyCompanies" },
+  "GET /Company/read": { controller: "Company", action: "readAll" },
   "PATCH /Company/Update/:id": { controller: "Company", action: "update" },
   "DELETE /Company/Delete": { controller: "Company", action: "delete" },
 
@@ -37,7 +37,7 @@ module.exports.routes = {
   //ProjectsController Routes
 
   "POST /Project/Create": { controller: "Projects", action: "create" },
-  "GET /Project/Read": { controller: "Projects", action: "read" },
+  "GET /Project/Read": { controller: "Projects", action: "readAll" },
   "GET /project/:id/users": { controller: "Projects", action: "users" },
   "PATCH /Project/Update/:id": { controller: "Projects", action: "update" },
   "DELETE /Project/Delete": { controller: "Projects", action: "delete" },
@@ -245,11 +245,7 @@ module.exports.routes = {
 
   //State Routes
   "POST /State/Create": { controller: "State", action: "create" },
-  "GET /state/project/:id/tasks": {
-    controller: "State",
-    action: "getStateTasks",
-  },
-  "GET /State/ReadAll": { controller: "State", action: "readAll" },
+  "GET /state/project/:id/": {controller: "State", action: "readAll", },
   "PATCH /State/Update/:id": { controller: "State", action: "update" },
   "DELETE /State/Delete": { controller: "State", action: "delete" },
 

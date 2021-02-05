@@ -18,22 +18,17 @@ module.exports = {
     }
   },
 
-  getStateTasks: async function (req, res) {
-    const query = {};
+  readAll: async function (req, res) {
+    /*   const query = {};
     if (req.query.query) {
       query.name = { contains: req.query.query };
-    }
+    } */
     try {
-      const states = await state
-        .find({
-          where: { project: req.params.id },
-          select: ["name", "position"],
-          sort: "position ASC",
-        })
-        .populate("tasks", {
-          select: ["name", "position", "state", "priority"],
-          sort: "position ASC",
-        });
+      const states = await state.find({
+        where: { project: req.params.id },
+        select: ["name", "position"],
+        sort: "position ASC",
+      });
 
       res.send({ states });
     } catch (error) {
@@ -42,15 +37,6 @@ module.exports = {
     }
   },
 
-  readAll: async function (req, res) {
-    try {
-      const allStates = await state.find().populate("taskState");
-      return res.json(allStates);
-    } catch (error) {
-      res.serverError("Invalid Data");
-      console.log(error);
-    }
-  },
   update: async function (req, res) {
     try {
       const data = await state.update(req.params.id).set(req.body).fetch();

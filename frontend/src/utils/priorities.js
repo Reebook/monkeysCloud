@@ -1,7 +1,7 @@
 import React from 'react';
 import { HiArrowUp, HiArrowDown } from 'react-icons/hi';
 
-export default {
+export default Object.freeze({
   1: {
     color: '#55A557',
     name: 'lowest',
@@ -42,4 +42,4 @@ export default {
       return <HiArrowUp color={this.color} />;
     },
   },
-};
+});

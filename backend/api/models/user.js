@@ -63,7 +63,7 @@ module.exports = {
     },
     assigned: {
       collection: "tasks",
-      via: "assignee",
+      via: "assignees",
     },
     //-----------------New fields--------------------
     userImg: {

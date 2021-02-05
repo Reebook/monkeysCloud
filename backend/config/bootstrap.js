@@ -9,8 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-module.exports.bootstrap = async function() {
-
+module.exports.bootstrap = async function () {
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
@@ -26,5 +25,114 @@ module.exports.bootstrap = async function() {
   //   // etc.
   // ]);
   // ```
+  //https://www.generatedata.com/
+  //http://irlnathan.github.io/sailscasts/blog/2013/11/19/sailscasts-answers-ep3-how-do-i-create-sample-dummy-users-for-my-sails-project/
 
+  if ((await user.count()) > 0) {
+    return;
+  }
+
+  //to use this
+  // sails lift --drop
+
+  const Users = [
+    { email: "josue@hotmail.com", password: "12345" },
+    { email: "jorge@hotmail.com", password: "12345" },
+    { email: "diego@hotmail.com", password: "12345" },
+  ];
+
+  const Companies = {
+    name: "Monkeys Cloud",
+    website: "http://monkeyscloud.com",
+    phoneNumber: "12121212",
+    owner: 1,
+    email: "monkey@hotmail.com",
+  };
+
+  const Projects = {
+    name: "Web App",
+    key: "MC",
+    company: 1,
+    lead: 1,
+  };
+
+  const Sprints = [
+    {
+      name: "MC-sprint-1",
+      startDate: Date.now(),
+      endDate: Date.now(),
+      sprintGoal: "End",
+      project: 1,
+    },
+    {
+      name: "MC-sprint-2",
+      startDate: Date.now(),
+      endDate: Date.now(),
+      sprintGoal: "End",
+      project: 1,
+    },
+  ];
+
+  const States = [
+    { name: "to do", position: 0, project: 1 },
+    { name: "working", position: 1, project: 1 },
+    { name: "done", position: 2, project: 1 },
+  ];
+
+  const Tasks = [
+    {
+      name: "Task-1",
+      priority: 1,
+      project: 1,
+      reporter: 1,
+      sprint: 1,
+      state: 1,
+      assignees: [1, 2],
+    },
+    {
+      name: "Task-2",
+      priority: 2,
+      project: 1,
+      reporter: 1,
+      sprint: 1,
+      state: 1,
+      assignees: [1, 3],
+    },
+    {
+      name: "Task-3",
+      priority: 3,
+      project: 1,
+      reporter: 2,
+      sprint: 1,
+      state: 2,
+      assignees: [2, 3],
+    },
+    {
+      name: "Task-4",
+      priority: 4,
+      project: 1,
+      reporter: 1,
+      sprint: 1,
+      assignees: 1,
+      state: 3,
+    },
+    {
+      name: "Task-5",
+      priority: 5,
+      project: 1,
+      reporter: 1,
+      sprint: 1,
+      state: 2,
+      assignees: 3,
+    },
+  ];
+
+  await Promise.all([
+    user.createEach(Users),
+    company.create(Companies),
+    projects.create(Projects),
+    state.createEach(States),
+    sprints.createEach(Sprints),
+    tasks.createEach(Tasks),
+  ]);
 };

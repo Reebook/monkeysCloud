@@ -25,6 +25,7 @@
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
+    "query-string": "^6.13.8",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",

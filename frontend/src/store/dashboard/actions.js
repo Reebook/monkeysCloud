@@ -9,21 +9,43 @@ export default function useActions() {
     const columns = {};
     const columnOrder = [];
     try {
-      const { data } = await axios.get(`state/project/${id}/tasks`);
+      const {
+        data: { project },
+      } = await axios.get(`project/${id}/users`);
+      const { data } = await axios.get(`state/project/${id}`);
       for (const state of data.states) {
-        const columnName = `${state.id}-column`;
+        const columnName = `${state.id}-col`;
         columns[columnName] = { ...state };
         columnOrder.push(columnName);
       }
       dispatch({
         type: actions.GET_DATA,
         payload: {
+          project,
           columns,
           columnOrder,
         },
       });
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const getTasks = async id => {
+    try {
+      const col = `${id}-col`;
+      const { data } = await axios.get(`task/project/${state.project.id}?state=${id}`);
+      const prev = { ...state.columns[col] };
+      prev.tasks = data.tasks;
+
+      dispatch({
+        type: actions.SET_TASKS,
+        payload: {
+          [col]: prev,
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -80,11 +102,13 @@ export default function useActions() {
   };
 
   const openModal = key => dispatch({ type: actions.OPEN_MODAL, payload: key });
-
+  const setData = () => dispatch({ type: actions.SET_DATA });
   return {
     getData,
+    getTasks,
     onDragEnd,
     openModal,
     state,
+    setData,
   };
 }

@@ -32,7 +32,7 @@ const TaskCard = ({ id, name, priority, index, state, type }) => {
           <div className='task-card-bottom'>
             <p>
               {type === 'task' ? <FaCheckSquare color='#20A2DA' /> : <FaCommentAlt color='#8BC34A' />}
-              {Priorities[priority].icon()}
+              {/* {Priorities[priority].icon()} */}
             </p>
             <div className='task-card-user'>
               <p></p>

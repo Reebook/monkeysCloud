@@ -25,6 +25,24 @@ module.exports = {
       res.serverError(error);
     }
   },
+
+  readAll: async function (req, res) {
+    const query = {};
+    if (req.query.owner) query.owner = req.query.params;
+    try {
+      const companies = await company
+        .find({
+          where: query,
+          select: ["name", "website", "phone", "email"],
+        })
+        .populate("owner");
+      res.send({ companies });
+    } catch (error) {
+      console.log(error)
+      res.serverError();
+    }
+  },
+
   update: async function (req, res) {
     try {
       const companyUpdated = await company
@@ -42,20 +60,6 @@ module.exports = {
       return res.json(deletedCompany);
     } else {
       return res.send("invalid input");
-    }
-  },
-  getMyCompanies: async function (req, res) {
-    try {
-      const companies = await company
-        .find({
-          where: { owner: req.user },
-          select: ["name", "website", "phone", "email"],
-        })
-        .select()
-        .populate("owner");
-      res.send({ companies });
-    } catch (error) {
-      res.serverError();
     }
   },
 };

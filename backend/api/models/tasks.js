@@ -64,7 +64,7 @@ module.exports = {
       model: "user",
       required: true,
     },
-    assignee: {
+    assignees: {
       collection: "user",
       via: "assigned",
     },

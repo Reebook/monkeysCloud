@@ -1,30 +1,30 @@
-import React, { memo, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { memo, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './style.scss';
 import Card from './card';
+import { getCompany } from '../../api/company';
 import InviteUsers from '../../components/inviteUsers';
 import Spinner from '../../components/spinner';
-import useCompanyDetails from '../../store/companyDetails/actions';
+import useApi from '../../hooks/useApi';
 
 const Company = () => {
-  const {
-    getCompany,
-    setModal,
-    state: { company, loading, openModal },
-  } = useCompanyDetails();
-  const id = useParams().id;
-
+  const [company, setCompany] = useState({});
+  const [modal, setModal] = useState(false);
+  const { id } = useParams();
+  const history = useHistory();
+  const { loading, request, error } = useApi(getCompany);
+  if (error?.status === 404) history.push('/companies');
   useEffect(() => {
-    getCompany(id);
+    setCompany(request(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   if (loading) return <Spinner />;
 
   return (
     <>
-      <InviteUsers openModal={openModal} closeModal={setModal} />
+      <InviteUsers openModal={modal} closeModal={() => setModal(!modal)} />
       <div className='company-page'>
         <div className='company-page__header'></div>
         <div className='company-page__content'>
