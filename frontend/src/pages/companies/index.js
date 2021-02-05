@@ -1,11 +1,68 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
-import { useLocation } from 'react-router-dom';
 
+import { getCompanies } from '../../api/company';
 import Table from '../../components/table';
 import NewCompany from '../../components/newCompany';
 import Spinner from '../../components/spinner';
-import useCompanies from '../../store/companies/actions';
+import useApi from '../../hooks/useApi';
+import useQuery from '../../hooks/useQuery';
+
+const Companies = props => {
+  const params = useQuery();
+  const [state, setState] = useState({
+    query: '',
+    loading: true,
+    company: null,
+    companies: [],
+    sortColumn: { path: '', order: 'asc' },
+    sortedCompanies: [],
+    openModal: false,
+  });
+
+  const [modal, setModal] = useState(false);
+  const { loading, request, data } = useApi(getCompanies);
+
+  useEffect(() => {
+    request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /*   useEffect(() => {
+    if (query) onOpenModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]); */
+  const onOpenModal = () => setModal(false);
+  const onSelectCompany = company => {
+    setState({ ...state, company });
+    setModal(!modal);
+  };
+  const onSortCompanies = () => {};
+
+  const { company, sortColumn, sortedCompanies } = state;
+  return (
+    <>
+      <NewCompany open={modal} closeModal={() => onSelectCompany(null)} initialState={company} />
+      <div className='companies-page monkeys-p-5'>
+        <div className='page-title-button-header'>
+          <h3>Companies</h3>
+          <button onClick={onOpenModal}>Create Company</button>
+        </div>
+        <div className='main-search-box'>
+          <input type='text' onChange={() => {}} />
+          <BiSearchAlt className='pointer' />
+        </div>
+        <div className='companies-page__content'>
+          {loading ? (
+            <Spinner height={500} />
+          ) : (
+            <Table title='companies' columns={columns} sortColumn={sortColumn} data={sortedCompanies} onSort={onSortCompanies} onSelect={onSelectCompany} />
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
 const columns = [
   {
@@ -23,64 +80,4 @@ const columns = [
   },
 ];
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-const Companies = () => {
-  const query = useQuery().get('new') === 'true' ? true : false;
-  const {
-    getCompanies,
-    onOpenModal,
-    onSelectCompany,
-    setQuery,
-    state,
-    sortCompanies,
-  } = useCompanies();
-
-  useEffect(() => {
-    getCompanies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (query) onOpenModal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
-
-  return (
-    <>
-      <NewCompany
-        open={state.openModal}
-        closeModal={() => onSelectCompany(null)}
-        initialState={state.company}
-      />
-      <div className='companies-page monkeys-p-5'>
-        <div className='page-title-button-header'>
-          <h3>Companies</h3>
-          <button onClick={onOpenModal}>Create Company</button>
-        </div>
-        <div className='main-search-box'>
-          <input type='text' onChange={e => setQuery(e.target.value)} />
-          <BiSearchAlt className='pointer' />
-        </div>
-        <div className='companies-page__content'>
-          {state.loading ? (
-            <Spinner height={500} />
-          ) : (
-            <Table
-              title='companies'
-              columns={columns}
-              sortColumn={state.sortColumn}
-              data={state.sortedCompanies}
-              onSort={sortCompanies}
-              onSelect={onSelectCompany}
-            />
-          )}
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Companies;
+export default memo(Companies);

@@ -31,9 +31,11 @@ module.exports = {
     const query = { project: req.params.id };
     if (req.query.sprint)
       query.sprint = req.query.sprint === "0" ? null : req.query.sprint;
+    if (req.query.state) query.state = req.query.state;
     try {
       const projectTasks = await tasks.find({
         where: query,
+        select: ["name", "position", "priority", "state"],
         sort: "position ASC",
       });
       res.send({ tasks: projectTasks });

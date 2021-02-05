@@ -6,16 +6,13 @@ const axios = Axios.create({
 });
 
 axios.interceptors.response.use(null, error => {
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
+  const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
 
   if (!expectedError) {
     NotificationManager.error('Server Error');
   }
 
-  return Promise.reject(1 + error);
+  return Promise.reject(error);
 });
 
 const setJwt = token => {

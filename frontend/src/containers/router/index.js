@@ -58,7 +58,7 @@ function Router() {
                 <Route path='/subscription' component={Subscription} />
                 <Route path='/companies' exact component={Companies} />
                 <Route path='/companies/:id' exact component={Company} />
-                <Route path='/projects/:id/dashboard' component={Dashboard} />
+                <Route path='/projects/:id/dashboard' exact component={Dashboard} />
                 <Route path='/projects/:id/planning' exact component={Planning} />
                 <Route path='/projects/:id/backlog' exact component={Backlog} />
                 <Route path='/projects' exact component={Projects} />

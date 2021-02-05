@@ -30,20 +30,27 @@ module.exports = {
 
   users: async function (req, res) {
     try {
-      const project = await projects.findOne(req.params.id).populate("members",{
-        select: ["name", "avatar" ],
-      })
-      res.send({project})
+      const project = await projects
+        .findOne({
+          where: { id: req.params.id },
+          select: ["key", "name"],
+        })
+        .populate("members");
+      if (!project) return res.notFound();
+      res.send({ project });
     } catch (error) {
-      res.serverError()
+      console.log(error);
+      res.serverError();
     }
   },
 
-  read: async function (req, res) {
+  readAll: async function (req, res) {
+    const query = {};
+    if (req.query.lead) query.lead = req.query.lead;
     try {
       const allProjects = await projects
         .find({
-          where: { lead: req.user },
+          where: query,
           select: ["key", "name"],
         })
         .populate("lead")

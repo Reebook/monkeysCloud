@@ -22,12 +22,13 @@ const userCollection = [
 
 const actions = ['Issues', 'Planning', 'Boards', 'Labels', 'Service Desk', 'Reports'];
 
-const Project = () => {
+const Dashboard = () => {
   const { id } = useParams();
   const {
     getData,
     onDragEnd,
     openModal,
+    setData,
     state: { columns, columnOrder, loading, sprintModal, newStateModal, newTaskModal },
   } = useDashboard();
 
@@ -37,7 +38,7 @@ const Project = () => {
   useEffect(() => {
     getData(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   if (loading) return <Spinner />;
 
@@ -119,8 +120,8 @@ const Project = () => {
                       columnId={columnId}
                       index={index}
                       key={columns[columnId].id}
-                      counter={columns[columnId].tasks.length}
-                      last={columnOrder.length - 1 === index ? true : false}
+                      /*  counter={columns[columnId].tasks.length}
+                      last={columnOrder.length - 1 === index ? true : false} */
                     />
                   ))}
                   {provided.placeholder}
@@ -134,4 +135,4 @@ const Project = () => {
   );
 };
 
-export default memo(Project);
+export default memo(Dashboard);

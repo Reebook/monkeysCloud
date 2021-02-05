@@ -3,7 +3,6 @@ import React, { memo, cloneElement } from 'react';
 // Local
 import { AuthStore } from './auth/store';
 import { BacklogStore } from './backlog/store';
-import { CompanyDetailsStore } from './companyDetails/store';
 import { CompanyStore } from './companies/store';
 import { DashboardStore } from './dashboard/store';
 import { SidebarStore } from './sidebar/store';
@@ -13,18 +12,15 @@ import { UserSettingsStore } from './userSettings/store';
 import { UserDetailsStore } from './userDetails/store';
 import { SettingsStore } from './settings/store';
 import { TaskStore } from './task/store';
-import { ProjectStore } from './projects/store';
 import { SprintStore } from './sprint/store';
 
 const providers = [
   <AuthStore.Provider />,
   <BacklogStore.Provider />,
-  <CompanyDetailsStore.Provider />,
   <CompanyStore.Provider />,
   <DashboardStore.Provider />,
   <HistorialStore.Provider />,
   <OrganizationStore.Provider />,
-  <ProjectStore.Provider />,
   <TaskStore.Provider />,
   <SettingsStore.Provider />,
   <SidebarStore.Provider />,

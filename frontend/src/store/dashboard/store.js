@@ -8,7 +8,7 @@ const defaultState = {
   project: {},
   sprintModal: false,
   newStateModal: false,
-  newTaskModal: true,
+  newTaskModal: false,
 };
 
 const reducer = (state = defaultState, action = {}) => {
@@ -17,9 +17,19 @@ const reducer = (state = defaultState, action = {}) => {
     case actions.GET_DATA:
       return {
         ...state,
+        project: payload.project,
         columns: payload.columns,
         columnOrder: payload.columnOrder,
         loading: false,
+      };
+
+    case actions.SET_TASKS:
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          ...payload,
+        },
       };
 
     case actions.UPDATE_TASKS:
@@ -30,6 +40,9 @@ const reducer = (state = defaultState, action = {}) => {
 
     case actions.OPEN_MODAL:
       return { ...state, [payload]: !state[payload] };
+
+    case actions.SET_DATA:
+      return defaultState;
 
     default:
       return state;
