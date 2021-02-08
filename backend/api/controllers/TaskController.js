@@ -8,11 +8,11 @@
 module.exports = {
   create: async function (req, res) {
     try {
-      const task = await tasks.create(req.body).fetch();
+      const task = await Task.create(req.body).fetch();
       if (req.body.assignee) {
-        await tasks.addToCollection(task.id, "assignee", req.params.users);
+        await Task.addToCollection(task.id, "assignee", req.params.users);
       }
-      res.json({ task });
+      res.json(task);
     } catch (error) {
       res.serverError();
       console.log(error);
@@ -20,25 +20,27 @@ module.exports = {
   },
   read: async function (req, res) {
     try {
-      const task = await tasks.findOne(req.params.id).populateAll();
+      const task = await Task.findOne(req.params.id).populateAll();
       if (!task) return res.notFound();
-      res.send({ task });
+      res.send(task);
     } catch (error) {
       res.serverError();
     }
   },
+  //sprint
+  //state
   readAll: async function (req, res) {
-    const query = { project: req.params.id };
+    const query = {};
     if (req.query.sprint)
       query.sprint = req.query.sprint === "0" ? null : req.query.sprint;
     if (req.query.state) query.state = req.query.state;
     try {
-      const projectTasks = await tasks.find({
+      const tasks = await Task.find({
         where: query,
-        select: ["name", "position", "priority", "state"],
+        select: ["name", "position", "priority", "state", "sprint"],
         sort: "position ASC",
       });
-      res.send({ tasks: projectTasks });
+      res.send(tasks);
     } catch (error) {
       res.serverError();
       console.log(error);
@@ -47,8 +49,8 @@ module.exports = {
 
   update: async function (req, res) {
     try {
-      const task = await tasks.update(req.params.id).set(req.body).fetch();
-      res.send({ task });
+      const task = await Task.update(req.params.id).set(req.body).fetch();
+      res.send(task);
     } catch (error) {
       console.log(error);
       res.badRequest();
@@ -56,7 +58,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     if (req.params.id != undefined) {
-      const deleteTask = await tasks.destroyOne(req.params.id);
+      const deleteTask = await Task.destroyOne(req.params.id);
       return res.json(deleteTask);
     } else {
       return res.send("invalid input");
@@ -64,10 +66,10 @@ module.exports = {
   },
   addSubTask: async function (req, res) {
     try {
-      const task = await tasks.findOne(req.params.id);
-      if (!task.isEpic) throw new Error();
-      await tasks.addToCollection(req.body.taskId, "parents", req.params.id);
-      const epicTasks = await tasks.findOne(req.params.id).populate("children");
+      const task = await Task.findOne(req.params.id);
+      if (!task.epic) throw new Error();
+      await Task.addToCollection(req.body.taskId, "parents", req.params.id);
+      const epicTasks = await Task.findOne(req.params.id).populate("children");
       res.send(epicTasks);
     } catch (error) {
       res.serverError();
@@ -75,8 +77,8 @@ module.exports = {
   },
   getEpicTasks: async function (req, res) {
     try {
-      const epicTasks = await tasks.findOne(req.params.id).populate("children");
-      res.send(epicTasks);
+      const tasks = await Task.findOne(req.params.id).populate("children");
+      res.send(tasks);
     } catch (error) {
       res.serverError();
     }

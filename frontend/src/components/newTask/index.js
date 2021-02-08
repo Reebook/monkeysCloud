@@ -35,9 +35,7 @@ const NewTask = ({ closeModal, openModal }) => {
           <h3 className='create-issue'>Create Issue</h3>
           <AppSelect options={projects} name='project' />
           <AppSelect options={types} label='issue type' name='isEpic' property='value' />
-          <p className='description'>
-            Some issue types are unavailable due to incompatible field configuration and/or workflow associations.
-          </p>
+          <p className='description'>Some issue types are unavailable due to incompatible field configuration and/or workflow associations.</p>
           <hr />
           <AppInput name='summary' label='Summary' />
           <AppSelect options={components1} name='component' />

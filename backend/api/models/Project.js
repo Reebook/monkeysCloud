@@ -13,7 +13,7 @@ module.exports = {
       type: "string",
       columnName: "name",
       columnType: "varchar(20)",
-      required: false,
+      required: true,
     },
     key: {
       type: "string",
@@ -35,13 +35,12 @@ module.exports = {
       columnType: "JSON",
     },
     sprints: {
-      collection: "sprints",
+      collection: "Sprint",
       via: "project",
     },
     //New fields
     company: {
-      model: "company",
-      //unique: true,
+      model: "Company",
       required: true,
     },
     enviromentsP: {
@@ -57,7 +56,7 @@ module.exports = {
       via: "projects",
     },
     tasks: {
-      collection: "tasks",
+      collection: "Task",
       via: "project",
     },
     components: {
@@ -65,7 +64,7 @@ module.exports = {
       via: "project",
     },
     states: {
-      collection: "state",
+      collection: "State",
       via: "project",
     },
   },

@@ -1,15 +1,16 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 
-import { getCompanies } from '../../api/company';
-import Table from '../../components/table';
+import { getCompanies } from '../../api/companies';
 import NewCompany from '../../components/newCompany';
+import Table from '../../components/table';
 import Spinner from '../../components/spinner';
+import sortData from '../../utils/sortData';
 import useApi from '../../hooks/useApi';
 import useQuery from '../../hooks/useQuery';
 
-const Companies = props => {
-  const params = useQuery();
+const Companies = () => {
+  const [modal, setModal] = useState(false);
   const [state, setState] = useState({
     query: '',
     loading: true,
@@ -19,27 +20,47 @@ const Companies = props => {
     sortedCompanies: [],
     openModal: false,
   });
+  const setInitialData = companies => setState({ ...state, companies, sortedCompanies: companies });
 
-  const [modal, setModal] = useState(false);
-  const { loading, request, data } = useApi(getCompanies);
+  const params = useQuery();
+  const { loading, request } = useApi(getCompanies, setInitialData);
 
   useEffect(() => {
+    if (params.new === 'true') onOpenModal();
     request();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /*   useEffect(() => {
-    if (query) onOpenModal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]); */
-  const onOpenModal = () => setModal(false);
-  const onSelectCompany = company => {
-    setState({ ...state, company });
-    setModal(!modal);
-  };
-  const onSortCompanies = () => {};
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onOpenModal = useCallback(() => setModal(!modal), []);
 
-  const { company, sortColumn, sortedCompanies } = state;
+  const onSelectCompany = useCallback(
+    company => {
+      setState({ ...state, company });
+      setModal(!modal);
+    },
+    [state, modal]
+  );
+
+  const { company, sortColumn, sortedCompanies, companies } = state;
+
+  const onSortCompanies = useCallback(
+    path => {
+      const newSort = { path };
+      if (sortColumn.path === path) newSort.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
+      else newSort.order = 'asc';
+      const property = item => (path === 'owner' ? item[path]['email'] : item[path]);
+      const data = sortData(companies, property, newSort.order);
+      setState({
+        ...state,
+        sortColumn: newSort,
+        sortedCompanies: data,
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortColumn, sortedCompanies]
+  );
+
   return (
     <>
       <NewCompany open={modal} closeModal={() => onSelectCompany(null)} initialState={company} />

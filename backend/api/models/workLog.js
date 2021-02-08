@@ -16,7 +16,7 @@ module.exports = {
             unique: true,            
         },
         taskLogs: { //References a task in a one to one relationship, a worklog can only have a task relationship
-            collection: 'tasks',
+            collection: 'Task',
             via: 'workLog'
         }
     }

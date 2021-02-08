@@ -20,11 +20,11 @@ module.exports = {
       defaultsTo: 999,
     },
     project: {
-      model: "projects",
+      model: "Project",
       required: true,
     },
     tasks: {
-      collection: "tasks",
+      collection: "Task",
       via: "state",
     },
   },

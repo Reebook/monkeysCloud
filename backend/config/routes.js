@@ -20,7 +20,8 @@ module.exports.routes = {
 
   "/": { view: "pages/homepage" },
 
-  //CompanyController Routes
+  //CompanyController Routesf
+
 
   "POST /Company/Create": { controller: "Company", action: "create" },
   "GET /Company/Read/:id": { controller: "Company", action: "read" },
@@ -36,11 +37,11 @@ module.exports.routes = {
 
   //ProjectsController Routes
 
-  "POST /Project/Create": { controller: "Projects", action: "create" },
-  "GET /Project/Read": { controller: "Projects", action: "readAll" },
-  "GET /project/:id/users": { controller: "Projects", action: "users" },
-  "PATCH /Project/Update/:id": { controller: "Projects", action: "update" },
-  "DELETE /Project/Delete": { controller: "Projects", action: "delete" },
+  "POST /Project/Create": { controller: "Project", action: "create" },
+  "GET /Project/Read": { controller: "Project", action: "readAll" },
+  "GET /project/:id/users": { controller: "Project", action: "users" },
+  "PATCH /Project/Update/:id": { controller: "Project", action: "update" },
+  "DELETE /Project/Delete": { controller: "Project", action: "delete" },
 
   //RecoveryCodeController Routes
   "POST /RecoveryCode/Create": { controller: "RecoveryCode", action: "create" },
@@ -63,17 +64,17 @@ module.exports.routes = {
   },
 
   //SprintsController Routes
-  "POST /Sprint/Create": { controller: "Sprints", action: "create" },
-  "GET /Sprint/project/:id": { controller: "Sprints", action: "read" },
-  "PATCH /Sprint/Update": { controller: "Sprints", action: "update" },
-  "DELETE /Sprint/Delete": { controller: "Sprints", action: "delete" },
+  "POST /Sprint/Create": { controller: "Sprint", action: "create" },
+  "GET /Sprint/read": { controller: "Sprint", action: "read" },
+  "PATCH /Sprint/Update": { controller: "Sprint", action: "update" },
+  "DELETE /Sprint/Delete": { controller: "Sprint", action: "delete" },
 
   //TasksController Routes
-  "POST /Task/Create": { controller: "Tasks", action: "create" },
-  "GET /Task/Read/:id": { controller: "Tasks", action: "read" },
-  "GET /task/project/:id": { controller: "Tasks", action: "readAll" },
-  "PATCH /Task/Update/:id": { controller: "Tasks", action: "update" },
-  "DELETE /Task/Delete": { controller: "Tasks", action: "delete" },
+  "POST /Task/Create": { controller: "Task", action: "create" },
+  "GET /Task/Read/:id": { controller: "Task", action: "read" },
+  "GET /task/read": { controller: "Task", action: "readAll" },
+  "PATCH /Task/Update/:id": { controller: "Task", action: "update" },
+  "DELETE /Task/Delete": { controller: "Task", action: "delete" },
 
   "POST /epic/:id/tasks": "TasksController.addSubTask",
   "GET /epic/:id/tasks": "TasksController.getEpicTasks",

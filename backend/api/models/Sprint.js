@@ -37,9 +37,9 @@ module.exports = {
       columnType: "varchar(100)",
       required: true,
     },
-    isActive: {
+    active: {
       type: "boolean",
-      columnName: "isActive",
+      columnName: "active",
       defaultsTo: false,
     },
     finished: {
@@ -49,11 +49,11 @@ module.exports = {
     },
     // duda con relacion entre sprint y historial , si la entidad es historyLog
     project: {
-      model: "projects",
+      model: "Project",
       required: true,
     },
     tasks: {
-      collection: "tasks",
+      collection: "Task",
       via: "sprint",
     },
   },

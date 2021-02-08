@@ -98,7 +98,7 @@ module.exports = {
             via: 'prMerged'
         },
         taskRelated: {
-            model: 'tasks'
+            model: 'Task'
         }
     },
     beforeCreate : function (valuesToSet, proceed) {

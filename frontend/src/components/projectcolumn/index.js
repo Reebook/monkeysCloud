@@ -3,8 +3,9 @@ import { FaCaretDown } from 'react-icons/fa';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import './style.scss';
+import { getTasks } from '../../api/tasks';
 import TaskCard from '../taskcard';
-import useDashboard from '../../store/dashboard/actions';
+import useApi from '../../hooks/useApi';
 import useDimension from '../../hooks/useDimension';
 
 const getRandomColor = () => {
@@ -16,19 +17,15 @@ const getRandomColor = () => {
   return color;
 };
 
-const ProjectColumn = ({ columnId, id, name, tasks, index, counter, last }) => {
-  const [loading, setLoading] = useState(true);
-  const [show, setShow] = useState(false);
-  const { getTasks } = useDashboard();
+const ProjectColumn = ({ columnId, id, name, tasks, index, last, setTasks }) => {
+  const [hide, setHide] = useState(false);
   const { width } = useDimension();
-  const load = async () => {
-    getTasks(id);
-    setLoading(false);
-  };
+  const { loading, request } = useApi(getTasks, setTasks);
 
   useEffect(() => {
-    if (loading) load();
-  });
+    request({ state: id });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) return null;
 
@@ -40,17 +37,17 @@ const ProjectColumn = ({ columnId, id, name, tasks, index, counter, last }) => {
             <h5 className='title'>
               {name}
               <span className='badge-counter' style={{ color: getRandomColor() }}>
-                {counter}
+                {tasks?.length}
               </span>
             </h5>
             <div className='accordion-icon-container'>
-              <FaCaretDown className='accordion-icon' onClick={() => setShow(!show)} />
+              <FaCaretDown className='accordion-icon' onClick={() => setHide(!hide)} />
             </div>
           </div>
           <Droppable droppableId={columnId} type='task'>
             {provided => (
               <div
-                className={`project-tasks-container ${show ? 'show-tasks' : ''} ${last && 'last-column'} `}
+                className={`project-tasks-container ${hide ? 'show-tasks' : ''} ${last && 'last-column'} `}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
