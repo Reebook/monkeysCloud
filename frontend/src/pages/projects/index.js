@@ -1,10 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 
-import { getCompanies } from '../../api/company';
+import { getCompanies } from '../../api/companies';
 import { getProjects } from '../../api/projects';
 import Table from '../../components/table';
 import NewProject from '../../components/newProject';
+import sortData from '../../utils/sortData';
 import Spinner from '../../components/spinner';
 import useApi from '../../hooks/useApi';
 
@@ -19,47 +20,53 @@ const Projects = () => {
   });
 
   const [modal, setModal] = useState(false);
-  const { loading, request } = useApi(() => Promise.all([getProjects(), getCompanies()]));
-
-  const initialData = async () => {
-    const [projects, companies] = await request();
+  const setInitialData = ([projects, companies]) => {
     setState({
       ...state,
-      projects: projects.data.projects,
-      companies: companies.data.companies,
-      sortedProjects: projects.data.projects,
+      projects: projects.data,
+      companies: companies.data,
+      sortedProjects: projects.data,
     });
   };
 
+  const { loading, request } = useApi(() => Promise.all([getProjects(), getCompanies()]), setInitialData);
+
   useEffect(() => {
-    initialData();
+    request();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onOpenModal = () => setModal(!modal);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onOpenModal = useCallback(() => setModal(!modal), []);
 
-  const onSelectProject = project => {
-    const data = project ? Object.assign(project, { company: project.company.id }) : project;
-    setState({ ...state, project: data });
-    setModal(!modal);
-  };
+  const onSelectProject = useCallback(
+    selected => {
+      //check
+      const project = selected ? { ...selected, company: selected.company.id } : selected;
+      setState({ ...state, project });
+      setModal(!modal);
+    },
+    [state, modal]
+  );
 
-  const { sortColumn, project, companies, sortedProjects } = state;
+  const onSortProjects = useCallback(
+    path => {
+      const newSort = { path };
+      if (state.sortColumn.path === path) newSort.order = state.sortColumn.order === 'asc' ? 'desc' : 'asc';
+      else newSort.order = 'asc';
+      const property = item => {
+        if (path === 'lead') return item[path]['email'];
+        if (path === 'company') return item[path]['name'];
+        return item[path];
+      };
+      const data = sortData(projects, property, { ...newSort.order });
+      setState({ ...state, sortColumn: newSort, sortedProjects: data });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.sortedProjects, state.sortColumn]
+  );
 
-  const onSortProjects = path => {
-    const newSort = { path };
-    if (sortColumn.path === path) {
-      newSort.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
-    } else newSort.order = 'asc';
-    const property = item => {
-      if (path === 'lead') return item[path]['email'];
-      if (path === 'company') return item[path]['name'];
-      return item[path];
-    };
-    const newArray = [...state.sortedProjects];
-    newArray.sort((a, b) => (property(a).toLowerCase() < property(b).toLowerCase() ? -1 : 1) * (newSort.order === 'asc' ? 1 : -1));
-    setState({ ...state, sortColumn: newSort, sortedProjects: newArray });
-  };
+  const { sortColumn, projects, project, companies, sortedProjects } = state;
 
   return (
     <>

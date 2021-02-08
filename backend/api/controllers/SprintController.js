@@ -8,29 +8,32 @@
 module.exports = {
   create: async function (req, res) {
     try {
-      const sprint = await sprints.create(req.body).fetch();
-      res.send({ sprint });
+      const sprint = await Sprint.create(req.body).fetch();
+      res.send(sprint);
     } catch (error) {
       res.serverError();
       console.log(error);
     }
   },
+  //projects
   read: async function (req, res) {
-    const query = { project: req.params.id };
+    const query = {};
     if (req.query.finished) {
       query.finished = req.query.finished === "true" ? true : false;
     }
+    if (req.query.project) query.project = req.query.project;
+
     try {
-      const data = await sprints.find(query);
-      res.send({ sprints: data });
+      const sprint = await Sprint.find(query);
+      res.send(sprint);
     } catch (error) {
       res.serverError();
     }
   },
   sprintTasks: async function (req, res) {
     try {
-      const data = await sprints.find({ project: req.params.id });
-      res.send({ sprints: data });
+      const sprint = await Sprint.find({ project: req.params.id });
+      res.send(sprint);
     } catch (error) {
       res.serverError();
     }
@@ -40,8 +43,7 @@ module.exports = {
     if (Object.keys(req.body) == 0 || req.body.id == undefined) {
       return res.send("invalid input");
     } else {
-      const sprintUpdated = await sprints
-        .update(req.body.id)
+      const sprintUpdated = await Sprint.update(req.body.id)
         .set(req.body)
         .fetch();
       return res.json(sprintUpdated);
@@ -49,7 +51,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     if (req.params.id != undefined) {
-      const deletedSprint = await sprints.destroyOne(req.params.id);
+      const deletedSprint = await Sprint.destroyOne(req.params.id);
       return res.json(deletedSprint);
     } else {
       return res.send("invalid input");

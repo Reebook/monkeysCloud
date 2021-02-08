@@ -1,29 +1,25 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from 'react-icons/md';
 import { Droppable } from 'react-beautiful-dnd';
 import Moment from 'react-moment';
 
 import './style.scss';
+import { getTasks } from '../../../api/tasks';
 import PopUp from './popUp';
 import SprintTask from '../sprintTask';
-import usePlanning from '../../../store/backlog/actions';
+import useApi from '../../../hooks/useApi';
 
-const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) => {
-  const { loadTasks } = usePlanning();
-  const [loading, setLoading] = useState(true);
-  const [show, setShow] = useState(true);
+const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, setTasks }) => {
+  const [hide, setHide] = useState(true);
   const [popOver, setPopOver] = useState(null);
 
-  const onToggle = () => setShow(prev => !prev);
+  const onToggle = useCallback(() => setHide(prev => !prev), []);
 
-  const getData = async () => {
-    await loadTasks(id);
-    setLoading(false);
-  };
+  const { loading, request } = useApi(getTasks, setTasks);
 
   useEffect(() => {
-    getData();
+    request({ sprint: id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,13 +34,11 @@ const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) 
   const open = Boolean(popOver);
   const popOverId = open ? 'simple-popover' : undefined;
 
-  if (loading) return null;
-
   return (
     <div className='sprint-column d-flex flex-column '>
       <div className='d-flex align-items-center'>
         <div className='monkeys-p-2 pointer d-flex align-items-center justify-content-center' onClick={onToggle}>
-          {show ? <MdKeyboardArrowRight /> : <MdKeyboardArrowDown />}
+          {hide ? <MdKeyboardArrowRight /> : <MdKeyboardArrowDown />}
         </div>
         <div className='monkeys-p-2'>
           <span className='name'>{name}</span>
@@ -62,7 +56,7 @@ const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) 
           </div>
         )}
       </div>
-      {show && (
+      {hide && (
         <>
           {endDate && startDate && (
             <div className='d-flex align-items-center monkeys-text-gray'>
@@ -78,12 +72,7 @@ const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) 
           {!loading && (
             <Droppable droppableId={`${id}-col`}>
               {provided => (
-                <div
-                  {...provided.droppableProps}
-                  key={name}
-                  ref={provided.innerRef}
-                  className='tasks-row-container d-flex align-items-center flex-column'
-                >
+                <div {...provided.droppableProps} key={name} ref={provided.innerRef} className='tasks-row-container d-flex align-items-center flex-column'>
                   {tasks?.length ? (
                     tasks.map((task, index) => <SprintTask {...task} index={index} key={`planning-sprint-issue-id-${task.id}`} />)
                   ) : (
@@ -107,4 +96,4 @@ const SprintColumn = ({ id, name, startDate, endDate, backlog, tasks, active }) 
   );
 };
 
-export default SprintColumn;
+export default memo(SprintColumn);

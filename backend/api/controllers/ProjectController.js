@@ -14,14 +14,15 @@ module.exports = {
     ];
     const statesPromises = [];
     try {
-      const project = await projects
-        .create({ ...req.body, lead: req.user })
-        .fetch();
+      const project = await Project.create({
+        ...req.body,
+        lead: req.user,
+      }).fetch();
       for (const item of defaultStates) {
-        statesPromises.push(state.create({ ...item, project: project.id }));
+        statesPromises.push(State.create({ ...item, project: project.id }));
       }
       await Promise.all(statesPromises);
-      res.send({ project });
+      res.send(project);
     } catch (error) {
       console.log(error);
       res.serverError();
@@ -30,14 +31,14 @@ module.exports = {
 
   users: async function (req, res) {
     try {
-      const project = await projects
-        .findOne({
-          where: { id: req.params.id },
-          select: ["key", "name"],
-        })
-        .populate("members");
+      const project = await Project.findOne({
+        where: { id: req.params.id },
+        select: ["key", "name"],
+      }).populate("members", {
+        select: ["avatar", "email"],
+      });
       if (!project) return res.notFound();
-      res.send({ project });
+      res.send(project);
     } catch (error) {
       console.log(error);
       res.serverError();
@@ -48,14 +49,13 @@ module.exports = {
     const query = {};
     if (req.query.lead) query.lead = req.query.lead;
     try {
-      const allProjects = await projects
-        .find({
-          where: query,
-          select: ["key", "name"],
-        })
+      const projects = await Project.find({
+        where: query,
+        select: ["key", "name"],
+      })
         .populate("lead")
         .populate("company");
-      res.send({ projects: allProjects });
+      res.send(projects);
     } catch (error) {
       res.serverError(error);
       console.log(error);
@@ -63,18 +63,15 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const project = await projects
-        .update(req.params.id)
-        .set(req.body)
-        .fetch();
-      res.send({ project });
+      const project = await Project.update(req.params.id).set(req.body).fetch();
+      res.send(project);
     } catch (error) {
       res.serverError();
     }
   },
   delete: async function (req, res) {
     if (req.params.id != undefined) {
-      const deletedProject = await projects.destroyOne(req.params.id);
+      const deletedProject = await Project.destroyOne(req.params.id);
       return res.json(deletedProject);
     } else {
       return res.send("invalid input");

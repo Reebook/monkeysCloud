@@ -30,7 +30,7 @@ module.exports = {
         columnType: 'BLOB'
     },    
     tasks:{
-      collection:'tasks',
+      collection:'Task',
       via: 'labels'
     },
   }

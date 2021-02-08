@@ -45,19 +45,19 @@ module.exports = {
       columnType: "varchar(45)",
     },
     sprint: {
-      model: "sprints",
+      model: "Sprint",
       required: false,
     },
     linkedto: {
-      collection: "tasks",
+      collection: "Task",
       via: "relatedto",
     },
     relatedto: {
-      model: "tasks",
+      model: "Task",
       required: false,
     },
     project: {
-      model: "projects",
+      model: "Project",
       required: true,
     },
     reporter: {
@@ -127,7 +127,7 @@ module.exports = {
       via: "taskComponent",
     },
     state: {
-      model: "state",
+      model: "State",
     },
     attachment: {
       type: "ref",
@@ -142,19 +142,19 @@ module.exports = {
       through: "historyLog", //junction table (history log)
     },
     //-----------------------------------------------------------------------------------
-    isEpic: {
+    epic: {
       type: "boolean",
       defaultsTo: false,
-      columnName: "isEpic",
+      columnName: "epic",
       columnType: "boolean",
     },
     parents: {
-      collection: "tasks",
+      collection: "Task",
       via: "children",
     },
     // Add the other side of a plural reflexive association
     children: {
-      collection: "tasks",
+      collection: "Task",
       via: "parents",
     },
     pullRequestsRelated: {

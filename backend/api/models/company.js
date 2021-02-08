@@ -70,7 +70,7 @@ module.exports = {
     },
     projects: {
       //one to many relationship one agency can have multiple projects
-      collection: "projects",
+      collection: "Project",
       via: "company",
     },
     billInformation: {

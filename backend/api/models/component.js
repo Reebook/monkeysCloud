@@ -22,11 +22,11 @@ module.exports = {
       required: false,
     },
     taskComponent: {
-      model: "tasks",
+      model: "Task",
       unique: true,
     },
     project: {
-      model: "projects",
+      model: "Project",
       unique: true,
     },
   },

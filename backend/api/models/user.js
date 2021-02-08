@@ -62,11 +62,11 @@ module.exports = {
       via: "user",
     },
     assigned: {
-      collection: "tasks",
+      collection: "Task",
       via: "assignees",
     },
     //-----------------New fields--------------------
-    userImg: {
+    avatar: {
       type: "ref",
       columnName: "userImg",
       columnType: "MEDIUMBLOB",
@@ -106,7 +106,7 @@ module.exports = {
     },
     historiesTasks: {
       //must consider the behavior of this attribute (Through associations) --the history of a task can have more than one user
-      collection: "tasks", //References tasks
+      collection: "Task", //References tasks
       via: "historyUsers", //References user
       through: "historyLog", //Junction table
     },
@@ -126,7 +126,7 @@ module.exports = {
       via: "owner",
     },
     tasks: {
-      collection: "tasks",
+      collection: "Task",
       via: "userNotification",
       through: "notifications",
     },
@@ -157,11 +157,11 @@ module.exports = {
     },
     /////////////////
     createdProject: {
-      collection: "projects",
+      collection: "Project",
       via: "lead",
     },
     projects: {
-      collection: "projects",
+      collection: "Project",
       via: "members",
     },
 

@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import './style.scss';
 import Card from './card';
-import { getCompany } from '../../api/company';
+import { getCompany } from '../../api/companies';
 import InviteUsers from '../../components/inviteUsers';
 import Spinner from '../../components/spinner';
 import useApi from '../../hooks/useApi';
@@ -11,12 +11,15 @@ import useApi from '../../hooks/useApi';
 const Company = () => {
   const [company, setCompany] = useState({});
   const [modal, setModal] = useState(false);
+
   const { id } = useParams();
   const history = useHistory();
-  const { loading, request, error } = useApi(getCompany);
+  const { loading, request, error } = useApi(getCompany, setCompany);
+
   if (error?.status === 404) history.push('/companies');
+
   useEffect(() => {
-    setCompany(request(id));
+    request(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

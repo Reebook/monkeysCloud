@@ -39,30 +39,51 @@ module.exports.bootstrap = async function () {
     { email: "josue@hotmail.com", password: "12345" },
     { email: "jorge@hotmail.com", password: "12345" },
     { email: "diego@hotmail.com", password: "12345" },
+    { email: "carlos@hotmail.com", password: "12345" },
+    { email: "gabriel@hotmail.com", password: "12345" },
   ];
 
-  const Companies = {
-    name: "Monkeys Cloud",
-    website: "http://monkeyscloud.com",
-    phoneNumber: "12121212",
-    owner: 1,
-    email: "monkey@hotmail.com",
-  };
+  const companies = [
+    {
+      name: "Monkeys Cloud",
+      website: "http://monkeyscloud.com",
+      phoneNumber: "12121212",
+      owner: 1,
+      email: "monkey@hotmail.com",
+    },
+    {
+      name: "Test Company",
+      website: "http://test.com",
+      phoneNumber: "12121212",
+      owner: 1,
+      email: "test@hotmail.com",
+    },
+  ];
 
-  const Projects = {
-    name: "Web App",
-    key: "MC",
-    company: 1,
-    lead: 1,
-  };
+  const projects = [
+    {
+      name: "Web App",
+      key: "MC",
+      company: 1,
+      lead: 1,
+      members: [1, 2, 3],
+    },
+    {
+      name: "Phone App",
+      key: "pa",
+      company: 1,
+      lead: 1,
+    },
+  ];
 
-  const Sprints = [
+  const sprints = [
     {
       name: "MC-sprint-1",
       startDate: Date.now(),
       endDate: Date.now(),
       sprintGoal: "End",
       project: 1,
+      active: true,
     },
     {
       name: "MC-sprint-2",
@@ -73,13 +94,13 @@ module.exports.bootstrap = async function () {
     },
   ];
 
-  const States = [
+  const states = [
     { name: "to do", position: 0, project: 1 },
     { name: "working", position: 1, project: 1 },
     { name: "done", position: 2, project: 1 },
   ];
 
-  const Tasks = [
+  const tasks = [
     {
       name: "Task-1",
       priority: 1,
@@ -113,7 +134,7 @@ module.exports.bootstrap = async function () {
       project: 1,
       reporter: 1,
       sprint: 1,
-      assignees: 1,
+      assignees: [1],
       state: 3,
     },
     {
@@ -123,16 +144,15 @@ module.exports.bootstrap = async function () {
       reporter: 1,
       sprint: 1,
       state: 2,
-      assignees: 3,
     },
   ];
 
   await Promise.all([
     user.createEach(Users),
-    company.create(Companies),
-    projects.create(Projects),
-    state.createEach(States),
-    sprints.createEach(Sprints),
-    tasks.createEach(Tasks),
+    Company.createEach(companies),
+    Project.createEach(projects),
+    State.createEach(states),
+    Sprint.createEach(sprints),
+    Task.createEach(tasks),
   ]);
 };
